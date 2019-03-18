@@ -2,7 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, Picker, TextInput, StatusBar, KeyboardAvoidingView, View } from 'react-native';
 import {
   getAllReservationsAction,
-  setAllReservationsShowingReservationIdAction
+  setAllReservationsShowingReservationIdAction,
+  getConstructionsAction
 } from '../actions';
 import { connect } from 'react-redux'
 import { ListItem } from 'react-native-elements';
@@ -15,6 +16,7 @@ class AllReservations extends React.Component {
   }
 
   componentDidMount() {
+    this.props.handleGetConstructions();
     this.props.handleGetAllReservations();
     // TODO: getAllReservation
   }
@@ -35,7 +37,7 @@ class AllReservations extends React.Component {
             title={constructions[item.construction_id - 1]}
             style={{height: 50}}
             chevron
-            subtitle={`${item.date} ${item.timeSlot} ${item.creater_id} ${item.material}`}
+            subtitle={`${item.date} ${item.time_slot} ${item.creater_id} ${item.material}`}
             onPress={() => this.handleSelectReservation(item.reservation_id)}
           />
         )}
@@ -61,6 +63,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  handleGetConstructions: () => dispatch(getConstructionsAction()),
   handleGetAllReservations: payload => dispatch(getAllReservationsAction(payload)),
   handleSetAllReservationsShowingReservationId: payload => dispatch(setAllReservationsShowingReservationIdAction(payload))
 });

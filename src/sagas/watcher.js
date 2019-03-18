@@ -29,7 +29,6 @@ export function* watchGetMyReservations() {
   yield takeLatest(types.GET_MY_RESERVATIONS, getMyReservationsSaga);
 };
 
-
 export function* watchGetReservations() {
   yield takeLatest(types.GET_ALL_RESERVATIONS, getAllReservationsSaga);
-}
+};

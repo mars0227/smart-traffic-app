@@ -60,7 +60,7 @@ export const setMyReservationsShowingReservationIdAction = payload => ({
 });
 // all reservation
 export const getAllReservationsAction = payload => ({
-  type: types.GET_All_RESERVATIONS,
+  type: types.GET_ALL_RESERVATIONS,
   payload
 });
 
@@ -71,5 +71,10 @@ export const setAllReservationsFilterAction = payload => ({
 
 export const setAllReservationsShowingReservationIdAction = payload => ({
   type: types.SET_ALL_RESERVATIONS_SHOWING_RESERVATION_ID,
+  payload
+});
+
+export const updateReservationAction = payload => ({
+  type: types.UPDATE_RESERVATION,
   payload
 });

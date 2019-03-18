@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Button, View } from 'react-native';
 import { connect } from 'react-redux'
 import {
-  setReservationAction
+  updateReservationAction
 } from '../actions';
 import { ListItem } from 'react-native-elements';
 
@@ -24,59 +24,50 @@ const inputList = [
   },
 ];
 
+const reservationState = [
+  'Created',
+  'Accepted',
+  'Refused',
+  'Canceled'
+];
+
 class Reservation extends React.Component {
   static navigationOptions = {
     title: 'Reservation',
   };
 
-  cancel() {
-  
+  getReservation = () => {
+    const { login, myReservations, allReservations } = this.props;
+    const { identity } = login;
+    return identity === 'Manager'
+      ? allReservations
+      : myReservations;
   }
 
   getReservationById = () => {
-    const { myReservations } = this.props;
-    const reservations = myReservations.data;
-    const index = myReservations.showingReservationId;
-    return reservations.filter(item => item.reservation_id === index)[0];
+    const reservations = this.getReservation();
+    const { data, showingReservationId } = reservations;
+    return data.filter(item => item.reservation_id === showingReservationId)[0];
   }
 
   getButtonTitle = () => {
     const reservation = this.getReservationById();
     const { state } = reservation;
 
-    switch (state) {
-      case 1:
-        return 'cancel';
-      case 2:
-        return 'accepted';
-      case 3:
-      default:
-        return 'refused';
-    }
-  }
-
-  getButtonDisableState = () => {
-    const reservation = this.getReservationById();
-    const { state } = reservation;
-
-    switch (state) {
-      case 1:
-        return false;
-      default:
-        return true;
-    }
+    return reservationState[state - 1] || 'Error';
   }
 
   getSubtitle = title => {
-    const { myReservations } = this.props;
     const reservation = this.getReservationById();
-    const location = myReservations.filterBy;
 
     const {
       date,
+      construction_id,
       time_slot: timeSlot,
       license_plate_number: licensePlateNumber,
       material } = reservation;
+
+    const location = this.props.constructions[construction_id - 1];
 
     switch (title) {
       case 'Location':
@@ -94,6 +85,69 @@ class Reservation extends React.Component {
     }
   }
 
+  handleChangeState = payload => {
+    this.props.handleUpdateReservation({ state: payload });  //update state when get update succcess
+  }
+
+  accept() {
+    this.handleChangeState('accepted');
+  }
+
+  refuse() {
+    this.handleChangeState('refused');
+  }
+
+  cancel() {
+    this.handleChangeState('canceled');
+  }
+
+  acceptButton = () => (
+    <Button
+      color='royalblue'
+      onPress={() => this.accept()}
+      title='Accept'
+    />
+  );
+
+  refuseButton = () => (
+    <Button
+      color='red'
+      onPress={() => this.refuse()}
+      title='Refuse'
+    />
+  );
+
+  cancelButton = () => (
+    <Button
+      color='red'
+      onPress={() => this.cancel()}
+      title='Cancel'
+    />
+  );
+
+  statusButton = () => (
+    <Button
+      disabled
+      title={this.getButtonTitle()}
+    />
+  );
+
+  getButton = () => {
+    const { identity } = this.props.login;
+    const reservation = this.getReservationById();
+    const { state: stateNum } = reservation;
+
+    if (reservationState[stateNum - 1] === 'Created') {
+        return identity === 'Manager'
+          ? (<View>
+            {this.acceptButton()}
+            {this.refuseButton()}
+          </View>)
+          : this.cancelButton();    
+    }
+    return this.statusButton();
+  }
+
   render() {
     return (
       <View>
@@ -105,12 +159,7 @@ class Reservation extends React.Component {
             subtitle={this.getSubtitle(item.title)}
           />
         )}
-        <Button
-          color='royalblue'
-          onPress={() => this.cancel()}
-          title={this.getButtonTitle()}
-          disabled={this.getButtonDisableState()}
-        />
+        {this.getButton()}
       </View>
     );
   }
@@ -127,11 +176,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   login: state.login,
-  myReservations: state.myReservations
+  myReservations: state.myReservations,
+  allReservations: state.allReservations,
+  constructions: state.constructions
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleCreateReservation: payload => dispatch(setReservationAction(payload))
+  handleUpdateReservation: payload => dispatch(updateReservationAction(payload))
 });
 
 export default connect(

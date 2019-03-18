@@ -26,5 +26,9 @@ export default {
     material: '',
     ok: false,
     errMsg: ''
+  },
+  updateReservation: {
+    ok: false,
+    errMsg: ''
   }
 };
