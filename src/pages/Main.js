@@ -16,7 +16,7 @@ const activeFunc = {
     reservations: {
       title: 'Reservations',
       img: '',
-      page: 'Reservations'
+      page: 'AllReservations'
     }
   }
 };

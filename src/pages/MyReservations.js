@@ -36,7 +36,7 @@ class MyReservations extends React.Component {
       (array, id) => array.includes(id) ?  array : [...array, id], []);
 
     return (
-      <View>
+      <View style={styles.container}>
         {locationList.map((item, index) =>
           <ListItem
             key={index}
@@ -46,7 +46,11 @@ class MyReservations extends React.Component {
             onPress={() => this.handleSelectConstruction(constructions[item - 1])}
           />
         )}
-        <ActionButton buttonColor='royalblue' onPress={this.handleCreateReservation} />
+        <ActionButton
+          buttonColor='royalblue'
+          onPress={this.handleCreateReservation}
+          verticalOrientation='up'
+        />
       </View>
     );
   }
@@ -54,10 +58,7 @@ class MyReservations extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    flex: 1
   }
 });
 

@@ -52,3 +52,28 @@ export function* getMyReservationsSaga({ payload }) {
     //TODO: send SYSTEM ERROR action.
   }
 };
+
+
+export function* getAllReservationsSaga({ payload }) {
+  try {
+    yield put({ type: types.FETCHING});
+    const res = yield call(getReservations, payload);
+    yield put({ type: types.FETCH_COMPLETE});
+
+    const resAction = res.ok ?
+      {
+        type: types.GET_ALL_RESERVATIONS_SUCCEEDED,
+        payload: res.result.data
+      } : {
+        type: types.GET_ALL_RESERVATIONS_FAILED,
+        payload: {
+          errMsg: res.result.errMsg
+        }
+      }
+
+    yield put(resAction);
+  } catch (err) {
+    console.warn('getReservationsSaga error', err);
+    //TODO: send SYSTEM ERROR action.
+  }
+};

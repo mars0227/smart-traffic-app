@@ -10,10 +10,6 @@ export const getIdentitiesAction = () => ({
   type: types.GET_IDENTITIES
 });
 
-export const getMyReservationsAction = () => ({
-  type: types.GET_MY_RESERVATIONS
-});
-
 export const getConstructionsAction = () => ({
   type: types.GET_CONSTRUCTIONS
 });
@@ -42,6 +38,11 @@ export const setMaterialAction = payload => ({
   type: types.SET_MATERIAL,
   payload
 });
+// my reservation
+export const getMyReservationsAction = payload => ({
+  type: types.GET_MY_RESERVATIONS,
+  payload
+});
 
 export const setReservationAction = payload => ({
   type: types.SET_RESERVATION,
@@ -49,11 +50,26 @@ export const setReservationAction = payload => ({
 });
 
 export const setMyReservationFilterAction = payload => ({
-  type: types.SET_MY_RESERVATION_FILTER,
+  type: types.SET_MY_RESERVATIONS_FILTER,
   payload
 });
 
-export const setShowingReservationIdAction = payload => ({
-  type: types.SET_SHOWING_RESERVATION_ID,
+export const setMyReservationsShowingReservationIdAction = payload => ({
+  type: types.SET_MY_RESERVATIONS_SHOWING_RESERVATION_ID,
   payload
-})
+});
+// all reservation
+export const getAllReservationsAction = payload => ({
+  type: types.GET_All_RESERVATIONS,
+  payload
+});
+
+export const setAllReservationsFilterAction = payload => ({
+  type: types.SET_ALL_RESERVATIONS_FILTER,
+  payload
+});
+
+export const setAllReservationsShowingReservationIdAction = payload => ({
+  type: types.SET_ALL_RESERVATIONS_SHOWING_RESERVATION_ID,
+  payload
+});

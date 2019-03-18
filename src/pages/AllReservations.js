@@ -1,42 +1,41 @@
 import React from 'react';
 import { StyleSheet, Text, Picker, TextInput, StatusBar, KeyboardAvoidingView, View } from 'react-native';
-import { Button } from 'native-base';
-import ActionButton from 'react-native-action-button';
 import {
-  getMyReservationsAction,
-  setMyReservationsShowingReservationIdAction
+  getAllReservationsAction,
+  setAllReservationsShowingReservationIdAction
 } from '../actions';
 import { connect } from 'react-redux'
 import { ListItem } from 'react-native-elements';
 
-class MyReservationInConstruction extends React.Component {
+class AllReservations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     }
   }
 
+  componentDidMount() {
+    this.props.handleGetAllReservations();
+    // TODO: getAllReservation
+  }
+
   handleSelectReservation = reservationId => {
-    this.props.handleSetMyReservationsShowingReservationId(reservationId);
+    this.props.handleSetAllReservationsShowingReservationId(reservationId);
     this.props.navigation.navigate('Reservation');
   };
 
   render() {
-    const { myReservations, constructions } = this.props;
-    const construction = myReservations.filterBy;
-    const reservationList = myReservations.data.filter(item =>
-      item.construction_id === constructions.indexOf(construction) + 1
-    );
+    const { allReservations, constructions } = this.props;
 
     return (
       <View>
-        {reservationList.map((item, index) =>
+        {allReservations.data.map((item, index) =>
           <ListItem
             key={index}
-            title={item.reservation_id}
+            title={constructions[item.construction_id - 1]}
             style={{height: 50}}
             chevron
-            subtitle={`${item.date} ${item.material}`}
+            subtitle={`${item.date} ${item.timeSlot} ${item.creater_id} ${item.material}`}
             onPress={() => this.handleSelectReservation(item.reservation_id)}
           />
         )}
@@ -57,16 +56,16 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
   identity: state.identity,
   login: state.login,
-  myReservations: state.myReservations,
+  allReservations: state.allReservations,
   constructions: state.constructions
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleGetMyReservations: payload => dispatch(getMyReservationsAction(payload)),
-  handleSetMyReservationsShowingReservationId: payload => dispatch(setMyReservationsShowingReservationIdAction(payload))
+  handleGetAllReservations: payload => dispatch(getAllReservationsAction(payload)),
+  handleSetAllReservationsShowingReservationId: payload => dispatch(setAllReservationsShowingReservationIdAction(payload))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MyReservationInConstruction)
+)(AllReservations)

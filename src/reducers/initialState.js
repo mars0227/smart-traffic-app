@@ -11,7 +11,12 @@ export default {
   myReservations: {
     data: [],
     filterBy: '',
-    showingReservation: 0
+    showingReservationId: 0
+  },
+  allReservations: {
+    data: [],
+    filterBy: '',
+    showingReservationId: 0
   },
   createReservation: {
     location: '',

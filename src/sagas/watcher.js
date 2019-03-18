@@ -5,7 +5,8 @@ import { identitySaga } from './identitySaga';
 import { constructionSaga } from './constructionSaga';
 import {
   setReservationSaga,
-  getMyReservationsSaga
+  getMyReservationsSaga,
+  getAllReservationsSaga
 } from './reservationSaga';
 
 export function* watchLogin() {
@@ -26,4 +27,9 @@ export function* watchSetReservation() {
 
 export function* watchGetMyReservations() {
   yield takeLatest(types.GET_MY_RESERVATIONS, getMyReservationsSaga);
+};
+
+
+export function* watchGetReservations() {
+  yield takeLatest(types.GET_ALL_RESERVATIONS, getAllReservationsSaga);
 }

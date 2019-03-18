@@ -3,6 +3,7 @@ import Login from './src/pages//Login';
 import Main from './src/pages//Main';
 import MyReservations from './src/pages/MyReservations';
 import NewReservation from './src/pages/NewReservation';
+import AllReservations from './src/pages/AllReservations';
 import Reservation from './src/pages/Reservation';
 import CreateReservation from './src/pages/CreateReservation';
 import SelectLocation from './src/pages/SelectLocation';
@@ -39,8 +40,8 @@ const AppNavigator = createStackNavigator(
     MyReservations: {
       screen: MyReservations,
     },
-    Reservation: {
-      screen: Reservation
+    AllReservations: {
+      screen: AllReservations,
     },
     NewReservation: {
       screen: NewReservation
@@ -65,7 +66,10 @@ const AppNavigator = createStackNavigator(
     },
     MyReservationInConstruction: {
       screen: MyReservationInConstruction
-    }
+    },
+    Reservation: {
+      screen: Reservation
+    },
   },
   {
     initialRouteName: "Login"

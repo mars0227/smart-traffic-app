@@ -15,7 +15,7 @@ const defaultFetch = async (payload) => {
       headers: {...defaultHeaders, ...headers},
       mode: 'cors',
       cache: 'default',
-      body
+      body,
     });
 
     const { status: statusCode, ok } = res;

@@ -10,6 +10,7 @@ import {
 
 // const route = 'http://127.0.0.1:3000';
 const route = 'http://172.20.10.3:3002'; // iPhone
+// const route = 'http://www.itrackcon.com/stserver'; //vircon server
 // export const login = (payload) => fetchPost(`${route}/login`, payload);
 
 export const login = payload => fetchPost(`${route}/login`, payload);
