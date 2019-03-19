@@ -18,6 +18,8 @@ export default function (createReservation = initialState.createReservation, act
       return { ...createReservation, ok: true, errMsg: '' };
     case types.SET_RESERVATION_FAILED:
       return { ...createReservation, ok: false, errMsg: action.payload.errMsg };
+    case types.CLEAN_RESERVATION:
+      return initialState.createReservation;
     default:
       return createReservation;
   }

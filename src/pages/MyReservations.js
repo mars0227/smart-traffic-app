@@ -4,7 +4,8 @@ import ActionButton from 'react-native-action-button';
 import {
   getMyReservationsAction,
   getConstructionsAction,
-  setMyReservationFilterAction
+  setMyReservationFilterAction,
+  cleanCreateReservationAction
 } from '../actions';
 import { connect } from 'react-redux'
 import { ListItem } from 'react-native-elements';
@@ -19,6 +20,16 @@ class MyReservations extends React.Component {
     this.props.handleGetMyReservations({ userId });
     const { constructions } = this.props;
     if (constructions.length === 0) this.props.handleGetConstruction();
+  }
+
+  componentDidUpdate() {
+    const { createReservation } = this.props;
+    const { userId } = this.props.login.userInfo;
+
+    if (createReservation.ok) {
+      this.props.handleGetMyReservations({ userId });
+      this.props.handleCleanCreateReservation();
+    }
   }
 
   handleCreateReservation = () => {
@@ -66,13 +77,15 @@ const mapStateToProps = (state) => ({
   identity: state.identity,
   login: state.login,
   myReservations: state.myReservations,
-  constructions: state.constructions
+  constructions: state.constructions,
+  createReservation: state.createReservation
 });
 
 const mapDispatchToProps = dispatch => ({
   handleGetMyReservations: payload => dispatch(getMyReservationsAction(payload)),
   handleGetConstruction: () => dispatch(getConstructionsAction()),
-  handleSetMyReservationFilter: payload => dispatch(setMyReservationFilterAction(payload))
+  handleSetMyReservationFilter: payload => dispatch(setMyReservationFilterAction(payload)),
+  handleCleanCreateReservation: () => dispatch(cleanCreateReservationAction())
 });
 
 export default connect(

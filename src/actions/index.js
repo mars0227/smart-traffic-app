@@ -78,3 +78,7 @@ export const updateReservationAction = payload => ({
   type: types.UPDATE_RESERVATION,
   payload
 });
+
+export const cleanCreateReservationAction = () => ({
+  type: types.CLEAN_RESERVATION
+});

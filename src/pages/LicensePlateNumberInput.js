@@ -53,8 +53,9 @@ class LicensePlateNumberInput extends React.Component {
     const { ln } = this.state;
     return (
       <View style={styles.container}>
-        <Text>License Plate Number</Text>
+        <Text>License Plate Number </Text>
         <TextInput
+          style={{borderBottomColor: 'gray', borderBottomWidth: 1, height: 20, width: 100}}
           value={ln}
           onChangeText={this.handleInputChange}
         />
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    flexDirection: 'row',
   },
 });
 

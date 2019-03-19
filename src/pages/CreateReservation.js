@@ -48,6 +48,13 @@ class CreateReservation extends React.Component {
     this.props.handleGetConstruction();
   }
 
+  componentDidUpdate() {
+    const { ok } = this.props.createReservation;
+    if (ok) {
+      this.props.navigation.goBack();
+    }
+  }
+
   dataCheck() {
     const {
       location,

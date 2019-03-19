@@ -53,8 +53,9 @@ class MaterialInput extends React.Component {
     const { material } = this.state;
     return (
       <View style={styles.container}>
-        <Text>Materials</Text>
+        <Text>Materials </Text>
         <TextInput
+          style={{borderBottomColor: 'gray', borderBottomWidth: 1, height: 20, width: 100}}
           value={material}
           onChangeText={this.handleInputChange}
         />
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    flexDirection: 'row',
   },
 });
 
