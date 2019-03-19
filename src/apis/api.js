@@ -5,7 +5,8 @@ import {
   fetchPostWithToken,
   fetchPut,
   fetchPutWithToken,
-  fetchPutFiles
+  fetchPutFiles,
+  fetchPatch
 } from './libs/fetch';
 
 // const route = 'http://127.0.0.1:3000';
@@ -21,3 +22,4 @@ export const getReservations = payload => fetchGet(`${route}/reservations`, payl
 export const getReservation = ({ id }) => fetchGet(`${route}/reservations/${id}`);
 
 export const setReservation = payload => fetchPost(`${route}/reservations`, payload);
+export const updateReservation = ({ reservationId, ...payload }) => fetchPatch(`${route}/reservations/${reservationId}`, payload);

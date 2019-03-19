@@ -86,19 +86,20 @@ class Reservation extends React.Component {
   }
 
   handleChangeState = payload => {
-    this.props.handleUpdateReservation({ state: payload });  //update state when get update succcess
+    const reservation = this.getReservationById();
+    this.props.handleUpdateReservation({ state: payload, reservationId: reservation.reservation_id });  //update state when get update succcess
   }
 
   accept() {
-    this.handleChangeState('accepted');
+    this.handleChangeState('Accepted');
   }
 
   refuse() {
-    this.handleChangeState('refused');
+    this.handleChangeState('Refused');
   }
 
   cancel() {
-    this.handleChangeState('canceled');
+    this.handleChangeState('Canceled');
   }
 
   acceptButton = () => (
@@ -128,6 +129,7 @@ class Reservation extends React.Component {
   statusButton = () => (
     <Button
       disabled
+      onPress={() => {}}
       title={this.getButtonTitle()}
     />
   );

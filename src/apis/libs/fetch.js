@@ -84,4 +84,9 @@ export const fetchPutWithToken = async (url, idToken, payload) => await pipeAsyn
   defaultFetch
 )({url, idToken, payload, method: 'PUT'});
 
-export const fetchPutFiles = async (url, body) => await defaultFetch({url, body, method: 'PUT'});
+export const fetchPutFiles = async (url, body) => await defaultFetch({ url, body, method: 'PUT' });
+
+export const fetchPatch = async (url, payload) => await pipeAsync(
+  getBody,
+  defaultFetch
+)({url, payload, method: 'PATCH'});

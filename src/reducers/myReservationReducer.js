@@ -1,6 +1,13 @@
 import initialState from './initialState';
 import * as types from '../constants/actionTypes';
 
+const reservationState = [
+  'Created',
+  'Accepted',
+  'Refused',
+  'Canceled'
+];
+
 export default function (myReservations = initialState.myReservations, action) {
   switch (action.type) {
     case types.GET_MY_RESERVATIONS_SUCCEEDED:
@@ -9,6 +16,19 @@ export default function (myReservations = initialState.myReservations, action) {
       return { ...myReservations, filterBy: action.payload };
     case types.SET_MY_RESERVATIONS_SHOWING_RESERVATION_ID:
       return { ...myReservations, showingReservationId: action.payload };
+    case types.UPDATE_RESERVATION_SUCCEEDED:
+      const { reservationId, state } = action.payload;
+      if (myReservations.showingReservationId === reservationId) {
+        const data = { myReservations };
+        return {
+          ...myReservations,
+          data: data.map(
+            reservation => reservation.reservation_id === reservationId
+              ? { ...reservation, state: reservationState.indexOf(state) + 1 }
+              : reservation
+        ) }
+      }
+      return myReservations;
     case types.GET_MY_RESERVATIONS:
     case types.GET_MY_RESERVATIONS_FAILED:
     default:

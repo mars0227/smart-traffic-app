@@ -21,7 +21,7 @@ class DatePicker extends React.Component {
   }
 
   componentDidMount() {
-    if (Platform !== 'ios') {
+    if (Platform.OS !== 'ios') {
       this.showAndroidTimePicker();
     }
   }
