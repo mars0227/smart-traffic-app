@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Button, TextInput, StatusBar, DatePickerAndroid, View } from 'react-native';
+import { StyleSheet, Button, View } from 'react-native';
 import { connect } from 'react-redux'
 import {
   getConstructionsAction,
   setReservationAction
 } from '../actions';
-import { ListItem, Input, Text } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 import { isEmpty } from '../utils/utils';
 
 const inputList = [

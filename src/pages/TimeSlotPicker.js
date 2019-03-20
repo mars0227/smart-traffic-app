@@ -1,4 +1,3 @@
-import { ListItem, Text } from 'react-native-elements';
 import { View, Picker, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';

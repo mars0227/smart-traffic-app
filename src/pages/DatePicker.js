@@ -1,4 +1,3 @@
-import { ListItem, Text } from 'react-native-elements';
 import {
   View,
   DatePickerIOS,

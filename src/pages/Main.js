@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, Picker, TextInput, StatusBar, KeyboardAvoidingView, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import ImageIcon from '../components/ImageIcon';
-import { Col, Row, Grid } from "react-native-easy-grid";
 import { connect } from 'react-redux'
 
 const activeFunc = {
@@ -22,15 +21,6 @@ const activeFunc = {
 };
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      identity: 'Client',
-      account: '',
-      password: '',
-    }
-  }
-
   static navigationOptions = {
     title: 'Smart Traffic Management',
   };
@@ -44,7 +34,7 @@ class Main extends React.Component {
   };
 
   render() {
-    const { identity } = this.props.login;
+    const { identity } = this.props.login.userInfo;
     const functions = activeFunc[identity];
 
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Picker, TextInput, StatusBar, KeyboardAvoidingView, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux'
 
 class Main extends React.Component {

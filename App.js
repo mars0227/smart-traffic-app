@@ -72,7 +72,7 @@ const AppNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: "Login"
+    initialRouteName: "Login",
   });
 
 const AppContainer = createAppContainer(AppNavigator);

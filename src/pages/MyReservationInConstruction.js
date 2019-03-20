@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Picker, TextInput, StatusBar, KeyboardAvoidingView, View } from 'react-native';
-import { Button } from 'native-base';
-import ActionButton from 'react-native-action-button';
+import { StyleSheet, View } from 'react-native';
 import {
   getMyReservationsAction,
   setMyReservationsShowingReservationIdAction
@@ -55,7 +53,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  identity: state.identity,
   login: state.login,
   myReservations: state.myReservations,
   constructions: state.constructions

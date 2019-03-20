@@ -38,7 +38,7 @@ class Reservation extends React.Component {
 
   getReservation = () => {
     const { login, myReservations, allReservations } = this.props;
-    const { identity } = login;
+    const { identity } = login.userInfo;
     return identity === 'Manager'
       ? allReservations
       : myReservations;
@@ -135,7 +135,7 @@ class Reservation extends React.Component {
   );
 
   getButton = () => {
-    const { identity } = this.props.login;
+    const { identity } = this.props.login.userInfo;
     const reservation = this.getReservationById();
     const { state: stateNum } = reservation;
 

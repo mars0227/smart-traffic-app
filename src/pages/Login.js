@@ -47,25 +47,6 @@ class Login extends React.Component {
       <KeyboardAvoidingView style={styles.container} behavior='position'>
         <Text style={styles.title}>Smart Traffic Management</Text>
         <Text style={styles.message}>Sign In</Text>
-        {Platform.OS === 'ios'
-          ? <SegmentedControlIOS style={styles.segment}
-            values={identities}
-            selectedIndex={this.state.identityIndex}
-            onChange={(event) => 
-              this.setState({ identityIndex: event.nativeEvent.selectedSegmentIndex })
-            }
-          />
-          : <Picker
-            mode='dialog'
-            selectedValue={identities[this.state.identityIndex]}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({ identityIndex: itemIndex })
-            }
-          >
-            {identities.map((id, index) =>
-              <Picker.Item label={id} value={id} key={index} />
-            )}
-          </Picker>}
         <TextInput
           placeholder='Account'
           style={styles.input}

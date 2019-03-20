@@ -1,5 +1,5 @@
-import { ListItem, Text } from 'react-native-elements';
-import { View, DatePickerIOS, StyleSheet, TextInput, Button } from 'react-native';
+import { Text } from 'react-native-elements';
+import { View, StyleSheet, TextInput, Button } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
 import { setMaterialAction } from '../actions';
