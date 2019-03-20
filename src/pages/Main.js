@@ -6,27 +6,38 @@ import { connect } from 'react-redux'
 const activeFunc = {
   Vendor: {
     myReservations: {
-      title: 'My reservations',
-      img: '',
+      title: 'MyReservations',
+      name: 'truck',
+      type: 'font-awesome',
+      backgroundColor: 'yellowgreen',
       page: 'MyReservations'
     }
   },
   Manager: {
     reservations: {
       title: 'Reservations',
-      img: '',
+      name: 'th-list',
+      type: 'font-awesome',
+      backgroundColor: 'royalblue',
       page: 'AllReservations'
+    },
+    camera: {
+      title: 'Camera',
+      name: 'device-camera-video',
+      type: 'octicon',
+      backgroundColor: 'darksalmon',
     }
   }
 };
 
 class Main extends React.Component {
+
   static navigationOptions = {
     title: 'Smart Traffic Management',
   };
 
   onFunctionPress = (pageName) => {
-    this.props.navigation.navigate(pageName);
+    pageName && this.props.navigation.navigate(pageName);
   };
 
   handleLogout = () => {
@@ -39,7 +50,13 @@ class Main extends React.Component {
 
     return (
       <View style={styles.container}>
-        {Object.keys(functions).map(keys => <ImageIcon title={functions[keys].title} key={keys} onPress={() => this.onFunctionPress(functions[keys].page)}/> )}
+        {Object.keys(functions).map(keys => <ImageIcon
+          name={functions[keys].name}
+          type={functions[keys].type}
+          title={functions[keys].title}
+          backgroundColor={functions[keys].backgroundColor}
+          key={keys}
+          onPress={() => this.onFunctionPress(functions[keys].page)} />)}
       </View>
     );
   }
@@ -50,7 +67,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between'
   }
 });
 

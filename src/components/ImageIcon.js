@@ -1,29 +1,25 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
-import { Card, CardItem, Text } from 'native-base';
+import { StyleSheet, Text } from 'react-native';
+import { Tile } from 'react-native-elements';
 
 export default class ImageIcon extends React.Component {
   render() {
+    const { name, type, title, backgroundColor, onPress } = this.props;
     return (
-      <Card style={{width: '40%', height: 140, marginTop: 20, marginLeft: 20, marginRight: 20}} >
-        <CardItem cardBody style={styles.image} button onPress={() => this.props.onPress()}>
-          <Image source={require('../../assets/pickup.png')} />
-        </CardItem>
-        <CardItem>
-          <Text>{this.props.title}</Text>
-        </CardItem>
-      </Card>
+      <Tile
+        containerStyle={{
+          height: 100,
+          width: 120,
+          marginTop: 30,
+          marginLeft: 20,
+          marginRight: 20
+        }}
+        icon={{ name, type, size: 40 }}
+        iconContainerStyle={{  height: 80, width: 120, backgroundColor: backgroundColor }}
+        onPress={onPress}
+      >
+        <Text style={{ textAlign: 'center', fontSize: 12 }}>{title}</Text>
+      </Tile>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  image: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'yellowgreen',
-    height: 100,
-    width: null
-  }
-});
