@@ -15,6 +15,10 @@ class AllReservations extends React.Component {
     }
   }
 
+  static navigationOptions = {
+    title: 'Reservations',
+  };
+
   componentDidMount() {
     this.props.handleGetConstructions();
     this.props.handleGetAllReservations();
@@ -37,7 +41,7 @@ class AllReservations extends React.Component {
             title={constructions[item.construction_id - 1]}
             style={{height: 50}}
             chevron
-            subtitle={`${item.date} ${item.time_slot} ${item.creater_id} ${item.material}`}
+            subtitle={`${item.date} ${item.time_slot} ${item.creater_name} ${item.material}`}
             onPress={() => this.handleSelectReservation(item.reservation_id)}
           />
         )}

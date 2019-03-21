@@ -73,6 +73,12 @@ const AppNavigator = createStackNavigator(
   },
   {
     initialRouteName: "Login",
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: 'royalblue'
+      },
+      headerTintColor: 'white'
+    }
   });
 
 const AppContainer = createAppContainer(AppNavigator);

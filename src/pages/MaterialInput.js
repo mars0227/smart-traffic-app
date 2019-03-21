@@ -1,8 +1,8 @@
-import { Text } from 'react-native-elements';
-import { View, StyleSheet, TextInput, Button } from 'react-native';
+import { KeyboardAvoidingView, Button, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
 import { setMaterialAction } from '../actions';
+import NewTextInput from '../components/NewTextInput';
 
 class MaterialInput extends React.Component {
   constructor(props) {
@@ -52,14 +52,13 @@ class MaterialInput extends React.Component {
   render() {
     const { material } = this.state;
     return (
-      <View style={styles.container}>
-        <Text>Materials </Text>
-        <TextInput
-          style={{borderBottomColor: 'gray', borderBottomWidth: 1, height: 20, width: 100}}
+      <KeyboardAvoidingView style={styles.container} behavior='position'>
+        <NewTextInput
+          title='Materials'
           value={material}
-          onChangeText={this.handleInputChange}
+          handleInputChange={this.handleInputChange}
         />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -68,7 +67,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    flexDirection: 'row',
   },
 });
 

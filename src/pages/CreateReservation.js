@@ -100,22 +100,26 @@ class CreateReservation extends React.Component {
 
   render() {
     return (
-      <View>
-        {inputList.map((item, index) =>
-          <ListItem
-            key={index}
-            title={item.title}
-            style={{height: 50}}
-            chevron
-            subtitle={this.getSubtitle(item.title)}
-            onPress={() => this.props.navigation.navigate(item.page)}
-          />
-        )}
-        <Button
-          color='royalblue'
-          onPress={() => this.dataCheck()}
-          title="Submit"
-        />
+      <View style={styles.container}>
+        <View style={styles.list}>
+          {inputList.map((item, index) =>
+            <ListItem
+              key={index}
+              title={item.title}
+              style={{height: 50}}
+              chevron
+              subtitle={this.getSubtitle(item.title)}
+              onPress={() => this.props.navigation.navigate(item.page)}
+            />
+          )}
+        </View>
+        <View style={styles.button}>
+          <Button
+            color='royalblue'
+            onPress={() => this.dataCheck()}
+            title="Submit"
+            />
+        </View>
       </View>
     );
   }
@@ -124,9 +128,13 @@ class CreateReservation extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    flexWrap: 'wrap',
     justifyContent: 'space-between'
+  },
+  list: {
+    flex: 5
+  },
+  button: {
+    flex: 1
   }
 });
 

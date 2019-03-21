@@ -31,7 +31,7 @@ class MyReservationInConstruction extends React.Component {
         {reservationList.map((item, index) =>
           <ListItem
             key={index}
-            title={item.reservation_id}
+            title={`${item.reservation_id}`}
             style={{height: 50}}
             chevron
             subtitle={`${item.date} ${item.material}`}

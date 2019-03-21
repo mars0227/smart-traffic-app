@@ -2,12 +2,10 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  Picker,
   TextInput,
   Button,
   KeyboardAvoidingView,
-  SegmentedControlIOS,
-  Platform
+  View
 } from 'react-native';
 import { connect } from 'react-redux'
 import { getIdentitiesAction, loginAction } from '../actions';
@@ -44,9 +42,10 @@ class Login extends React.Component {
     const { account, password, identityIndex } = this.state;
     const { identities, login } = this.props;
     return (
-      <KeyboardAvoidingView style={styles.container} behavior='position'>
+      <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <Text style={styles.title}>Smart Traffic Management</Text>
         <Text style={styles.message}>Sign In</Text>
+        <View style={{ flex: 3 }}>
         <TextInput
           placeholder='Account'
           style={styles.input}
@@ -62,14 +61,17 @@ class Login extends React.Component {
           secureTextEntry={true}
           textContentType='password'
           onChangeText={(value) => this.onInputChange('password', value)}
-        />
+          />
+         </View>
         {login.errMsg
           ? <Text style={styles.errorMessage}>{login.errMsg}</Text>
           : null
         }
+        <View style={{ flex: 3 }}>
         <Button color='royalblue' onPress={() => this.props.handleLogin({account, password, identity: identities[identityIndex]})}
           title="Sign in"
         />
+        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -77,21 +79,29 @@ class Login extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    margin: 50,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40
   },
   title: {
     textAlign: 'center',
     fontSize: 18,
-    height: 20,
-    margin: 10,
+    flex: 1,
   },
   message: {
     color: 'green',
     textAlign: 'center',
     fontSize: 16,
-    height: 20,
+    flex: 1,
+  },
+  input: {
+    height: 30,
+    width: 200,
+    borderColor: 'lightgray',
+    borderWidth: 1,
     margin: 10,
+    paddingLeft: 10,
   },
   errorMessage: {
     color: 'red',
@@ -99,20 +109,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     height: 20,
     margin: 10,
-  },
-  input: {
-    height: 30,
-    borderColor: 'lightgray',
-    borderWidth: 1,
-    margin: 10,
-    paddingLeft: 10,
-  },
-  signIn: {
-    color: 'royalblue',
-  },
-  segment: {
-    marginTop: 30,
-    marginBottom: 30
   }
 });
 

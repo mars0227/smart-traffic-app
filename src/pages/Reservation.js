@@ -32,10 +32,6 @@ const reservationState = [
 ];
 
 class Reservation extends React.Component {
-  static navigationOptions = {
-    title: 'Reservation',
-  };
-
   getReservation = () => {
     const { login, myReservations, allReservations } = this.props;
     const { identity } = login.userInfo;
@@ -86,8 +82,13 @@ class Reservation extends React.Component {
   }
 
   handleChangeState = payload => {
+    const { userId } = this.props.login.userInfo;
     const reservation = this.getReservationById();
-    this.props.handleUpdateReservation({ state: payload, reservationId: reservation.reservation_id });  //update state when get update succcess
+    this.props.handleUpdateReservation({
+      state: payload,
+      reservationId: reservation.reservation_id,
+      userId
+    });  //update state when get update succcess
   }
 
   accept() {

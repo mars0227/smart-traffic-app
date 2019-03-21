@@ -1,8 +1,8 @@
-import { Text } from 'react-native-elements';
-import { View, StyleSheet, TextInput, Button } from 'react-native';
+import { KeyboardAvoidingView, Button, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
 import { setLicensePlateNumberAction } from '../actions';
+import NewTextInput from '../components/NewTextInput';
 
 class LicensePlateNumberInput extends React.Component {
   constructor(props) {
@@ -52,14 +52,13 @@ class LicensePlateNumberInput extends React.Component {
   render() {
     const { ln } = this.state;
     return (
-      <View style={styles.container}>
-        <Text>License Plate Number </Text>
-        <TextInput
-          style={{borderBottomColor: 'gray', borderBottomWidth: 1, height: 20, width: 100}}
+      <KeyboardAvoidingView style={styles.container} behavior='position'>
+        <NewTextInput
+          title={'License Plate Number '}
           value={ln}
-          onChangeText={this.handleInputChange}
+          handleInputChange={this.handleInputChange}
         />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -68,7 +67,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    flexDirection: 'row',
   },
 });
 
