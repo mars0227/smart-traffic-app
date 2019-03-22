@@ -62,7 +62,8 @@ class CreateReservation extends React.Component {
       date,
       timeSlot,
       licensePlateNumber,
-      material } = this.props.createReservation;
+      material,
+      pictureUri } = this.props.createReservation;
     const { userId: createrId } = this.props.login.userInfo;
 
     const payload = {
@@ -71,7 +72,12 @@ class CreateReservation extends React.Component {
       date,
       timeSlot,
       licensePlateNumber,
-      material
+      material,
+      file: {
+        uri: pictureUri,
+        type: 'image/jpeg',
+        name: 'reservation.jpg'
+      }
     };
 
     if (isEmpty(payload)) {

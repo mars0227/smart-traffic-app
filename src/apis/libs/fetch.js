@@ -6,6 +6,10 @@ const defaultHeaders = {
   'Content-Type': 'application/json'
 };
 
+const formDataHeaders = {
+  'Content-Type': 'multipart/form-data'
+};
+
 const defaultFetch = async (payload) => {
   const { method, url, headers, body } = payload;
 
@@ -51,6 +55,17 @@ const getBody = ({payload, ...params}) => ({
   body: JSON.stringify(payload)
 });
 
+const getFormData = ({ payload, ...params }) => {
+  let formData = new FormData();
+  for (let key in payload) {
+    formData.append(key, payload[key]);
+  }
+  return {
+    ...params,
+    body: formData
+  }
+};
+
 export const fetchGet = async (route, query) => await pipeAsync(
   getUrl,
   defaultFetch
@@ -89,4 +104,9 @@ export const fetchPutFiles = async (url, body) => await defaultFetch({ url, body
 export const fetchPatch = async (url, payload) => await pipeAsync(
   getBody,
   defaultFetch
-)({url, payload, method: 'PATCH'});
+)({ url, payload, method: 'PATCH' });
+
+export const fetchPostWithFile = async (url, payload) => await pipeAsync(
+  getFormData,
+  defaultFetch
+)({url, payload, method: 'POST', headers: formDataHeaders});

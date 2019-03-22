@@ -3,6 +3,7 @@ import {
   fetchGetWithToken,
   fetchPost,
   fetchPostWithToken,
+  fetchPostWithFile,
   fetchPut,
   fetchPutWithToken,
   fetchPutFiles,
@@ -23,5 +24,5 @@ export const getIdentities = () => fetchGet(`${route}/identities`);
 export const getReservations = payload => fetchGet(`${route}/reservations`, payload);
 export const getReservation = ({ id }) => fetchGet(`${route}/reservations/${id}`);
 
-export const setReservation = payload => fetchPost(`${route}/reservations`, payload);
+export const setReservation = payload => fetchPostWithFile(`${route}/reservations`, payload);
 export const updateReservation = ({ reservationId, ...payload }) => fetchPatch(`${route}/reservations/${reservationId}`, payload);
