@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Button, View } from 'react-native';
+import { StyleSheet, Button, View, Image } from 'react-native';
 import { connect } from 'react-redux'
 import {
   updateReservationAction
@@ -30,6 +30,10 @@ const reservationState = [
   'Refused',
   'Canceled'
 ];
+
+const pictureUrl = __DEV__
+  ? 'http://172.20.10.3:3002'
+  : 'http://www.itrackcon.com/stserver';
 
 class Reservation extends React.Component {
   getReservation = () => {
@@ -152,8 +156,11 @@ class Reservation extends React.Component {
   }
 
   render() {
+    const reservation = this.getReservationById();
+
     return (
-      <View>
+      <View style={styles.container}>
+        <View style={styles.list} >
         {inputList.map((item, index) =>
           <ListItem
             key={index}
@@ -162,7 +169,17 @@ class Reservation extends React.Component {
             subtitle={this.getSubtitle(item.title)}
           />
         )}
-        {this.getButton()}
+          <View style={styles.pictureContainer}>
+            <Image
+              style={styles.image}
+              resizeMode='contain'
+              source={{ uri: `${pictureUrl}/${reservation.reservation_id}.jpg` }}
+            />
+          </View>
+        </View>
+        <View style={styles.button}>
+          {this.getButton()}
+        </View>
       </View>
     );
   }
@@ -171,9 +188,21 @@ class Reservation extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    flexWrap: 'wrap',
     justifyContent: 'space-between'
+  },
+  list: {
+    flex: 5
+  },
+  button: {
+    flex: 1
+  },
+  image: {
+    width: 120,
+    height: 80
+  },
+  pictureContainer: {
+    flex: 1,
+    flexDirection: 'row'
   }
 });
 
