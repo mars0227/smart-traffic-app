@@ -12,6 +12,7 @@ import TimeSlotPicker from './src/pages/TimeSlotPicker';
 import LicensePlateNumberInput from './src/pages/LicensePlateNumberInput';
 import MaterialInput from './src/pages/MaterialInput';
 import MyReservationInConstruction from './src/pages/MyReservationInConstruction';
+import CameraView from './src/pages/CameraView';
 
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import { Provider } from 'react-redux';
@@ -70,6 +71,10 @@ const AppNavigator = createStackNavigator(
     Reservation: {
       screen: Reservation
     },
+    CameraView: {
+      screen: CameraView,
+      navigationOptions: () => ({ header: null })
+    }
   },
   {
     initialRouteName: "Login",

@@ -26,7 +26,10 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.vircon.smartTraffic"
+      "package": "com.vircon.smartTraffic",
+      "permissions": [
+        "CAMERA"
+      ]
     }
   }
 }

@@ -24,6 +24,7 @@ export default {
     timeSlot: '',
     licensePlateNumber: '',
     material: '',
+    pictureUri: '',
     ok: false,
     errMsg: ''
   },

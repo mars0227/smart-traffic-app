@@ -5,10 +5,12 @@ import {
   TextInput,
   Button,
   KeyboardAvoidingView,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux'
 import { getIdentitiesAction, loginAction } from '../actions';
+import { Camera } from 'expo';
 
 class Login extends React.Component {
   constructor(props) {
@@ -16,7 +18,8 @@ class Login extends React.Component {
     this.state = {
       identityIndex: 0,
       account: '',
-      password: ''
+      password: '',
+      photos: []
     }
   }
 
@@ -37,7 +40,7 @@ class Login extends React.Component {
       [key]: value
     })
   }
-
+  
   render() {
     const { account, password, identityIndex } = this.state;
     const { identities, login } = this.props;
@@ -109,7 +112,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     height: 20,
     margin: 10,
-  }
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
 });
 
 const mapStateToProps = (state) => ({

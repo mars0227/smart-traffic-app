@@ -20,6 +20,8 @@ export default function (createReservation = initialState.createReservation, act
       return { ...createReservation, ok: false, errMsg: action.payload.errMsg };
     case types.CLEAN_RESERVATION:
       return initialState.createReservation;
+    case types.TAKE_PICTURE_SUCCEEDED:
+      return { ...createReservation, pictureUri: action.payload };
     default:
       return createReservation;
   }

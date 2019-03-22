@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Button, View } from 'react-native';
+import { StyleSheet, Button, View, Image } from 'react-native';
 import { connect } from 'react-redux'
 import {
   getConstructionsAction,
   setReservationAction
 } from '../actions';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Tile } from 'react-native-elements';
 import { isEmpty } from '../utils/utils';
 
 const inputList = [
@@ -35,7 +35,8 @@ class CreateReservation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonDisable: true
+      buttonDisable: true,
+      photos: ''
     }
     this.dataCheck = this.dataCheck.bind(this);
   }
@@ -98,7 +99,12 @@ class CreateReservation extends React.Component {
     }
   }
 
+  handleTakePicture = () => {
+    this.props.navigation.navigate('CameraView');
+  }
+
   render() {
+    const { navigation, createReservation } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.list}>
@@ -109,9 +115,20 @@ class CreateReservation extends React.Component {
               style={{height: 50}}
               chevron
               subtitle={this.getSubtitle(item.title)}
-              onPress={() => this.props.navigation.navigate(item.page)}
+              onPress={() => navigation.navigate(item.page)}
             />
           )}
+          {createReservation.pictureUri && (
+            <Image
+              style={styles.image}
+              source={{ uri: createReservation.pictureUri }}
+            />)
+          }
+          <Tile
+            icon={{ name: 'photo-camera', size: 40 }}
+            iconContainerStyle={{ height: 80, width: 120, backgroundColor: 'lightgray' }}
+            onPress={this.handleTakePicture}
+          />
         </View>
         <View style={styles.button}>
           <Button
@@ -135,6 +152,10 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1
+  },
+  image: {
+    width: 120,
+    height: 80
   }
 });
 
