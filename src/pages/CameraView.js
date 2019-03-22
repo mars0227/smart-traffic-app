@@ -1,23 +1,25 @@
 import {
-  Button,
   StyleSheet,
-  View,
-  TouchableOpacity,
-  Text
+  View
 } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
 import { updatePictureUriAction } from '../actions';
 import { Camera } from 'expo';
+import { Icon } from 'react-native-elements';
 
 class CameraView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       type: Camera.Constants.Type.back,
-      size: undefined
+      size: 'Low'
     };
     this.takePicture = this.takePicture.bind(this);
+  }
+
+  componentDidMount() {
+    console.warn('camera did mount');
   }
 
   handleTakePictureFailed = (err) => {
@@ -26,10 +28,16 @@ class CameraView extends React.Component {
 
   handleMinimizePictureSize = async () => {
     const result = await this.camera.getAvailablePictureSizesAsync();
-    console.log('picture support size', result);
-    this.setState({
-      size: result[result.length - 1]
-    });
+    console.warn('picture support size', result);
+    if (result.includes('352x288')){
+      this.setState({
+        size: '352x288'
+      });
+    } else {
+      this.setState({
+        size: 'Low'
+      });
+    }
   }
 
   takePicture = async () => {
@@ -52,26 +60,21 @@ class CameraView extends React.Component {
           style={{ flex: 1 }}
           type={type}
           pictureSize={size}
+          onCameraReady={this.handleMinimizePictureSize}
           ref={ref => { this.camera = ref; }}
-          onCameraReady={this.handleMinimizePictureSize}>
+        >
           <View
             style={{
               flex: 1,
               backgroundColor: 'transparent',
-              flexDirection: 'row',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              alignItems: 'center'
             }}>
-            <TouchableOpacity
-              style={{
-                flex: 0.1,
-                alignSelf: 'flex-end',
-                alignItems: 'center',
-              }}
-              onPress={this.takePicture}>
-              <Text
-                style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
-                {' '}Flip{' '}
-              </Text>
-            </TouchableOpacity>
+            <Icon
+              name='photo-camera'
+              reverse
+              onPress={this.takePicture} />
           </View>
         </Camera>
       </View>

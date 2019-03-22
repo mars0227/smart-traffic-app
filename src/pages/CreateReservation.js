@@ -5,7 +5,7 @@ import {
   getConstructionsAction,
   setReservationAction
 } from '../actions';
-import { ListItem, Tile } from 'react-native-elements';
+import { ListItem, Icon, Button as RNEButton } from 'react-native-elements';
 import { isEmpty } from '../utils/utils';
 
 const inputList = [
@@ -118,17 +118,25 @@ class CreateReservation extends React.Component {
               onPress={() => navigation.navigate(item.page)}
             />
           )}
-          {createReservation.pictureUri && (
-            <Image
-              style={styles.image}
-              source={{ uri: createReservation.pictureUri }}
-            />)
-          }
-          <Tile
-            icon={{ name: 'photo-camera', size: 40 }}
-            iconContainerStyle={{ height: 80, width: 120, backgroundColor: 'lightgray' }}
-            onPress={this.handleTakePicture}
-          />
+          <View style={styles.pictureContainer}>
+            {createReservation.pictureUri !== '' && (
+              <Image
+                style={styles.image}
+                resizeMode='contain'
+                source={{ uri: createReservation.pictureUri }}
+              />)
+            }
+            <RNEButton
+              icon={
+                <Icon
+                  name='photo-camera'
+                  size={40} />
+              }
+              containerStyle={styles.image}
+              buttonStyle={{ backgroundColor: 'lightgray', ...styles.image }}
+              onPress={this.handleTakePicture}
+            />
+          </View>
         </View>
         <View style={styles.button}>
           <Button
@@ -156,6 +164,10 @@ const styles = StyleSheet.create({
   image: {
     width: 120,
     height: 80
+  },
+  pictureContainer: {
+    flex: 1,
+    flexDirection: 'row'
   }
 });
 

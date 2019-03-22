@@ -82,3 +82,8 @@ export const updateReservationAction = payload => ({
 export const cleanCreateReservationAction = () => ({
   type: types.CLEAN_RESERVATION
 });
+
+export const updatePictureUriAction = payload => ({
+  type: types.TAKE_PICTURE_SUCCEEDED,
+  payload
+});

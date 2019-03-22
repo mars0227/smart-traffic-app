@@ -18,8 +18,8 @@ export default function (myReservations = initialState.myReservations, action) {
       return { ...myReservations, showingReservationId: action.payload };
     case types.UPDATE_RESERVATION_SUCCEEDED:
       const { reservationId, state } = action.payload;
-      if (myReservations.showingReservationId === reservationId) {
-        const data = { myReservations };
+      const { data, showingReservationId } = myReservations;
+      if (showingReservationId === reservationId) {
         return {
           ...myReservations,
           data: data.map(
