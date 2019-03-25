@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Button, View, Image } from 'react-native';
+import { StyleSheet, Button, View } from 'react-native';
 import { connect } from 'react-redux'
 import {
   getConstructionsAction,
@@ -7,6 +7,7 @@ import {
 } from '../actions';
 import { ListItem, Icon, Button as RNEButton } from 'react-native-elements';
 import { isEmpty } from '../utils/utils';
+import ImageView from '../components/ImageView';
 
 const inputList = [
   {
@@ -126,10 +127,9 @@ class CreateReservation extends React.Component {
           )}
           <View style={styles.pictureContainer}>
             {createReservation.pictureUri !== '' && (
-              <Image
+              <ImageView
                 style={styles.image}
-                resizeMode='contain'
-                source={{ uri: createReservation.pictureUri }}
+                uri={createReservation.pictureUri}
               />)
             }
             <RNEButton

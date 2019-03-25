@@ -18,10 +18,6 @@ class CameraView extends React.Component {
     this.takePicture = this.takePicture.bind(this);
   }
 
-  componentDidMount() {
-    console.warn('camera did mount');
-  }
-
   handleTakePictureFailed = (err) => {
     console.warn('take picture error', err);
   }

@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Button, View, Modal, TouchableHighlight, Image } from 'react-native';
+import { StyleSheet, Button, View } from 'react-native';
 import { connect } from 'react-redux'
 import {
   updateReservationAction
 } from '../actions';
-import { ListItem, Icon } from 'react-native-elements';
-import ImageViewer from 'react-native-image-zoom-viewer';
+import { ListItem } from 'react-native-elements';
+import ImageView from '../components/ImageView';
 
 const inputList = [
   {
@@ -176,46 +176,18 @@ class Reservation extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.list} >
-        {inputList.map((item, index) =>
-          <ListItem
-            key={index}
-            title={item.title}
-            style={{height: 50}}
-            subtitle={this.getSubtitle(item.title)}
+          {inputList.map((item, index) =>
+            <ListItem
+              key={index}
+              title={item.title}
+              style={{height: 50}}
+              subtitle={this.getSubtitle(item.title)}
+            />
+          )}
+          <ImageView
+            style={styles.image}
+            uri={`${pictureUrl}/${reservation.reservation_id}.jpg`}
           />
-        )}
-          <View style={styles.pictureContainer}>
-            <Modal
-              visible={this.state.modalVisible}
-              transparent={false}
-              animationType='fade'>
-              <ImageViewer
-                saveToLocalByLongPress={false}
-                imageUrls={[{ url: `${pictureUrl}/${reservation.reservation_id}.jpg` }]}
-                renderIndicator={() => { }}
-                renderHeader={() => (
-                  <View style={styles.headerContainer}>
-                    <Icon
-                      raised
-                      name='close'
-                      onPress={() => {
-                        this.setModalVisible(!this.state.modalVisible);
-                      }}
-                      />
-                  </View>
-                )}
-                />
-            </Modal>
-            <TouchableHighlight
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}>
-              <Image
-                style={{ width: 100, height: 120 }}
-                source={{ uri: `${pictureUrl}/${reservation.reservation_id}.jpg` }}
-              />
-            </TouchableHighlight>
-          </View>
         </View>
         <View style={styles.button}>
           {this.getButton()}
