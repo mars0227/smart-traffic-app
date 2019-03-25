@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Button, View, Image } from 'react-native';
+import { StyleSheet, Button, View, Modal, TouchableHighlight, Image } from 'react-native';
 import { connect } from 'react-redux'
 import {
   updateReservationAction
 } from '../actions';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Icon } from 'react-native-elements';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 const inputList = [
   {
@@ -36,6 +37,13 @@ const pictureUrl = __DEV__
   : 'http://www.itrackcon.com/stserver';
 
 class Reservation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false
+    }
+  }
+
   getReservation = () => {
     const { login, myReservations, allReservations } = this.props;
     const { identity } = login.userInfo;
@@ -126,7 +134,7 @@ class Reservation extends React.Component {
   cancelButton = () => (
     <Button
       color='red'
-      onPress={() => this.cancel()}
+      onPress={this.setModalVisible}
       title='Cancel'
     />
   );
@@ -155,6 +163,13 @@ class Reservation extends React.Component {
     return this.statusButton();
   }
 
+  setModalVisible = () => {
+    const { modalVisible } = this.state;
+    this.setState({
+      modalVisible: !modalVisible
+    });
+  }
+
   render() {
     const reservation = this.getReservationById();
 
@@ -170,11 +185,36 @@ class Reservation extends React.Component {
           />
         )}
           <View style={styles.pictureContainer}>
-            <Image
-              style={styles.image}
-              resizeMode='contain'
-              source={{ uri: `${pictureUrl}/${reservation.reservation_id}.jpg` }}
-            />
+            <Modal
+              visible={this.state.modalVisible}
+              transparent={false}
+              animationType='fade'>
+              <ImageViewer
+                saveToLocalByLongPress={false}
+                imageUrls={[{ url: `${pictureUrl}/${reservation.reservation_id}.jpg` }]}
+                renderIndicator={() => { }}
+                renderHeader={() => (
+                  <View style={styles.headerContainer}>
+                    <Icon
+                      raised
+                      name='close'
+                      onPress={() => {
+                        this.setModalVisible(!this.state.modalVisible);
+                      }}
+                      />
+                  </View>
+                )}
+                />
+            </Modal>
+            <TouchableHighlight
+              onPress={() => {
+                this.setModalVisible(!this.state.modalVisible);
+              }}>
+              <Image
+                style={{ width: 100, height: 120 }}
+                source={{ uri: `${pictureUrl}/${reservation.reservation_id}.jpg` }}
+              />
+            </TouchableHighlight>
           </View>
         </View>
         <View style={styles.button}>
@@ -203,7 +243,13 @@ const styles = StyleSheet.create({
   pictureContainer: {
     flex: 1,
     flexDirection: 'row'
-  }
+  },
+  headerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    zIndex: 1
+  },
 });
 
 const mapStateToProps = (state) => ({
