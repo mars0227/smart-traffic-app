@@ -26,3 +26,5 @@ export const getReservation = ({ id }) => fetchGet(`${route}/reservations/${id}`
 
 export const setReservation = payload => fetchPostWithFile(`${route}/reservations`, payload);
 export const updateReservation = ({ reservationId, ...payload }) => fetchPatch(`${route}/reservations/${reservationId}`, payload);
+
+export const setExpoPushToken = ({ userId, ...payload }) => fetchPost(`${route}/users/${userId}/expo_push_token`, payload);

@@ -31,5 +31,10 @@ export default {
   updateReservation: {
     ok: false,
     errMsg: ''
+  },
+  notification: {
+    origin: '',
+    data: '',
+    enableOverlay: false
   }
 };

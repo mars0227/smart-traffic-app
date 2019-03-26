@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Button, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux'
 import {
   getConstructionsAction,
   setReservationAction
 } from '../actions';
-import { ListItem, Icon, Button as RNEButton } from 'react-native-elements';
+import { ListItem, Icon, Button } from 'react-native-elements';
 import { isEmpty } from '../utils/utils';
 import ImageView from '../components/ImageView';
 
@@ -37,7 +37,8 @@ class CreateReservation extends React.Component {
     super(props);
     this.state = {
       buttonDisable: true,
-      photos: ''
+      photos: '',
+      isLoading: false
     }
     this.dataCheck = this.dataCheck.bind(this);
   }
@@ -85,6 +86,9 @@ class CreateReservation extends React.Component {
       console.warn('some data is empty!');
     } else {
       this.props.handleCreateReservation(payload);
+      this.setState({
+        isLoading: true
+      })
     }
   }
 
@@ -132,7 +136,7 @@ class CreateReservation extends React.Component {
                 uri={createReservation.pictureUri}
               />)
             }
-            <RNEButton
+            <Button
               icon={
                 <Icon
                   name='photo-camera'
@@ -149,6 +153,7 @@ class CreateReservation extends React.Component {
             color='royalblue'
             onPress={() => this.dataCheck()}
             title="Submit"
+            loading={this.state.isLoading}
             />
         </View>
       </View>

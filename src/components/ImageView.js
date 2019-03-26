@@ -39,6 +39,7 @@ export default class ImageView extends React.Component {
                 />
               </View>
             )}
+            onClick={this.setModalVisible}
           />
         </Modal>
         <TouchableHighlight

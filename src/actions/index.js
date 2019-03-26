@@ -87,3 +87,17 @@ export const updatePictureUriAction = payload => ({
   type: types.TAKE_PICTURE_SUCCEEDED,
   payload
 });
+
+export const setExpoPushTokenAction = payload => ({
+  type: types.SET_EXPO_PUSH_TOKEN,
+  payload
+});
+
+export const getNotificationAction = payload => ({
+  type: types.GET_NOTIFICATION,
+  payload
+});
+
+export const showNotificationSucceededAction = () => ({
+  type: types.SHOW_NOTIFICATION_SUCCEEDED
+});

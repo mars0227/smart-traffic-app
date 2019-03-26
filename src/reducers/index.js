@@ -6,6 +6,7 @@ import constructions from './constructionReducer';
 import createReservation from './createReservationReducer';
 import allReservations from './allReservationReducer';
 import updateReservation from './updateReservationReducer';
+import notification from './notificationReducer';
 
 // will be store key name
 const appReducer = combineReducers({
@@ -15,7 +16,8 @@ const appReducer = combineReducers({
   constructions,
   createReservation,
   allReservations,
-  updateReservation
+  updateReservation,
+  notification
 });
 
 const rootReducer = (state, action) => {

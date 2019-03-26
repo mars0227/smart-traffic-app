@@ -1,6 +1,9 @@
 import { takeLatest } from 'redux-saga/effects';
 import * as types from '../constants/actionTypes';
-import { loginSaga } from './loginSaga';
+import {
+  loginSaga,
+  setExpoPushTokenSaga
+} from './loginSaga';
 import { identitySaga } from './identitySaga';
 import { constructionSaga } from './constructionSaga';
 import {
@@ -36,4 +39,8 @@ export function* watchGetReservations() {
 
 export function* watchUpdateReservation() {
   yield takeLatest(types.UPDATE_RESERVATION, updateReservationSaga);
+};
+
+export function* watchSetExpoPushToken() {
+  yield takeLatest(types.SET_EXPO_PUSH_TOKEN, setExpoPushTokenSaga);
 };
