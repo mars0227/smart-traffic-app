@@ -11,8 +11,8 @@ class LicensePlateNumberInput extends React.Component {
     this.state = {
       ln: ''
     };
-    this.handleDone = this.handleDone.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleDone = this.handleDone.bind(this);
     this.doneButton = this.doneButton.bind(this);
   }
 

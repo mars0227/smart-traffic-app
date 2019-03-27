@@ -7,6 +7,7 @@ import {
 } from '../actions'
 import { Permissions, Notifications } from 'expo';
 import NotificationListener from '../components/NotificationListener';
+import { Icon } from 'react-native-elements';
 
 const activeFunc = {
   Vendor: {
@@ -41,6 +42,7 @@ class Main extends React.Component {
     if (!userInfo.expo_push_token) {
       this.getPushTokenOfExpo();
     }
+    this.props.navigation.setParams({logoutButton: this.logoutButton()});
   }
 
   getPushTokenOfExpo = async () => {
@@ -68,16 +70,27 @@ class Main extends React.Component {
     }
   }
 
-  static navigationOptions = {
-    title: 'Smart Traffic Management',
+  handleLogout = () => {
+
+  }
+
+  logoutButton = () => (
+    <Icon
+      color='white'
+      name='more-vert'
+      onPress={this.handleLogout.bind(this)}
+    />
+  );
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Smart Traffic Management',
+      headerRight: navigation.getParam('logoutButton')
+    }
   };
 
   onFunctionPress = (pageName) => {
     pageName && this.props.navigation.navigate(pageName);
-  };
-
-  handleLogout = () => {
-
   };
 
   render() {
@@ -119,4 +132,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Main)
+)(Main);
