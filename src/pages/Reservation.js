@@ -6,6 +6,8 @@ import {
 } from '../actions';
 import { ListItem } from 'react-native-elements';
 import ImageView from '../components/ImageView';
+import NotificationListener from '../components/NotificationListener';
+import { route } from '../apis/api';
 
 const inputList = [
   {
@@ -32,9 +34,7 @@ const reservationState = [
   'Canceled'
 ];
 
-const pictureUrl = __DEV__
-  ? 'http://172.20.10.3:3002'
-  : 'http://www.itrackcon.com/stserver';
+const pictureUrl = route;
 
 class Reservation extends React.Component {
   constructor(props) {
@@ -175,6 +175,7 @@ class Reservation extends React.Component {
 
     return (
       <View style={styles.container}>
+        <NotificationListener />
         <View style={styles.list} >
           {inputList.map((item, index) =>
             <ListItem
