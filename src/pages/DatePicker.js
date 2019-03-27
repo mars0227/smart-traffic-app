@@ -8,6 +8,7 @@ import {
 import { connect } from 'react-redux';
 import React from 'react';
 import { selectDateAction } from '../actions';
+import NotificationListener from '../components/NotificationListener';
 
 class DatePicker extends React.Component {
   constructor(props) {
@@ -42,14 +43,15 @@ class DatePicker extends React.Component {
   render() {
     return (
       Platform.OS === 'ios'
-      ? <View style={styles.container}>
-        <DatePickerIOS
-          mode='date'
-          date={this.state.chosenDate}
-          onDateChange={this.setDate}
-        />
+        ? <View style={styles.container}>
+          <NotificationListener />
+          <DatePickerIOS
+            mode='date'
+            date={this.state.chosenDate}
+            onDateChange={this.setDate}
+          />
         </View>
-        : null
+        : <NotificationListener />
     );
   }
 }

@@ -6,6 +6,7 @@ import {
 } from '../actions';
 import { connect } from 'react-redux'
 import { ListItem } from 'react-native-elements';
+import NotificationListener from '../components/NotificationListener';
 
 class MyReservationInConstruction extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class MyReservationInConstruction extends React.Component {
 
     return (
       <View>
+        <NotificationListener />
         {reservationList.map((item, index) =>
           <ListItem
             key={index}

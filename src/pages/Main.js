@@ -3,12 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import ImageIcon from '../components/ImageIcon';
 import { connect } from 'react-redux'
 import {
-  setExpoPushTokenAction,
-  getNotificationAction,
-  showNotificationSucceededAction
+  setExpoPushTokenAction
 } from '../actions'
 import { Permissions, Notifications } from 'expo';
-import { Overlay, Button, Text, Divider } from 'react-native-elements';
+import NotificationListener from '../components/NotificationListener';
 
 const activeFunc = {
   Vendor: {
@@ -43,12 +41,7 @@ class Main extends React.Component {
     if (!userInfo.expo_push_token) {
       this.getPushTokenOfExpo();
     }
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
   }
-
-  _handleNotification = (notification) => {
-    this.props.handleGetNotification(notification);
-  };
 
   getPushTokenOfExpo = async () => {
     const { userInfo } = this.props.login;
@@ -87,28 +80,13 @@ class Main extends React.Component {
 
   };
 
-  handleCloseOverlay = () => {
-    this.props.handleShowNotificationSucceeded();
-  };
-
   render() {
     const { identity } = this.props.login.userInfo;
     const functions = activeFunc[identity];
-    const { data, enableOverlay } = this.props.notification;
 
     return (
       <View style={styles.container}>
-        <Overlay
-          isVisible={enableOverlay}
-          height={200}
-        >
-          <View style={{ flex:1 , justifyContent: 'space-around'}}>
-            <Text h4 style={{textAlign: 'center'}} >{data.title}</Text>
-            <Divider />
-            <Text>{data.body}</Text>
-            <Button onPress={this.handleCloseOverlay} title='OK' />
-          </View>
-        </Overlay>
+        <NotificationListener />
         {Object.keys(functions).map(keys => <ImageIcon
           name={functions[keys].name}
           type={functions[keys].type}
@@ -135,9 +113,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleSetExpoPushToken: payload => dispatch(setExpoPushTokenAction(payload)),
-  handleGetNotification: payload => dispatch(getNotificationAction(payload)),
-  handleShowNotificationSucceeded: () => dispatch(showNotificationSucceededAction())
+  handleSetExpoPushToken: payload => dispatch(setExpoPushTokenAction(payload))
 });
 
 export default connect(

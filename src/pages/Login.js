@@ -5,12 +5,10 @@ import {
   TextInput,
   Button,
   KeyboardAvoidingView,
-  View,
-  TouchableOpacity
+  View
 } from 'react-native';
 import { connect } from 'react-redux'
 import { getIdentitiesAction, loginAction } from '../actions';
-import { Camera } from 'expo';
 
 class Login extends React.Component {
   constructor(props) {
@@ -71,9 +69,9 @@ class Login extends React.Component {
           : null
         }
         <View style={{ flex: 3 }}>
-        <Button color='royalblue' onPress={() => this.props.handleLogin({account, password, identity: identities[identityIndex]})}
-          title="Sign in"
-        />
+          <Button color='royalblue' onPress={() => this.props.handleLogin({account, password, identity: identities[identityIndex]})}
+            title="Sign in"
+          />
         </View>
       </KeyboardAvoidingView>
     );

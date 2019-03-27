@@ -14,6 +14,7 @@ import {
   ListItem,
   Divider
 } from 'react-native-elements';
+import NotificationListener from '../components/NotificationListener';
 
 class AllReservations extends React.Component {
   constructor(props) {
@@ -42,6 +43,7 @@ class AllReservations extends React.Component {
 
     return (
       <ScrollView>
+        <NotificationListener />
         {allReservations.data.map((item, index) =>
           <View key={index}>
             <ListItem

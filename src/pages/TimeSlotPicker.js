@@ -2,6 +2,7 @@ import { View, Picker, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
 import { selectTimeSlotAction } from '../actions';
+import NotificationListener from '../components/NotificationListener';
 
 const timeSlot = [
   '8:00 - 10:00',
@@ -29,6 +30,7 @@ class TimeSlotPicker extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <NotificationListener />
         <Picker
           mode='dropdown'
           selectedValue={timeSlot[this.state.timeSlotIndex]}

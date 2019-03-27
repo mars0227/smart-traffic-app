@@ -1,0 +1,66 @@
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux'
+import {
+  getNotificationAction,
+  showNotificationSucceededAction
+} from '../actions'
+import { Notifications } from 'expo';
+import { Overlay, Button, Text, Divider } from 'react-native-elements';
+
+class NotificationListener extends React.Component {
+  componentDidMount() {
+    this.notificationSubscription = Notifications.addListener(this.handleNotification);
+  }
+
+  handleNotification = notification => {
+    this.props.handleGetNotification(notification);
+  };
+
+  handleCloseOverlay = () => {
+    this.props.handleShowNotificationSucceeded();
+  };
+
+  render() {
+    const { data, enableOverlay } = this.props.notification;
+
+    return (
+      <Overlay
+        isVisible={enableOverlay}
+        height={200}
+      >
+        <View style={styles.container}>
+          <Text h4 style={styles.title}>{data.title}</Text>
+          <Divider />
+          <Text>{data.body}</Text>
+          <Button onPress={this.handleCloseOverlay} title='OK' />
+        </View>
+      </Overlay>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-around'
+  },
+  title: {
+    textAlign: 'center'
+  }
+});
+
+const mapStateToProps = (state) => ({
+  login: state.login,
+  notification: state.notification
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleGetNotification: payload => dispatch(getNotificationAction(payload)),
+  handleShowNotificationSucceeded: () => dispatch(showNotificationSucceededAction())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NotificationListener)

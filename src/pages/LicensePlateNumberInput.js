@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { setLicensePlateNumberAction } from '../actions';
 import NewTextInput from '../components/NewTextInput';
+import NotificationListener from '../components/NotificationListener';
 
 class LicensePlateNumberInput extends React.Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class LicensePlateNumberInput extends React.Component {
     const { ln } = this.state;
     return (
       <KeyboardAvoidingView style={styles.container} behavior='position'>
+        <NotificationListener />
         <NewTextInput
           title={'License Plate Number '}
           value={ln}

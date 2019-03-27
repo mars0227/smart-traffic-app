@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
 import { selectLocationAction } from '../actions';
+import NotificationListener from '../components/NotificationListener';
 
 class SelectLocation extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class SelectLocation extends React.Component {
   render() {
     return (
       <View>
+        <NotificationListener />
         <Text>Location</Text>
         {
           this.props.constructions.map((item, index) => (

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { setMaterialAction } from '../actions';
 import NewTextInput from '../components/NewTextInput';
+import NotificationListener from '../components/NotificationListener';
 
 class MaterialInput extends React.Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class MaterialInput extends React.Component {
     const { material } = this.state;
     return (
       <KeyboardAvoidingView style={styles.container} behavior='position'>
+        <NotificationListener />
         <NewTextInput
           title='Materials'
           value={material}

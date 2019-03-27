@@ -7,6 +7,7 @@ import React from 'react';
 import { updatePictureUriAction } from '../actions';
 import { Camera } from 'expo';
 import { Icon } from 'react-native-elements';
+import NotificationListener from '../components/NotificationListener';
 
 class CameraView extends React.Component {
   constructor(props) {
@@ -52,6 +53,7 @@ class CameraView extends React.Component {
     const { type, size } = this.state;
     return (
       <View style={styles.container} >
+        <NotificationListener />
         <Camera
           style={{ flex: 1 }}
           type={type}
