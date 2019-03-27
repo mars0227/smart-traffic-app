@@ -29,7 +29,7 @@ class DatePicker extends React.Component {
   showAndroidTimePicker = async () => {
     const date = await DatePickerAndroid.open();
     const { day, month, year } = date;
-    this.props.handleSelectDate(`${day}/${month}/${year}`);
+    this.props.handleSelectDate(`${day}/${month+1}/${year}`);
     this.props.navigation.goBack();
   }
 

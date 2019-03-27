@@ -25,7 +25,7 @@ const activeFunc = {
       name: 'th-list',
       type: 'font-awesome',
       backgroundColor: 'royalblue',
-      page: 'AllReservations'
+      page: 'ManageReservations'
     },
     camera: {
       title: 'Camera',

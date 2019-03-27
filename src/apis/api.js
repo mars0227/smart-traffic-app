@@ -13,7 +13,7 @@ import {
 // const route = 'www.itrackcon.com/stserver';
 // const route = 'http://172.20.10.3:3002'; // iPhone
 export const route = __DEV__
-  ? 'http://172.20.10.3:3002'
+  ? 'http://172.20.10.2:3002'
   : 'http://www.itrackcon.com/stserver'; //vircon server
 
 export const login = payload => fetchPost(`${route}/login`, payload);

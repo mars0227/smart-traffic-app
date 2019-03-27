@@ -2,7 +2,7 @@ import React from 'react';
 import Login from './src/pages//Login';
 import Main from './src/pages//Main';
 import MyReservations from './src/pages/MyReservations';
-import AllReservations from './src/pages/AllReservations';
+import ManageReservations from './src/pages/ManageReservations';
 import Reservation from './src/pages/Reservation';
 import CreateReservation from './src/pages/CreateReservation';
 import SelectLocation from './src/pages/SelectLocation';
@@ -40,8 +40,8 @@ const AppNavigator = createStackNavigator(
     MyReservations: {
       screen: MyReservations,
     },
-    AllReservations: {
-      screen: AllReservations,
+    ManageReservations: {
+      screen: ManageReservations,
     },
     CreateReservation: {
       screen: CreateReservation
