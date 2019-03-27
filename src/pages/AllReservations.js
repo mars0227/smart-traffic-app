@@ -24,13 +24,15 @@ class AllReservations extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Reservations',
+    title: 'All',
   };
 
   componentDidMount() {
-    this.props.handleGetConstructions();
-    this.props.handleGetAllReservations();
-    // TODO: getAllReservation
+    const { allReservations, handleGetConstructions, handleGetAllReservations } = this.props;
+    if ( !allReservations.data || allReservations.data.length === 0 ){
+      handleGetConstructions();
+      handleGetAllReservations();
+    }
   }
 
   handleSelectReservation = reservationId => {
