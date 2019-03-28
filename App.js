@@ -42,6 +42,9 @@ const AppNavigator = createStackNavigator(
     },
     ManageReservations: {
       screen: ManageReservations,
+      navigationOptions: {
+        title: 'Reservations'
+      }
     },
     CreateReservation: {
       screen: CreateReservation

@@ -42,7 +42,7 @@ class Main extends React.Component {
     if (!userInfo.expo_push_token) {
       this.getPushTokenOfExpo();
     }
-    this.props.navigation.setParams({logoutButton: this.logoutButton()});
+    this.props.navigation.setParams({menuButton: this.menuButton()});
   }
 
   getPushTokenOfExpo = async () => {
@@ -74,18 +74,18 @@ class Main extends React.Component {
 
   }
 
-  logoutButton = () => (
+  menuButton = () => (
     <Icon
       color='white'
       name='more-vert'
-      onPress={this.handleLogout.bind(this)}
+      onPress={() => {}}
     />
   );
 
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Smart Traffic Management',
-      headerRight: navigation.getParam('logoutButton')
+      headerRight: navigation.getParam('menuButton')
     }
   };
 
@@ -94,7 +94,7 @@ class Main extends React.Component {
   };
 
   render() {
-    const { identity } = this.props.login.userInfo;
+    const { identity = 'Manager' } = this.props.login.userInfo;
     const functions = activeFunc[identity];
 
     return (
