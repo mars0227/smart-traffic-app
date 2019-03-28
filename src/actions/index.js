@@ -101,3 +101,7 @@ export const getNotificationAction = payload => ({
 export const showNotificationSucceededAction = () => ({
   type: types.SHOW_NOTIFICATION_SUCCEEDED
 });
+
+export const logoutAction = () => ({
+  type: types.LOGOUT
+});

@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import ImageIcon from '../components/ImageIcon';
 import { connect } from 'react-redux'
+import { Permissions, Notifications } from 'expo';
+import { Icon } from 'react-native-elements';
+
 import {
   setExpoPushTokenAction
 } from '../actions'
-import { Permissions, Notifications } from 'expo';
 import NotificationListener from '../components/NotificationListener';
-import { Icon } from 'react-native-elements';
+import ImageIcon from '../components/ImageIcon';
 
 const activeFunc = {
   Vendor: {
@@ -37,12 +38,26 @@ const activeFunc = {
 };
 
 class Main extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      navigatorListener: null
+    }
+  }
+
   componentDidMount() {
     const { userInfo } = this.props.login;
     if (!userInfo.expo_push_token) {
       this.getPushTokenOfExpo();
     }
-    this.props.navigation.setParams({menuButton: this.menuButton()});
+    this.props.navigation.setParams({ menuButton: this.menuButton() });
+  }
+
+  componentDidUpdate() {
+    const { ok } = this.props.login;
+    if (!ok) {
+      this.props.navigation.replace('Login');
+    }
   }
 
   getPushTokenOfExpo = async () => {
@@ -78,7 +93,7 @@ class Main extends React.Component {
     <Icon
       color='white'
       name='more-vert'
-      onPress={() => {}}
+      onPress={this.props.navigation.openDrawer}
     />
   );
 

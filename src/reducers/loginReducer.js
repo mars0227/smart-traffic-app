@@ -33,7 +33,9 @@ export default function (login = initialState.login, action) {
     case types.LOGIN:
       return handleLogin(login, action);
     case types.SET_EXPO_PUSH_TOKEN_SUCCEEDED:
-      return handleUpdateExpoPushToken(login, action.payload)
+      return handleUpdateExpoPushToken(login, action.payload);
+    case types.LOGOUT:
+      return initialState.login;
     default:
       return login;
   }
