@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import {
   getMyReservationsAction,
   setMyReservationsShowingReservationIdAction
@@ -42,15 +42,6 @@ class MyReservationInConstruction extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between'
-  }
-});
 
 const mapStateToProps = (state) => ({
   login: state.login,

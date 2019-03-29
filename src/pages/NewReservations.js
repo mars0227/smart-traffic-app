@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  StyleSheet,
   View,
   ScrollView
 } from 'react-native';
@@ -63,15 +62,6 @@ class AllReservations extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between'
-  }
-});
 
 const mapStateToProps = (state) => ({
   login: state.login,

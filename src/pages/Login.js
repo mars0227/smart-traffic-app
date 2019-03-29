@@ -9,13 +9,14 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux'
 import { getIdentitiesAction, loginAction } from '../actions';
+import KeepInput from '../components/KeepInput';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       identityIndex: 0,
-      account: '',
+      account: undefined,
       password: '',
       photos: []
     }
@@ -47,21 +48,21 @@ class Login extends React.Component {
         <Text style={styles.title}>Smart Traffic Management</Text>
         <Text style={styles.message}>Sign In</Text>
         <View style={{ flex: 3 }}>
-        <TextInput
-          placeholder='Account'
-          style={styles.input}
-          value={account}
-          keyboardType='email-address'
-          textContentType='username'
-          onChangeText={(value) => this.onInputChange('account', value)}
-        />
-        <TextInput
-          placeholder='Password'
-          style={styles.input}
-          value={password}
-          secureTextEntry={true}
-          textContentType='password'
-          onChangeText={(value) => this.onInputChange('password', value)}
+          <KeepInput
+            placeholder='Account'
+            style={styles.input}
+            value={account}
+            keyboardType='email-address'
+            textContentType='username'
+            onChangeText={(value) => this.onInputChange('account', value)}
+          />
+          <TextInput
+            placeholder='Password'
+            style={styles.input}
+            value={password}
+            secureTextEntry={true}
+            textContentType='password'
+            onChangeText={(value) => this.onInputChange('password', value)}
           />
          </View>
         {login.errMsg

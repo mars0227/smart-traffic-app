@@ -1,6 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import {
-  StyleSheet,
+  ListItem,
+  Divider
+} from 'react-native-elements';
+import {
   View,
   ScrollView
 } from 'react-native';
@@ -9,19 +13,8 @@ import {
   setAllReservationsShowingReservationIdAction,
   getConstructionsAction
 } from '../actions';
-import { connect } from 'react-redux'
-import {
-  ListItem,
-  Divider
-} from 'react-native-elements';
 
 class AllReservations extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
-
   static navigationOptions = {
     title: 'All',
   };
@@ -61,15 +54,6 @@ class AllReservations extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between'
-  }
-});
 
 const mapStateToProps = (state) => ({
   login: state.login,

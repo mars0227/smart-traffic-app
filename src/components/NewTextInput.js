@@ -1,10 +1,10 @@
 import React from 'react';
 import { Input } from 'react-native-elements';
 
-const NewTextInput = ({ title, value, handleInputChange }) => (
+const NewTextInput = ({ title, handleInputChange, ...props }) => (
   <Input
+    {...props}
     label={title}
-    value={value}
     onChangeText={handleInputChange}
   />
 )

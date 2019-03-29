@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
 import React from 'react';
+import { connect } from 'react-redux';
 import { selectTimeSlotAction } from '../actions';
 import SelectList from '../components/SelectList';
 
