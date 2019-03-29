@@ -1,4 +1,8 @@
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
+
+const margin = 20;
+const width = (Dimensions.get('window').width - (margin * 4)) / 2;
 
 const styles = StyleSheet.create({
   container: {
@@ -7,10 +11,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   twoColumeContainer: {
-    flex: 1
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   twoColumeElement: {
-    flex: 0.4,
+    width,
+    margin,
+    height: Math.floor(width / 1.168)
   }
 });
 

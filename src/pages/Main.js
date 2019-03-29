@@ -9,6 +9,7 @@ import {
 } from '../actions'
 import NotificationListener from '../components/NotificationListener';
 import ImageIcon from '../components/ImageIcon';
+import styles from '../styles';
 
 const activeFunc = {
   Vendor: {
@@ -113,27 +114,20 @@ class Main extends React.Component {
     const functions = activeFunc[identity];
 
     return (
-      <View style={styles.container}>
+      <View style={styles.twoColumeContainer}>
         <NotificationListener />
         {Object.keys(functions).map(keys => <ImageIcon
           name={functions[keys].name}
           type={functions[keys].type}
           title={functions[keys].title}
           backgroundColor={functions[keys].backgroundColor}
+          style={styles.twoColumeElement}
           key={keys}
           onPress={() => this.onFunctionPress(functions[keys].page)} />)}
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  }
-});
 
 const mapStateToProps = (state) => ({
   login: state.login,

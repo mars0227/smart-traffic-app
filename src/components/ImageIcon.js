@@ -1,28 +1,27 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { Tile } from 'react-native-elements';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-export default class ImageIcon extends React.Component {
-  render() {
-    const { name, type, title, backgroundColor, onPress } = this.props;
-    return (
-      <Tile
-        containerStyle={{
-          height: 100,
-          marginTop: 30,
-          marginLeft: 20,
-          marginRight: 20,
-          borderColor: 'lightgray',
-          borderWidth: 1,
-        }}
-        width={120}
-        icon={{ name, type, size: 40 }}
-        iconContainerStyle={{ height: 80, width: 120, backgroundColor: backgroundColor }}
+const ImageIcon = ({ name, type, title, backgroundColor, onPress, style }) =>
+  (
+    <TouchableOpacity onPress={onPress} style={{
+      ...style,
+      borderColor: 'lightgray',
+      borderWidth: 1
+    }}>
+      <View
         onPress={onPress}
-        titleStyle={{display: 'none'}}
-      >
-        <Text style={{ textAlign: 'center', fontSize: 12 }}>{title}</Text>
-      </Tile>
-    )
-  }
-}
+        style={{
+          backgroundColor,
+          flex: 3,
+          justifyContent: 'center',
+        }}>
+        <Icon name={name} type={type} size={40} color='white' />
+      </View>
+      <View onPress={onPress} style={{ flex: 1, justifyContent: 'center' }}>
+        <Text style={{ textAlign: 'center', fontSize: 14 }}>{title}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+export default ImageIcon;
