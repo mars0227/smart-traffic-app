@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import {
   getMyReservationsAction,
   setMyReservationsShowingReservationIdAction
@@ -27,7 +27,7 @@ class MyReservationInConstruction extends React.Component {
     );
 
     return (
-      <View>
+      <ScrollView>
         {reservationList.map((item, index) =>
           <ListItem
             key={index}
@@ -38,7 +38,7 @@ class MyReservationInConstruction extends React.Component {
             onPress={() => this.handleSelectReservation(item.reservation_id)}
           />
         )}
-      </View>
+      </ScrollView>
     );
   }
 }
