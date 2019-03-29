@@ -9,15 +9,19 @@ const reservationState = [
 ];
 
 export default function (allReservations = initialState.allReservations, action) {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case types.GET_ALL_RESERVATIONS_SUCCEEDED:
-      return { ...allReservations, data: action.payload };
+      return { ...allReservations, data: payload };
+    case types.SET_RESERVATION_BY_NOTIFICATION:
+      if (allReservations.data.length === 0) return allReservations;
+      return { ...allReservations, data: [...allReservations.data, payload] };
     case types.SET_ALL_RESERVATIONS_FILTER:
-      return { ...allReservations, filterBy: action.payload };
+      return { ...allReservations, filterBy: payload };
     case types.SET_ALL_RESERVATIONS_SHOWING_RESERVATION_ID:
-      return { ...allReservations, showingReservationId: action.payload };
+      return { ...allReservations, showingReservationId: payload };
     case types.UPDATE_RESERVATION_SUCCEEDED:
-      const { reservationId, state } = action.payload;
+      const { reservationId, state } = payload;
       const { data, showingReservationId } = allReservations;
       if (showingReservationId === reservationId) {
         return {

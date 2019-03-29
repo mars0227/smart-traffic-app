@@ -32,7 +32,6 @@ export function* loginSaga({ payload }) {
 
 export function* setExpoPushTokenSaga({ payload }) {
   try {
-    console.warn('get payload', payload);
     yield put({ type: types.FETCHING });
     const res = yield call(setExpoPushToken, payload);
     yield put({ type: types.FETCH_COMPLETE});

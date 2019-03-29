@@ -8,7 +8,6 @@ import {
 import { ListItem, Icon, Button } from 'react-native-elements';
 import { isEmpty } from '../utils/utils';
 import ImageView from '../components/ImageView';
-import NotificationListener from '../components/NotificationListener';
 
 const inputList = [
   {
@@ -119,7 +118,6 @@ class CreateReservation extends React.Component {
     const { navigation, createReservation } = this.props;
     return (
       <View style={styles.container}>
-        <NotificationListener />
         <View style={styles.list}>
           {inputList.map((item, index) =>
             <ListItem

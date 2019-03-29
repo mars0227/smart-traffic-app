@@ -9,7 +9,6 @@ import {
 } from '../actions';
 import { connect } from 'react-redux'
 import { ListItem } from 'react-native-elements';
-import NotificationListener from '../components/NotificationListener';
 
 class MyReservations extends React.Component {
   static navigationOptions = {
@@ -49,7 +48,6 @@ class MyReservations extends React.Component {
 
     return (
       <View style={styles.container}>
-        <NotificationListener />
         {locationList.map((item, index) =>
           <ListItem
             key={index}

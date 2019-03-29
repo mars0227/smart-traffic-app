@@ -97,9 +97,13 @@ const CustomContentComponentContainer = connect(
 const DrawerNavigator = createDrawerNavigator({
     Logout: {
       screen: StackNavigator,
+      navigationOptions: () => ({
+        drawerLockMode: 'locked-closed'
+      })
     }
   }, {
     drawerPosition: 'right',
+    drawerType: 'slide',
     contentComponent: CustomContentComponentContainer
   }
 );

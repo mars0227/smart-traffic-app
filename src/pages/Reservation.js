@@ -6,7 +6,6 @@ import {
 } from '../actions';
 import { ListItem } from 'react-native-elements';
 import ImageView from '../components/ImageView';
-import NotificationListener from '../components/NotificationListener';
 import { route } from '../apis/api';
 
 const inputList = [
@@ -175,7 +174,6 @@ class Reservation extends React.Component {
 
     return (
       <View style={styles.container}>
-        <NotificationListener />
         <View style={styles.list} >
           {inputList.map((item, index) =>
             <ListItem

@@ -105,3 +105,13 @@ export const showNotificationSucceededAction = () => ({
 export const logoutAction = () => ({
   type: types.LOGOUT
 });
+
+export const updateReservationByNotificaitonAction = payload => ({
+  type: types.UPDATE_RESERVATION_BY_NOTIFICATION,
+  payload
+});
+
+export const setReservationByNotificationAction = payload => ({
+  type: types.SET_RESERVATION_BY_NOTIFICATION,
+  payload
+});

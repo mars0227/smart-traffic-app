@@ -3,18 +3,49 @@ import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux'
 import {
   getNotificationAction,
-  showNotificationSucceededAction
+  showNotificationSucceededAction,
+  setReservationByNotificationAction,
+  updateReservationByNotificaitonAction
 } from '../actions'
 import { Notifications } from 'expo';
 import { Overlay, Button, Text, Divider } from 'react-native-elements';
 
+const convertReservationId = id => typeof id === 'string' ? Number(id) : id;
+
+const modifyPayload = payload => {
+  const { reservationId, ...data } = payload;
+  return { reservationId: convertReservationId(reservationId), ...data };
+}
 class NotificationListener extends React.Component {
   componentDidMount() {
     this.notificationSubscription = Notifications.addListener(this.handleNotification);
   }
 
   handleNotification = notification => {
-    this.props.handleGetNotification(notification);
+    const {
+      handleGetNotification,
+      handleSetReservation,
+      handleUpdateReservation
+    } = this.props;
+    const {
+      type,
+      data
+    } = notification.data;
+
+    handleGetNotification(notification);
+
+    const payload = modifyPayload(data);
+
+    switch (type) {
+      case 'newReservation':
+        handleSetReservation(payload);
+        break;
+      case 'updateReservation':
+        handleUpdateReservation(payload);
+        break;
+      default:
+        break;
+    }
   };
 
   handleCloseOverlay = () => {
@@ -52,12 +83,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   login: state.login,
-  notification: state.notification
+  notification: state.notification,
+  myReservations: state.myReservations
 });
 
 const mapDispatchToProps = dispatch => ({
   handleGetNotification: payload => dispatch(getNotificationAction(payload)),
-  handleShowNotificationSucceeded: () => dispatch(showNotificationSucceededAction())
+  handleShowNotificationSucceeded: () => dispatch(showNotificationSucceededAction()),
+  handleSetReservation: payload => dispatch(setReservationByNotificationAction(payload)),
+  handleUpdateReservation: payload => dispatch(updateReservationByNotificaitonAction(payload))
 });
 
 export default connect(
