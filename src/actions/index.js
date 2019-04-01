@@ -115,3 +115,7 @@ export const setReservationByNotificationAction = payload => ({
   type: types.SET_RESERVATION_BY_NOTIFICATION,
   payload
 });
+
+export const getMonitorViewAction = () => ({
+  type: types.GET_MONITOR_VIEW
+});

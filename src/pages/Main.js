@@ -34,6 +34,7 @@ const activeFunc = {
       name: 'device-camera-video',
       type: 'octicon',
       backgroundColor: 'darksalmon',
+      page: 'MonitorView'
     }
   }
 };

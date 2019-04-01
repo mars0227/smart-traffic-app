@@ -36,5 +36,10 @@ export default {
     origin: '',
     data: '',
     enableOverlay: false
+  },
+  monitor: {
+    image: '',
+    carNumber: 0,
+    errMsg: ''
   }
 };

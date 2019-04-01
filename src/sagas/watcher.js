@@ -12,6 +12,7 @@ import {
   getAllReservationsSaga,
   updateReservationSaga
 } from './reservationSaga';
+import { getMonitorViewSaga } from './monitorSaga';
 
 export function* watchLogin() {
   yield takeLatest(types.LOGIN, loginSaga);
@@ -44,3 +45,7 @@ export function* watchUpdateReservation() {
 export function* watchSetExpoPushToken() {
   yield takeLatest(types.SET_EXPO_PUSH_TOKEN, setExpoPushTokenSaga);
 };
+
+export function* watchGetMonitorView() {
+  yield takeLatest(types.GET_MONITOR_VIEW, getMonitorViewSaga);
+}

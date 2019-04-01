@@ -7,6 +7,7 @@ import createReservation from './createReservationReducer';
 import allReservations from './allReservationReducer';
 import updateReservation from './updateReservationReducer';
 import notification from './notificationReducer';
+import monitor from './monitorReducer';
 
 // will be store key name
 const appReducer = combineReducers({
@@ -17,7 +18,8 @@ const appReducer = combineReducers({
   createReservation,
   allReservations,
   updateReservation,
-  notification
+  notification,
+  monitor
 });
 
 const rootReducer = (state, action) => {

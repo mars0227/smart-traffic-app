@@ -43,7 +43,7 @@ class MyReservationInConstruction extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   login: state.login,
   myReservations: state.myReservations,
   constructions: state.constructions

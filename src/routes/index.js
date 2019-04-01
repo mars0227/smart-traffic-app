@@ -12,6 +12,7 @@ import LicensePlateNumberInput from '../pages/LicensePlateNumberInput';
 import MaterialInput from '../pages/MaterialInput';
 import MyReservationInConstruction from '../pages/MyReservationInConstruction';
 import CameraView from '../pages/CameraView';
+import MonitorView from '../pages/MonitorView';
 import {
   createStackNavigator,
   createAppContainer,
@@ -66,6 +67,9 @@ const StackNavigator = createStackNavigator(
     CameraView: {
       screen: CameraView,
       navigationOptions: () => ({ header: null })
+    },
+    MonitorView: {
+      screen: MonitorView
     }
   },
   {
