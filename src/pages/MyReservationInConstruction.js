@@ -1,19 +1,12 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
 import {
   getMyReservationsAction,
   setMyReservationsShowingReservationIdAction
 } from '../actions';
 import { connect } from 'react-redux'
-import { ListItem } from 'react-native-elements';
+import List from '../components/List';
 
 class MyReservationInConstruction extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
-
   handleSelectReservation = reservationId => {
     this.props.handleSetMyReservationsShowingReservationId(reservationId);
     this.props.navigation.navigate('Reservation');
@@ -24,21 +17,18 @@ class MyReservationInConstruction extends React.Component {
     const construction = myReservations.filterBy;
     const reservationList = myReservations.data.filter(item =>
       item.construction_id === constructions.indexOf(construction) + 1
-    );
+    ).map(item => ({
+      key: item.reservation_id,
+      title: `${item.reservation_id}`,
+      subtitle: `${item.date} ${item.material}`
+    }));
 
     return (
-      <ScrollView>
-        {reservationList.map((item, index) =>
-          <ListItem
-            key={index}
-            title={`${item.reservation_id}`}
-            style={{height: 50}}
-            chevron
-            subtitle={`${item.date} ${item.material}`}
-            onPress={() => this.handleSelectReservation(item.reservation_id)}
-          />
-        )}
-      </ScrollView>
+      <List
+        list={reservationList}
+        chevron
+        handlePress={this.handleSelectReservation.bind(this)}
+      />
     );
   }
 }

@@ -7,6 +7,7 @@ import {
 import { ListItem } from 'react-native-elements';
 import ImageView from '../components/ImageView';
 import { route } from '../apis/api';
+import styles from '../styles';
 
 const inputList = [
   {
@@ -173,22 +174,23 @@ class Reservation extends React.Component {
     const reservation = this.getReservationById();
 
     return (
-      <View style={styles.container}>
-        <View style={styles.list} >
+      <View style={customStyles.container}>
+        <View style={customStyles.list} >
           {inputList.map((item, index) =>
             <ListItem
               key={index}
               title={item.title}
-              style={{height: 50}}
+              style={styles.listItem}
               subtitle={this.getSubtitle(item.title)}
+              subtitleStyle={styles.listItemSubtitle}
             />
           )}
           <ImageView
-            style={styles.image}
+            style={customStyles.image}
             uri={`${pictureUrl}/${reservation.reservation_id}.jpg`}
           />
         </View>
-        <View style={styles.button}>
+        <View style={customStyles.button}>
           {this.getButton()}
         </View>
       </View>
@@ -196,7 +198,7 @@ class Reservation extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const customStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between'
@@ -210,17 +212,7 @@ const styles = StyleSheet.create({
   image: {
     width: 120,
     height: 80
-  },
-  pictureContainer: {
-    flex: 1,
-    flexDirection: 'row'
-  },
-  headerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    zIndex: 1
-  },
+  }
 });
 
 const mapStateToProps = (state) => ({

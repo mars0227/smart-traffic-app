@@ -1,15 +1,13 @@
 import React from 'react';
-import { TextInput, AsyncStorage } from 'react-native';
+import { Input } from 'react-native-elements';
+import { AsyncStorage } from 'react-native';
 
-export default class KeepInput extends React.Component {
+export default class KeepInputWithTitle extends React.Component {
   async componentDidMount() {
     const { name, placeholder, onChangeText } = this.props;
     let key = name || placeholder;
     const defaultValue = await AsyncStorage.getItem(key);
-
-    if (defaultValue) {
-      onChangeText(defaultValue);
-    }
+    onChangeText(defaultValue);
   }
 
   handleInputChange = value => {
@@ -20,10 +18,13 @@ export default class KeepInput extends React.Component {
   }
 
   render() {
+    const { title, ...props } = this.props;
+
     return (
-      <TextInput
+      <Input
         selectTextOnFocus={true}
-        {...this.props}
+        {...props}
+        label={title}
         onChangeText={this.handleInputChange.bind(this)}
       />
     )

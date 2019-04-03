@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Modal, TouchableHighlight, StyleSheet } from 'react-native';
-import { Icon, Image } from 'react-native-elements';
+import { View, Modal, TouchableHighlight, StyleSheet, Image } from 'react-native';
+import { Icon } from 'react-native-elements';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import LoadingIcon from './LoadingIcon';
 
 export default class ImageView extends React.Component {
   constructor(props) {
@@ -21,6 +20,7 @@ export default class ImageView extends React.Component {
 
   render() {
     const { uri, style } = this.props;
+    const { width, height } = style;
     return (
       <View style={style}>
         <Modal
@@ -44,14 +44,13 @@ export default class ImageView extends React.Component {
           />
         </Modal>
         <TouchableHighlight
+          style={style}
           onPress={this.setModalVisible}>
           <Image
-            style={{...style, ...styles.image}}
+            style={{width, height, ...styles.image}}
             source={{ uri }}
             resizeMode='contain'
-            PlaceholderContent={
-              <LoadingIcon />
-            }
+            progressiveRenderingEnabled={true}
           />
         </TouchableHighlight>
       </View>

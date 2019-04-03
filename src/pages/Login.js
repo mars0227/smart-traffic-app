@@ -1,15 +1,18 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text,
-  TextInput,
   Button,
   KeyboardAvoidingView,
   View
 } from 'react-native';
+import {
+  Text,
+  Input
+} from 'react-native-elements';
 import { connect } from 'react-redux'
 import { getIdentitiesAction, loginAction } from '../actions';
-import KeepInput from '../components/KeepInput';
+import KeepInputWithTitle from '../components/KeepInputWithTitle';
+import defutlStyle from '../styles';
 
 class Login extends React.Component {
   constructor(props) {
@@ -45,34 +48,39 @@ class Login extends React.Component {
     const { identities, login } = this.props;
     return (
       <KeyboardAvoidingView style={styles.container} behavior='padding'>
-        <Text style={styles.title}>Smart Traffic Management</Text>
-        <Text style={styles.message}>Sign In</Text>
-        <View style={{ flex: 3 }}>
-          <KeepInput
-            placeholder='Account'
-            style={styles.input}
-            value={account}
-            keyboardType='email-address'
-            textContentType='username'
-            onChangeText={(value) => this.onInputChange('account', value)}
-          />
-          <TextInput
-            placeholder='Password'
-            style={styles.input}
-            value={password}
-            secureTextEntry={true}
-            textContentType='password'
-            onChangeText={(value) => this.onInputChange('password', value)}
-          />
-         </View>
-        {login.errMsg
-          ? <Text style={styles.errorMessage}>{login.errMsg}</Text>
-          : null
-        }
-        <View style={{ flex: 3 }}>
-          <Button color='royalblue' onPress={() => this.props.handleLogin({account, password, identity: identities[identityIndex]})}
-            title="Sign in"
-          />
+        <View style={styles.titleContainer}>
+          <Text h4 style={defutlStyle.text}>Smart Traffic Management</Text>
+        </View>
+        <View style={styles.loginContainer}>
+          <View style={styles.loginBorder}>
+            <View style={styles.inputContainer} >
+              <KeepInputWithTitle
+                placeholder='Account'
+                value={account}
+                keyboardType='email-address'
+                textContentType='username'
+                onChangeText={(value) => this.onInputChange('account', value)}
+              />
+              <Input
+                placeholder='Password'
+                value={password}
+                secureTextEntry={true}
+                textContentType='password'
+                onChangeText={(value) => this.onInputChange('password', value)}
+              />
+              {login.errMsg
+                ? <Text style={styles.errorMessage}>{login.errMsg}</Text>
+                : null
+              }
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                color='royalblue'
+                onPress={() => this.props.handleLogin({ account, password, identity: identities[identityIndex] })}
+                title="Sign in"
+              />
+            </View>
+          </View>
         </View>
       </KeyboardAvoidingView>
     );
@@ -82,41 +90,33 @@ class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40
   },
-  title: {
-    textAlign: 'center',
-    fontSize: 18,
+  titleContainer: {
     flex: 1,
+    justifyContent: 'center',
   },
-  message: {
-    color: 'green',
-    textAlign: 'center',
-    fontSize: 16,
-    flex: 1,
+  loginContainer: {
+    flex: 2,
   },
-  input: {
-    height: 30,
+  loginBorder: {
     width: 200,
-    borderColor: 'lightgray',
+    height: 400,
+    borderRadius: 10,
+    borderColor: 'white',
     borderWidth: 1,
-    margin: 10,
-    paddingLeft: 10,
+    justifyContent: 'space-around'
+  },
+  inputContainer: {
+    flex: 1,
+  },
+  buttonContainer: {
+    flex: 1,
   },
   errorMessage: {
-    color: 'red',
     textAlign: 'center',
-    fontSize: 12,
-    height: 20,
-    margin: 10,
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
+    color: 'red',
+  }
 });
 
 const mapStateToProps = (state) => ({

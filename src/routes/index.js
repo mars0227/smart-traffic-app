@@ -21,6 +21,8 @@ import {
 } from "react-navigation";
 import { connect } from 'react-redux';
 import { logoutAction } from '../actions';
+import IOSFont from '../pages/ISOFont';
+import AndroidFont from '../pages/AndroidFont';
 
 const StackNavigator = createStackNavigator(
   {
@@ -70,6 +72,12 @@ const StackNavigator = createStackNavigator(
     },
     MonitorView: {
       screen: MonitorView
+    },
+    IOSFont: {
+      screen: IOSFont
+    },
+    AndroidFont: {
+      screen: AndroidFont
     }
   },
   {

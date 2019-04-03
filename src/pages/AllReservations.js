@@ -1,18 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import {
-  ListItem,
-  Divider
-} from 'react-native-elements';
-import {
-  View,
-  ScrollView
-} from 'react-native';
-import {
   getAllReservationsAction,
   setAllReservationsShowingReservationIdAction,
   getConstructionsAction
 } from '../actions';
+import List from '../components/List';
 
 class AllReservations extends React.Component {
   static navigationOptions = {
@@ -27,7 +20,8 @@ class AllReservations extends React.Component {
     }
   }
 
-  handleSelectReservation = reservationId => {
+  handleSelectReservation = key => {
+    const reservationId = key;
     this.props.handleSetAllReservationsShowingReservationId(reservationId);
     this.props.navigation.navigate('Reservation');
   };
@@ -35,22 +29,18 @@ class AllReservations extends React.Component {
   render() {
     const { allReservations, constructions } = this.props;
 
+    const reservationList = allReservations.data.map(item => ({
+      key: item.reservation_id,
+      title: constructions[item.construction_id - 1],
+      subtitle: `${item.date} ${item.time_slot} ${item.creater_name} ${item.material}`
+    }));
+
     return (
-      <ScrollView>
-        {allReservations.data.map((item, index) =>
-          <View key={index}>
-            <ListItem
-              key={index}
-              title={constructions[item.construction_id - 1]}
-              style={{height: 50}}
-              chevron
-              subtitle={`${item.date} ${item.time_slot} ${item.creater_name} ${item.material}`}
-              onPress={() => this.handleSelectReservation(item.reservation_id)}
-            />
-            <Divider />
-          </View>
-        )}
-      </ScrollView>
+      <List
+        list={reservationList}
+        chevron
+        handlePress={this.handleSelectReservation.bind(this)}
+      />
     );
   }
 }

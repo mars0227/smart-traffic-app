@@ -123,7 +123,8 @@ class CreateReservation extends React.Component {
             <ListItem
               key={index}
               title={item.title}
-              style={{height: 50}}
+              style={styles.listItem}
+              subtitleStyle={styles.listItemSubtitle}
               chevron
               subtitle={this.getSubtitle(item.title)}
               onPress={() => navigation.navigate(item.page)}
@@ -174,11 +175,19 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 120,
-    height: 80
+    height: 80,
+    margin: 10
   },
   pictureContainer: {
     flex: 1,
     flexDirection: 'row'
+  },
+  listItem: {
+    height: 50,
+    margin: 5
+  },
+  listItemSubtitle: {
+    color: 'slategray'
   }
 });
 

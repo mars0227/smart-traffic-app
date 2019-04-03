@@ -1,8 +1,9 @@
-import { KeyboardAvoidingView, Button, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Button } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
 import { setLicensePlateNumberAction } from '../actions';
-import NewTextInput from '../components/NewTextInput';
+import KeepInputWithTitle from '../components/KeepInputWithTitle';
+import styles from '../styles';
 
 class LicensePlateNumberInput extends React.Component {
   constructor(props) {
@@ -52,23 +53,17 @@ class LicensePlateNumberInput extends React.Component {
   render() {
     const { ln } = this.state;
     return (
-      <KeyboardAvoidingView style={styles.container} behavior='position'>
-        <NewTextInput
+      <KeyboardAvoidingView style={styles.centerContainer} behavior='position'>
+        <KeepInputWithTitle
+          name='licensePlateNumber'
           title={'License Plate Number '}
           value={ln}
-          handleInputChange={this.handleInputChange}
+          onChangeText={this.handleInputChange}
         />
       </KeyboardAvoidingView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
 
 const mapStateToProps = (state) => ({
   createReservation: state.createReservation
