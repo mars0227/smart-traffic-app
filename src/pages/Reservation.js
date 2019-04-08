@@ -9,24 +9,6 @@ import ImageView from '../components/ImageView';
 import { route } from '../apis/api';
 import styles from '../styles';
 
-const inputList = [
-  {
-    title: 'Location',
-  },
-  {
-    title: 'Date',
-  },
-  {
-    title: 'Time Slot',
-  },
-  {
-    title: 'License plate number',
-  },
-  {
-    title: 'Materials',
-  },
-];
-
 const reservationState = [
   'Created',
   'Accepted',
@@ -170,16 +152,60 @@ class Reservation extends React.Component {
     });
   }
 
+  getBadge = payload => {
+    const { login, allReservations } = this.props;
+    const { identity } = login.userInfo;
+    if (identity === 'Manager' && payload) {
+      const { timeSlot = null, date = null} = payload;
+
+      const filteredArray = allReservations.data.filter(
+        reservation =>
+          (reservation.date === date
+            && reservation.time_slot === timeSlot
+            && reservation.state === reservationState.indexOf('Accepted') + 1)
+      );
+
+      return {
+        value: filteredArray.length,
+        status: 'primary'
+      };
+    }
+
+    return null;
+  }
+
   render() {
     const reservation = this.getReservationById();
+    const { date, time_slot: timeSlot } = reservation;
+    const badge = this.getBadge({ date, timeSlot });
+
+    const inputList = [
+      {
+        title: 'Location',
+      },
+      {
+        title: 'Date',
+      },
+      {
+        title: 'Time Slot',
+        rightTitle: 'Booked',
+        badge
+      },
+      {
+        title: 'License plate number',
+      },
+      {
+        title: 'Materials',
+      },
+    ];
 
     return (
       <View style={customStyles.container}>
         <View style={customStyles.list} >
           {inputList.map((item, index) =>
             <ListItem
+              {...item}
               key={index}
-              title={item.title}
               style={styles.listItem}
               subtitle={this.getSubtitle(item.title)}
               subtitleStyle={styles.listItemSubtitle}
