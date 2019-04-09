@@ -23,6 +23,7 @@ import { connect } from 'react-redux';
 import { logoutAction } from '../actions';
 import IOSFont from '../pages/ISOFont';
 import AndroidFont from '../pages/AndroidFont';
+import WeekCalendar from '../pages/WeekCalendar';
 
 const StackNavigator = createStackNavigator(
   {
@@ -78,6 +79,9 @@ const StackNavigator = createStackNavigator(
     },
     AndroidFont: {
       screen: AndroidFont
+    },
+    WeekCalendar: {
+      screen: WeekCalendar
     }
   },
   {

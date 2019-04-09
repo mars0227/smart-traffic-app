@@ -2,14 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { selectTimeSlotAction } from '../actions';
 import SelectList from '../components/SelectList';
-
-const timeSlot = [
-  '8:00 - 10:00',
-  '10:00 - 12:00',
-  '12:00 - 14:00',
-  '14:00 - 16:00',
-  '16:00 - 18:00'
-];
+import { timeSlot } from '../constants';
 
 class TimeSlotPicker extends React.Component {
   static navigationOptions = { title: 'Select Time Slot' };

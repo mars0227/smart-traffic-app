@@ -35,6 +35,13 @@ const activeFunc = {
       type: 'octicon',
       backgroundColor: 'darksalmon',
       page: 'MonitorView'
+    },
+    schedule: {
+      title: 'Schedule',
+      name: 'calendar',
+      type: 'octicon',
+      backgroundColor: 'violet',
+      page: 'Calendar'
     }
   }
 };

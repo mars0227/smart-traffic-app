@@ -34,6 +34,8 @@ class AllReservations extends React.Component {
       title: constructions[item.construction_id - 1],
       subtitle: `${item.date} ${item.time_slot} ${item.creater_name} ${item.material}`
     }));
+    console.log('allReservations');
+    console.log(allReservations);
 
     return (
       <List

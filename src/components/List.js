@@ -18,6 +18,7 @@ const List = ({list, handlePress, ...props}) => (
           title={item.title}
           subtitle={item.subtitle}
           style={styles.listItem}
+          leftAvatar={item.leftAvatar}
           subtitleStyle={styles.listItemSubtitle}
           onPress={() => handlePress(item.key)}
           {...props}

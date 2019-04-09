@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     height: 100
   },
   listItem: {
-    height: 50,
+    flex: 1,
     margin: 5
   },
   listItemSubtitle: {

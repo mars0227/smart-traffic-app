@@ -119,3 +119,8 @@ export const setReservationByNotificationAction = payload => ({
 export const getMonitorViewAction = () => ({
   type: types.GET_MONITOR_VIEW
 });
+
+export const setCalendarLocationAction = payload => ({
+  type: types.SET_CALENDAR_LOCATION,
+  payload
+});
