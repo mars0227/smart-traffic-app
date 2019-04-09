@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux'
 import { Permissions, Notifications } from 'expo';
 import { Icon } from 'react-native-elements';
@@ -35,13 +35,6 @@ const activeFunc = {
       type: 'octicon',
       backgroundColor: 'darksalmon',
       page: 'MonitorView'
-    },
-    schedule: {
-      title: 'Schedule',
-      name: 'calendar',
-      type: 'octicon',
-      backgroundColor: 'violet',
-      page: 'Calendar'
     }
   }
 };

@@ -49,12 +49,19 @@ class WeekCalendar extends React.Component {
 
   renderTitle = (reservation = {}) => (
     <View style={defutlStyle.twoColumeContainer}>
-      {Object.entries(reservation).map(([key, value], index) => (
-        <View key={index} style={{flexDirection: 'row', margin: 5}}>
-          <Text>{key} </Text>
-          <Badge value={value.length} />
-        </View>
-      ))}
+      {Object.entries(reservation).map(([key, value], index) => {
+        const waiting = value.reduce( (pre, cur) => (cur.state === 1 ? pre + 1 : pre),0);
+        const accepted = value.reduce( (pre, cur) => (cur.state === 2 ? pre + 1 : pre),0);
+        const rejected = value.reduce( (pre, cur) => (cur.state === 3 ? pre + 1 : pre),0);
+        return (
+          <View key={index} style={{ flexDirection: 'row', margin: 5 }}>
+            <Text>{key} </Text>
+            {waiting > 0 && <Badge value={waiting} status='warning' />}
+            {accepted > 0 && <Badge value={accepted} status='primary' />}
+            {rejected > 0 && <Badge value={rejected} status='error' />}
+          </View>
+        );
+      })}
     </View>
   );
 
@@ -81,8 +88,8 @@ class WeekCalendar extends React.Component {
     };
     const fullWeek = this.weekArray(thisWeek.from);
     const liteReservations = allReservations.data.map(item => {
-      const { reservation_id, date, time_slot } = item;
-      return { reservation_id, date, time_slot };
+      const { reservation_id, date, time_slot, state } = item;
+      return { reservation_id, date, time_slot, state };
     });
 
     const combineReservation = liteReservations.reduce((pre, cur) => {
@@ -106,14 +113,13 @@ class WeekCalendar extends React.Component {
       }, {});
 
     const thisWeekRes = this.filterThisWeek({ from: thisWeek.from, object: combineByTime });
-
-    const list = fullWeek.map((date, index) => {
-      return {
+    const list = fullWeek.map((date, index) => (
+      {
         leftAvatar: <DayView title={date.split('/')[0]} subTitle={weekAbbreviation[index]} />,
         title: this.renderTitle(thisWeekRes[index]),
         key: index,
-      }
-    });
+      })
+    );
 
     return (
       <View style={styles.container}>
@@ -127,7 +133,7 @@ class WeekCalendar extends React.Component {
             buttonStyle={{backgroundColor: 'royalblue'}}
             onPress={() => this.setState({weekPlus: weekPlus - 1})}
           />
-          <Text style={{color: 'white', fontSize: 20}}>{`${thisWeek.from} ~ ${thisWeek.to}`}</Text>
+          <Text style={{color: 'white', fontSize: 18}}>{`${thisWeek.from} ~ ${thisWeek.to}`}</Text>
           <Button
             icon={{
               name: 'chevron-right',
@@ -138,7 +144,21 @@ class WeekCalendar extends React.Component {
             onPress={() => this.setState({weekPlus: weekPlus + 1})}
           />
         </View>
-        <List list={list} handlePress={() => console.warn('onPress')}/>
+        <List list={list} handlePress={() => console.warn('onPress')} />
+        <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Badge status='warning' />
+            <Text> Need Review</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Badge status='primary' />
+            <Text> Accepted</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Badge status='error' />
+            <Text> Rejected</Text>
+          </View>
+        </View>
       </View>
     );
   }
