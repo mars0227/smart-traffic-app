@@ -11,7 +11,7 @@ import {
 } from './libs/fetch';
 
 export const route = __DEV__
-  ? 'http://127.0.0.1:3002'
+  ? 'http://172.20.10.3:3002'
   : 'http://www.itrackcon.com/stserver'; //vircon server
 
 

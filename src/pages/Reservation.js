@@ -161,9 +161,15 @@ class Reservation extends React.Component {
   }
 
   render() {
-    const { reservation } = this.props;
+    const { reservation, login } = this.props;
     const { date, time_slot: timeSlot, reservation_id: reservationId } = reservation.data;
     const badge = this.getBadge({ date, timeSlot });
+    const bookedInfo = badge
+      ? {
+        rightTitle: 'Booked',
+        badge
+      }
+      : {};
 
     const inputList = [
       {
@@ -174,8 +180,7 @@ class Reservation extends React.Component {
       },
       {
         title: 'Time Slot',
-        rightTitle: 'Booked',
-        badge
+        ...bookedInfo
       },
       {
         title: 'License plate number',
@@ -184,8 +189,6 @@ class Reservation extends React.Component {
         title: 'Materials',
       },
     ];
-
-    console.log('re', reservation);
 
     return (
       <View style={customStyles.container}>

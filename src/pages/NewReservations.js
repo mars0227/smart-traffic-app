@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   getAllReservationsAction,
-  setAllReservationsShowingReservationIdAction,
+  setReservationAction,
   getConstructionsAction
 } from '../actions';
 import { connect } from 'react-redux'
@@ -27,9 +27,15 @@ class AllReservations extends React.Component {
   }
 
   handleSelectReservation = key => {
+    const {
+      allReservations,
+      handleSetReservation,
+      navigation
+    } = this.props;
     const reservationId = key;
-    this.props.handleSetAllReservationsShowingReservationId(reservationId);
-    this.props.navigation.navigate('Reservation');
+    const reservation = allReservations.data.filter(reservation => reservation.reservation_id === reservationId)[0];
+    handleSetReservation(reservation);
+    navigation.navigate('Reservation');
   };
 
   render() {
@@ -53,7 +59,6 @@ class AllReservations extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  login: state.login,
   allReservations: state.allReservations,
   constructions: state.constructions
 });
@@ -61,7 +66,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   handleGetConstructions: () => dispatch(getConstructionsAction()),
   handleGetAllReservations: payload => dispatch(getAllReservationsAction(payload)),
-  handleSetAllReservationsShowingReservationId: payload => dispatch(setAllReservationsShowingReservationIdAction(payload))
+  handleSetReservation: payload => dispatch(setReservationAction(payload))
 });
 
 export default connect(

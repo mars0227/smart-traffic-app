@@ -10,7 +10,6 @@ import DatePicker from '../pages/DatePicker';
 import TimeSlotPicker from '../pages/TimeSlotPicker';
 import LicensePlateNumberInput from '../pages/LicensePlateNumberInput';
 import MaterialInput from '../pages/MaterialInput';
-import MyReservationInConstruction from '../pages/MyReservationInConstruction';
 import CameraView from '../pages/CameraView';
 import MonitorView from '../pages/MonitorView';
 import {
@@ -61,9 +60,6 @@ const StackNavigator = createStackNavigator(
     },
     MaterialInput: {
       screen: MaterialInput
-    },
-    MyReservationInConstruction: {
-      screen: MyReservationInConstruction
     },
     Reservation: {
       screen: Reservation

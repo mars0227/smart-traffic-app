@@ -24,6 +24,23 @@ const DayView = ({ title, subTitle }) => (
   </View>
 );
 
+const BadgeInfo = () => (
+  <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Badge status='warning' />
+      <Text> Need Review</Text>
+    </View>
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Badge status='primary' />
+      <Text> Accepted</Text>
+    </View>
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Badge status='error' />
+      <Text> Rejected</Text>
+    </View>
+  </View>
+);
+
 class WeekCalendar extends React.Component {
   constructor(props) {
     super(props);
@@ -72,8 +89,10 @@ class WeekCalendar extends React.Component {
   }
 
   handlePartialReservationsPress = payload => {
-    this.props.handleSetPartialReservations(payload);
-    this.props.navigation.navigate('PartialReservations');
+    if (payload && payload.length > 0) {
+      this.props.handleSetPartialReservations(payload);
+      this.props.navigation.navigate('PartialReservations');
+    }
   }
 
   render() {
@@ -93,8 +112,6 @@ class WeekCalendar extends React.Component {
 
     const reservationsOfThisWeek = this.filterThisWeek({ from: thisWeek.from, object: combinedReservationsByDay });
 
-    console.log('reservationsOfThisWeek', reservationsOfThisWeek);
-
     const combinedReservationsByTime = reservationsOfThisWeek
       .map((reservations = []) => (
         reservations.reduce((pre, cur) => {
@@ -104,13 +121,15 @@ class WeekCalendar extends React.Component {
         }, {}))
       );
 
-    const list = combinedReservationsByTime.map((reservations, index) => (
+    const list = [...combinedReservationsByTime.map((reservations, index) => (
       {
         leftAvatar: <DayView title={fullWeek[index].split('/')[0]} subTitle={weekAbbreviation[index]} />,
         title: this.renderTitle(reservations),
         key: index,
       })
-    );
+    ),
+      { customComponent: <BadgeInfo key={100}/> }
+    ];
 
     return (
       <View style={styles.container}>
@@ -136,20 +155,6 @@ class WeekCalendar extends React.Component {
           />
         </View>
         <List list={list} handlePress={(key) => { this.handlePartialReservationsPress(reservationsOfThisWeek[key]) }} />
-        <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Badge status='warning' />
-            <Text> Need Review</Text>
-          </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Badge status='primary' />
-            <Text> Accepted</Text>
-          </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Badge status='error' />
-            <Text> Rejected</Text>
-          </View>
-        </View>
       </View>
     );
   }

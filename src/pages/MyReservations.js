@@ -5,7 +5,8 @@ import {
   getMyReservationsAction,
   getConstructionsAction,
   setMyReservationFilterAction,
-  cleanCreateReservationAction
+  cleanCreateReservationAction,
+  setPartialReservationsAction
 } from '../actions';
 import { connect } from 'react-redux'
 import { ListItem } from 'react-native-elements';
@@ -36,25 +37,33 @@ class MyReservations extends React.Component {
     this.props.navigation.navigate('CreateReservation');
   }
 
-  handleSelectConstruction = construction => {
-    this.props.handleSetMyReservationFilter(construction);
-    this.props.navigation.navigate('MyReservationInConstruction');
+  handleSelectConstruction = constructionId => {
+    const {
+      myReservations,
+      handleSetPartialReservations,
+      navigation
+    } = this.props;
+    const payload = myReservations.data.filter(
+      reservation => ( reservation.construction_id === constructionId )
+    );
+    handleSetPartialReservations(payload);
+    navigation.navigate('PartialReservations');
   };
 
   render() {
     const { myReservations, constructions } = this.props;
-    const locationList = myReservations.data.map(item => item.construction_id).reduce(
+    const constructionIdArray = myReservations.data.map(item => item.construction_id).reduce(
       (array, id) => array.includes(id) ?  array : [...array, id], []);
 
     return (
       <View style={styles.container}>
-        {locationList.map((item, index) =>
+        {constructionIdArray.map((item, index) =>
           <ListItem
             key={index}
             title={constructions[item - 1]}
             style={{ height: 50 }}
             chevron
-            onPress={() => this.handleSelectConstruction(constructions[item - 1])}
+            onPress={() => this.handleSelectConstruction(item)}
           />
         )}
         <ActionButton
@@ -84,7 +93,8 @@ const mapDispatchToProps = dispatch => ({
   handleGetMyReservations: payload => dispatch(getMyReservationsAction(payload)),
   handleGetConstruction: () => dispatch(getConstructionsAction()),
   handleSetMyReservationFilter: payload => dispatch(setMyReservationFilterAction(payload)),
-  handleCleanCreateReservation: () => dispatch(cleanCreateReservationAction())
+  handleCleanCreateReservation: () => dispatch(cleanCreateReservationAction()),
+  handleSetPartialReservations: payload => dispatch(setPartialReservationsAction(payload))
 });
 
 export default connect(

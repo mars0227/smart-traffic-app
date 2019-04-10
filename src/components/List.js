@@ -12,19 +12,23 @@ import styles from '../styles';
 const List = ({list, handlePress, ...props}) => (
   <ScrollView>
     {list.map(item =>
-      <View key={item.key}>
-        <ListItem
-          key={item.key}
-          title={item.title}
-          subtitle={item.subtitle}
-          style={styles.listItem}
-          leftAvatar={item.leftAvatar}
-          subtitleStyle={styles.listItemSubtitle}
-          onPress={() => handlePress(item.key)}
-          {...props}
-        />
-        <Divider />
-      </View>
+      (item.customComponent
+        ? (item.customComponent)
+        : (
+          <View key={item.key}>
+            <ListItem
+              key={item.key}
+              title={item.title}
+              subtitle={item.subtitle}
+              style={styles.listItem}
+              leftAvatar={item.leftAvatar}
+              subtitleStyle={styles.listItemSubtitle}
+              onPress={() => handlePress(item.key)}
+              {...props}
+            />
+            <Divider />
+          </View>
+        ))
     )}
   </ScrollView>
 );
