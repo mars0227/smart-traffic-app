@@ -14,9 +14,9 @@ export default function (createReservation = initialState.createReservation, act
       return { ...createReservation, licensePlateNumber: action.payload };
     case types.SET_MATERIAL:
       return { ...createReservation, material: action.payload };
-    case types.SET_RESERVATION_SUCCEEDED:
+    case types.CREATE_RESERVATION_SUCCEEDED:
       return { ...createReservation, ok: true, errMsg: '' };
-    case types.SET_RESERVATION_FAILED:
+    case types.CREATE_RESERVATION_FAILED:
       return { ...createReservation, ok: false, errMsg: action.payload.errMsg };
     case types.CLEAN_RESERVATION:
       return initialState.createReservation;

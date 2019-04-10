@@ -26,38 +26,24 @@ class Reservation extends React.Component {
     }
   }
 
-  getReservation = () => {
-    const { login, myReservations, allReservations } = this.props;
-    const { identity } = login.userInfo;
-    return identity === 'Manager'
-      ? allReservations
-      : myReservations;
-  }
-
-  getReservationById = () => {
-    const reservations = this.getReservation();
-    const { data, showingReservationId } = reservations;
-    return data.filter(item => item.reservation_id === showingReservationId)[0];
-  }
-
   getButtonTitle = () => {
-    const reservation = this.getReservationById();
-    const { state } = reservation;
+    const { reservation } = this.props;
+    const { state } = reservation.data;
 
     return reservationState[state - 1] || 'Error';
   }
 
   getSubtitle = title => {
-    const reservation = this.getReservationById();
+    const { reservation, constructions } = this.props;
 
     const {
       date,
       construction_id,
       time_slot: timeSlot,
       license_plate_number: licensePlateNumber,
-      material } = reservation;
+      material } = reservation.data;
 
-    const location = this.props.constructions[construction_id - 1];
+    const location = constructions[construction_id - 1];
 
     switch (title) {
       case 'Location':
@@ -76,11 +62,11 @@ class Reservation extends React.Component {
   }
 
   handleChangeState = payload => {
-    const { userId } = this.props.login.userInfo;
-    const reservation = this.getReservationById();
+    const { reservation, login } = this.props;
+    const { userId } = login.userInfo;
     this.props.handleUpdateReservation({
       state: payload,
-      reservationId: reservation.reservation_id,
+      reservationId: reservation.data.reservation_id,
       userId
     });  //update state when get update succcess
   }
@@ -130,9 +116,9 @@ class Reservation extends React.Component {
   );
 
   getButton = () => {
-    const { identity } = this.props.login.userInfo;
-    const reservation = this.getReservationById();
-    const { state: stateNum } = reservation;
+    const { reservation, login } = this.props;
+    const { identity } = login.userInfo;
+    const { state: stateNum } = reservation.data;
 
     if (reservationState[stateNum - 1] === 'Created') {
         return identity === 'Manager'
@@ -175,8 +161,8 @@ class Reservation extends React.Component {
   }
 
   render() {
-    const reservation = this.getReservationById();
-    const { date, time_slot: timeSlot } = reservation;
+    const { reservation } = this.props;
+    const { date, time_slot: timeSlot, reservation_id: reservationId } = reservation.data;
     const badge = this.getBadge({ date, timeSlot });
 
     const inputList = [
@@ -199,6 +185,8 @@ class Reservation extends React.Component {
       },
     ];
 
+    console.log('re', reservation);
+
     return (
       <View style={customStyles.container}>
         <View style={customStyles.list} >
@@ -213,7 +201,7 @@ class Reservation extends React.Component {
           )}
           <ImageView
             style={customStyles.image}
-            uri={`${pictureUrl}/${reservation.reservation_id}.jpg`}
+            uri={`${pictureUrl}/${reservationId}.jpg`}
           />
         </View>
         <View style={customStyles.button}>
@@ -243,8 +231,8 @@ const customStyles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   login: state.login,
-  myReservations: state.myReservations,
   allReservations: state.allReservations,
+  reservation: state.reservation,
   constructions: state.constructions
 });
 

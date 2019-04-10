@@ -49,6 +49,11 @@ export const setReservationAction = payload => ({
   payload
 });
 
+export const createReservationAction = payload => ({
+  type: types.CREATE_RESERVATION,
+  payload
+});
+
 export const setMyReservationFilterAction = payload => ({
   type: types.SET_MY_RESERVATIONS_FILTER,
   payload
@@ -122,5 +127,10 @@ export const getMonitorViewAction = () => ({
 
 export const setCalendarLocationAction = payload => ({
   type: types.SET_CALENDAR_LOCATION,
+  payload
+});
+
+export const setPartialReservationsAction = payload => ({
+  type: types.SET_PARTIAL_RESERVATIONS,
   payload
 });

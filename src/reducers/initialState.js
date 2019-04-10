@@ -8,6 +8,7 @@ export default {
     identity: '',
     userInfo: {},
   },
+  // Need Refactor
   myReservations: {
     data: [],
     filterBy: '',
@@ -17,6 +18,12 @@ export default {
     data: [],
     filterBy: '',
     showingReservationId: 0
+  },
+  partialReservations: [],
+  reservation: {
+    data: {},
+    updateOk: false,
+    errMsg: ''
   },
   createReservation: {
     location: '',

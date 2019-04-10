@@ -15,3 +15,10 @@ export const weekAbbreviation = [
   'Fri',
   'Sat'
 ];
+
+export const reservationState = [
+  'Created',
+  'Accepted',
+  'Refused',
+  'Canceled'
+];

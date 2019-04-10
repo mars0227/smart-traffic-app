@@ -1,35 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import {
-  getAllReservationsAction,
-  setAllReservationsShowingReservationIdAction,
+  setReservationAction,
   getConstructionsAction
 } from '../actions';
 import List from '../components/List';
 
-class AllReservations extends React.Component {
+class partialReservations extends React.Component {
   static navigationOptions = {
-    title: 'All',
+    title: 'Reservations',
   };
 
   componentDidMount() {
-    const { allReservations, handleGetConstructions, handleGetAllReservations } = this.props;
-    if ( !allReservations.data || allReservations.data.length === 0 ){
+    const { constructions } = this.props;
+    if (!constructions || constructions.length === 0) {
+      console.warn('constructions not found', constructions);
       handleGetConstructions();
-      handleGetAllReservations();
     }
   }
 
   handleSelectReservation = key => {
     const reservationId = key;
-    this.props.handleSetAllReservationsShowingReservationId(reservationId);
+    const { partialReservations } = this.props;
+    const reservation = partialReservations.filter(reservation => reservation.reservation_id === reservationId)[0];
+    this.props.handleSetReservation(reservation);
     this.props.navigation.navigate('Reservation');
   };
 
   render() {
-    const { allReservations, constructions } = this.props;
+    const { partialReservations, constructions } = this.props;
 
-    const reservationList = allReservations.data.map(item => ({
+    const reservationList = partialReservations.map(item => ({
       key: item.reservation_id,
       title: constructions[item.construction_id - 1],
       subtitle: `${item.date} ${item.time_slot} ${item.creater_name} ${item.material}`
@@ -46,18 +47,16 @@ class AllReservations extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  login: state.login,
-  allReservations: state.allReservations,
+  partialReservations: state.partialReservations,
   constructions: state.constructions
 });
 
 const mapDispatchToProps = dispatch => ({
   handleGetConstructions: () => dispatch(getConstructionsAction()),
-  handleGetAllReservations: payload => dispatch(getAllReservationsAction(payload)),
-  handleSetAllReservationsShowingReservationId: payload => dispatch(setAllReservationsShowingReservationIdAction(payload))
+  handleSetReservation: payload => dispatch(setReservationAction(payload))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AllReservations)
+)(partialReservations)

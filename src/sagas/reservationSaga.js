@@ -6,18 +6,18 @@ import {
   updateReservation
 } from '../apis/api';
 
-export function* setReservationSaga({ payload }) {
+export function* createReservationSaga({ payload }) {
   try {
     yield put({ type: types.FETCHING});
-    const res = yield call(setReservation, payload);
+    const res = yield call(createReservation, payload);
     yield put({ type: types.FETCH_COMPLETE});
 
     const resAction = res.ok ?
       {
-        type: types.SET_RESERVATION_SUCCEEDED,
+        type: types.CREATE_RESERVATION_SUCCEEDED,
         payload: res.result.data
       } : {
-        type: types.SET_RESERVATION_FAILED,
+        type: types.CREATE_RESERVATION_FAILED,
         payload: {
           errMsg: res.result.errMsg
         }
@@ -25,7 +25,7 @@ export function* setReservationSaga({ payload }) {
 
     yield put(resAction);
   } catch (err) {
-    console.warn('setReservationSaga error', err);
+    console.warn('createReservationSaga error', err);
     //TODO: send SYSTEM ERROR action.
   }
 };

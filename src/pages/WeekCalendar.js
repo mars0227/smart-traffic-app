@@ -1,29 +1,21 @@
 import React from 'react';
 import {
-  StyleSheet,
-  KeyboardAvoidingView,
   View
 } from 'react-native';
 import {
   Text,
-  Input,
   Badge,
-  Avatar,
-  ListItem,
   Button
 } from 'react-native-elements';
 import { connect } from 'react-redux'
-import { getAllReservationsAction } from '../actions';
-import KeepInputWithTitle from '../components/KeepInputWithTitle';
+import {
+  getAllReservationsAction,
+  setPartialReservationsAction
+} from '../actions';
 import defutlStyle from '../styles';
 import List from '../components/List';
-import {
-  timeSlot,
-  weekAbbreviation
-} from '../constants';
-import { dateCompare } from '../utils/utils';
+import { weekAbbreviation } from '../constants';
 import moment from 'moment';
-import mockData from '../mock';
 
 const DayView = ({ title, subTitle }) => (
   <View style={{ flex: 0.2, alignItems: 'center' }}>
@@ -47,9 +39,9 @@ class WeekCalendar extends React.Component {
     }
   }
 
-  renderTitle = (reservation = {}) => (
+  renderTitle = (reservations = {}) => (
     <View style={defutlStyle.twoColumeContainer}>
-      {Object.entries(reservation).map(([key, value], index) => {
+      {Object.entries(reservations).map(([key, value], index) => {
         const waiting = value.reduce( (pre, cur) => (cur.state === 1 ? pre + 1 : pre),0);
         const accepted = value.reduce( (pre, cur) => (cur.state === 2 ? pre + 1 : pre),0);
         const rejected = value.reduce( (pre, cur) => (cur.state === 3 ? pre + 1 : pre),0);
@@ -79,6 +71,11 @@ class WeekCalendar extends React.Component {
     return fullWeek.map(item => object[item]);
   }
 
+  handlePartialReservationsPress = payload => {
+    this.props.handleSetPartialReservations(payload);
+    this.props.navigation.navigate('PartialReservations');
+  }
+
   render() {
     const { weekPlus } = this.state;
     const { allReservations } = this.props;
@@ -87,36 +84,30 @@ class WeekCalendar extends React.Component {
       to: moment().add(weekPlus, 'weeks').weekday(6).format('D/M/YYYY'),
     };
     const fullWeek = this.weekArray(thisWeek.from);
-    const liteReservations = allReservations.data.map(item => {
-      const { reservation_id, date, time_slot, state } = item;
-      return { reservation_id, date, time_slot, state };
-    });
 
-    const combineReservation = liteReservations.reduce((pre, cur) => {
+    const combinedReservationsByDay = allReservations.data.reduce((pre, cur) => {
       if (!pre[cur.date]) pre[cur.date] = [];
       pre[cur.date].push(cur);
       return { ...pre };
     }, {});
 
-    const combineByTime = Object.entries(combineReservation)
-      .map(([key, value]) => {
-        const newValue = value.reduce((pre, cur) => {
+    const reservationsOfThisWeek = this.filterThisWeek({ from: thisWeek.from, object: combinedReservationsByDay });
+
+    console.log('reservationsOfThisWeek', reservationsOfThisWeek);
+
+    const combinedReservationsByTime = reservationsOfThisWeek
+      .map((reservations = []) => (
+        reservations.reduce((pre, cur) => {
           if (!pre[cur.time_slot]) pre[cur.time_slot] = [];
           pre[cur.time_slot].push(cur);
           return { ...pre };
-        }, {});
-        return [key, newValue];
-      })
-      .reduce((pre, [key, value]) => {
-        pre[key] = value;
-        return { ...pre };
-      }, {});
+        }, {}))
+      );
 
-    const thisWeekRes = this.filterThisWeek({ from: thisWeek.from, object: combineByTime });
-    const list = fullWeek.map((date, index) => (
+    const list = combinedReservationsByTime.map((reservations, index) => (
       {
-        leftAvatar: <DayView title={date.split('/')[0]} subTitle={weekAbbreviation[index]} />,
-        title: this.renderTitle(thisWeekRes[index]),
+        leftAvatar: <DayView title={fullWeek[index].split('/')[0]} subTitle={weekAbbreviation[index]} />,
+        title: this.renderTitle(reservations),
         key: index,
       })
     );
@@ -144,7 +135,7 @@ class WeekCalendar extends React.Component {
             onPress={() => this.setState({weekPlus: weekPlus + 1})}
           />
         </View>
-        <List list={list} handlePress={() => console.warn('onPress')} />
+        <List list={list} handlePress={(key) => { this.handlePartialReservationsPress(reservationsOfThisWeek[key]) }} />
         <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Badge status='warning' />
@@ -164,12 +155,13 @@ class WeekCalendar extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   allReservations: state.allReservations,
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleGetAllReservations: payload => dispatch(getAllReservationsAction(payload))
+  handleGetAllReservations: payload => dispatch(getAllReservationsAction(payload)),
+  handleSetPartialReservations: payload => dispatch(setPartialReservationsAction(payload))
 });
 
 export default connect(

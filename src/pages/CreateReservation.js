@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux'
 import {
   getConstructionsAction,
-  setReservationAction
+  createReservationAction
 } from '../actions';
 import { ListItem, Icon, Button } from 'react-native-elements';
 import { isEmpty } from '../utils/utils';
@@ -198,7 +198,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   handleGetConstruction: () => dispatch(getConstructionsAction()),
-  handleCreateReservation: payload => dispatch(setReservationAction(payload))
+  handleCreateReservation: payload => dispatch(createReservationAction(payload))
 });
 
 export default connect(
