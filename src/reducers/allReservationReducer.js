@@ -21,18 +21,17 @@ export default function (allReservations = initialState.allReservations, action)
     case types.SET_ALL_RESERVATIONS_SHOWING_RESERVATION_ID:
       return { ...allReservations, showingReservationId: payload };
     case types.UPDATE_RESERVATION_SUCCEEDED:
+    case types.UPDATE_RESERVATION_BY_NOTIFICATION:
       const { reservationId, state } = payload;
-      const { data, showingReservationId } = allReservations;
-      if (showingReservationId === reservationId) {
-        return {
-          ...allReservations,
-          data: data.map(
-            reservation => reservation.reservation_id === reservationId
-              ? { ...reservation, state: reservationState.indexOf(state) + 1 }
-              : reservation
-        ) }
-      }
-      return allReservations;
+      const { data } = allReservations;
+      return {
+        ...allReservations,
+        data: data.map(
+          reservation => reservation.reservation_id === reservationId
+            ? { ...reservation, state: reservationState.indexOf(state) + 1 }
+            : reservation
+        )
+      };
     case types.GET_ALL_RESERVATIONS:
     case types.GET_ALL_RESERVATIONS_FAILED:
     default:

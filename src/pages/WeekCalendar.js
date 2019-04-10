@@ -36,7 +36,7 @@ const BadgeInfo = () => (
     </View>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Badge status='error' />
-      <Text> Rejected</Text>
+      <Text> Rejected/Canceled</Text>
     </View>
   </View>
 );
@@ -61,7 +61,7 @@ class WeekCalendar extends React.Component {
       {Object.entries(reservations).map(([key, value], index) => {
         const waiting = value.reduce( (pre, cur) => (cur.state === 1 ? pre + 1 : pre),0);
         const accepted = value.reduce( (pre, cur) => (cur.state === 2 ? pre + 1 : pre),0);
-        const rejected = value.reduce( (pre, cur) => (cur.state === 3 ? pre + 1 : pre),0);
+        const rejected = value.reduce( (pre, cur) => (cur.state === 3 || cur.state === 4 ? pre + 1 : pre),0);
         return (
           <View key={index} style={{ flexDirection: 'row', margin: 5 }}>
             <Text>{key} </Text>

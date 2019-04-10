@@ -9,7 +9,7 @@ import {
 export function* createReservationSaga({ payload }) {
   try {
     yield put({ type: types.FETCHING});
-    const res = yield call(createReservation, payload);
+    const res = yield call(setReservation, payload);
     yield put({ type: types.FETCH_COMPLETE});
 
     const resAction = res.ok ?

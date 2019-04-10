@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux'
 import {
-  getConstructionsAction,
   createReservationAction
 } from '../actions';
 import { ListItem, Icon, Button } from 'react-native-elements';
@@ -46,10 +45,6 @@ class CreateReservation extends React.Component {
   static navigationOptions = {
     title: 'New Reservation',
   };
-
-  componentDidMount() {
-    this.props.handleGetConstruction();
-  }
 
   componentDidUpdate() {
     const { ok } = this.props.createReservation;
@@ -197,7 +192,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleGetConstruction: () => dispatch(getConstructionsAction()),
   handleCreateReservation: payload => dispatch(createReservationAction(payload))
 });
 

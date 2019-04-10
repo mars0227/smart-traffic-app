@@ -19,13 +19,6 @@ const reservationState = [
 const pictureUrl = route;
 
 class Reservation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalVisible: false
-    }
-  }
-
   getButtonTitle = () => {
     const { reservation } = this.props;
     const { state } = reservation.data;
@@ -102,7 +95,7 @@ class Reservation extends React.Component {
   cancelButton = () => (
     <Button
       color='red'
-      onPress={this.setModalVisible}
+      onPress={() => this.cancel()}
       title='Cancel'
     />
   );
@@ -131,13 +124,6 @@ class Reservation extends React.Component {
     return this.statusButton();
   }
 
-  setModalVisible = () => {
-    const { modalVisible } = this.state;
-    this.setState({
-      modalVisible: !modalVisible
-    });
-  }
-
   getBadge = payload => {
     const { login, allReservations } = this.props;
     const { identity } = login.userInfo;
@@ -161,7 +147,7 @@ class Reservation extends React.Component {
   }
 
   render() {
-    const { reservation, login } = this.props;
+    const { reservation } = this.props;
     const { date, time_slot: timeSlot, reservation_id: reservationId } = reservation.data;
     const badge = this.getBadge({ date, timeSlot });
     const bookedInfo = badge
@@ -197,7 +183,7 @@ class Reservation extends React.Component {
             <ListItem
               {...item}
               key={index}
-              style={styles.listItem}
+              style={customStyles.listItem}
               subtitle={this.getSubtitle(item.title)}
               subtitleStyle={styles.listItemSubtitle}
             />
@@ -226,9 +212,14 @@ const customStyles = StyleSheet.create({
   button: {
     flex: 1
   },
+  listItem: {
+    height: 50,
+    margin: 5
+  },
   image: {
     width: 120,
-    height: 80
+    height: 80,
+    margin: 5
   }
 });
 
