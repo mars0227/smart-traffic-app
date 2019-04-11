@@ -26,7 +26,9 @@ export default class ImageView extends React.Component {
         <Modal
           animationType='slide'
           visible={this.state.modalVisible}
-          transparent={false}>
+          transparent={false}
+          onRequestClose={() => this.setState({ modalVisible: false })}
+        >
           <ImageViewer
             saveToLocalByLongPress={false}
             imageUrls={[{ url: uri }]}

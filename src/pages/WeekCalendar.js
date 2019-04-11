@@ -13,7 +13,7 @@ import {
   getAllReservationsAction,
   setPartialReservationsAction
 } from '../actions';
-import defutlStyle from '../styles';
+import defaultStyle from '../styles';
 import List from '../components/List';
 import { weekAbbreviation } from '../constants';
 import moment from 'moment';
@@ -58,7 +58,7 @@ class WeekCalendar extends React.Component {
   }
 
   renderTitle = (reservations = {}) => (
-    <View style={defutlStyle.twoColumeContainer}>
+    <View style={defaultStyle.twoColumeContainer}>
       {Object.entries(reservations).map(([key, value], index) => {
         const waiting = value.reduce( (pre, cur) => (cur.state === 1 ? pre + 1 : pre),0);
         const accepted = value.reduce( (pre, cur) => (cur.state === 2 ? pre + 1 : pre),0);
@@ -133,8 +133,8 @@ class WeekCalendar extends React.Component {
     ];
 
     return (
-      <View style={styles.container}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'royalblue', alignItems: 'center'}}>
+      <View style={{ flex: 1 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'royalblue', alignItems: 'center' }}>
           <Button
             icon={{
               name: 'chevron-left',
