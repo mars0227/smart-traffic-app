@@ -5,7 +5,8 @@ import {
 import {
   Text,
   Badge,
-  Button
+  Button,
+  Icon
 } from 'react-native-elements';
 import { connect } from 'react-redux'
 import {
@@ -25,7 +26,7 @@ const DayView = ({ title, subTitle }) => (
 );
 
 const BadgeInfo = () => (
-  <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 5 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Badge status='warning' />
       <Text> Need Review</Text>
@@ -35,7 +36,7 @@ const BadgeInfo = () => (
       <Text> Accepted</Text>
     </View>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <Badge status='error' />
+      <Badge badgeStyle={{backgroundColor: 'lightgray'}} />
       <Text> Rejected/Canceled</Text>
     </View>
   </View>
@@ -67,7 +68,7 @@ class WeekCalendar extends React.Component {
             <Text>{key} </Text>
             {waiting > 0 && <Badge value={waiting} status='warning' />}
             {accepted > 0 && <Badge value={accepted} status='primary' />}
-            {rejected > 0 && <Badge value={rejected} status='error' />}
+            {rejected > 0 && <Badge value={rejected} badgeStyle={{backgroundColor: 'lightgray'}} />}
           </View>
         );
       })}
@@ -143,7 +144,10 @@ class WeekCalendar extends React.Component {
             buttonStyle={{backgroundColor: 'royalblue'}}
             onPress={() => this.setState({weekPlus: weekPlus - 1})}
           />
-          <Text style={{color: 'white', fontSize: 18}}>{`${thisWeek.from} ~ ${thisWeek.to}`}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name='calendar' type='octicon' color='#ffffff'/>
+            <Text style={{color: 'white', fontSize: 16}}>  {`${thisWeek.from} ~ ${thisWeek.to}`}</Text>
+          </View>
           <Button
             icon={{
               name: 'chevron-right',

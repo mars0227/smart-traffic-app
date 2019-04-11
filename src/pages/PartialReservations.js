@@ -5,6 +5,8 @@ import {
   getConstructionsAction
 } from '../actions';
 import List from '../components/List';
+import { reservationState } from '../constants';
+import { Avatar } from 'react-native-elements';
 
 class partialReservations extends React.Component {
   static navigationOptions = {
@@ -12,9 +14,8 @@ class partialReservations extends React.Component {
   };
 
   componentDidMount() {
-    const { constructions } = this.props;
+    const { constructions, handleGetConstructions } = this.props;
     if (!constructions || constructions.length === 0) {
-      console.warn('constructions not found', constructions);
       handleGetConstructions();
     }
   }
@@ -27,13 +28,23 @@ class partialReservations extends React.Component {
     this.props.navigation.navigate('Reservation');
   };
 
+  colorOfState = {
+    'Created': 'gold',
+    'Accepted': 'cornflowerblue',
+    'Refused': 'lightgray',
+    'Canceled': 'lightgray'
+  };
+
+  getColor = state => this.colorOfState[reservationState[state - 1]];
+
   render() {
     const { partialReservations, constructions } = this.props;
 
     const reservationList = partialReservations.map(item => ({
       key: item.reservation_id,
       title: constructions[item.construction_id - 1],
-      subtitle: `${item.date} ${item.time_slot} ${item.creater_name} ${item.material}`
+      subtitle: `${item.date} ${item.time_slot} ${item.creater_name} ${item.material}`,
+      leftAvatar: <Avatar rounded overlayContainerStyle={{backgroundColor: this.getColor(item.state)}} />
     }));
 
     return (

@@ -23,17 +23,17 @@ class CameraView extends React.Component {
   }
 
   handleMinimizePictureSize = async () => {
-    const result = await this.camera.getAvailablePictureSizesAsync();
-    console.warn('picture support size', result);
-    if (result.includes('352x288')){
-      this.setState({
-        size: '352x288'
-      });
-    } else {
-      this.setState({
-        size: 'Low'
-      });
-    }
+//    const result = await this.camera.getAvailablePictureSizesAsync();
+//    console.warn('picture support size', result);
+//    if (result.includes('352x288')){
+//      this.setState({
+//        size: '352x288'
+//      });
+//    } else {
+//      this.setState({
+//        size: 'Low'
+//      });
+//    }
   }
 
   takePicture = async () => {

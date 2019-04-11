@@ -24,6 +24,7 @@ import IOSFont from '../pages/ISOFont';
 import AndroidFont from '../pages/AndroidFont';
 import WeekCalendar from '../pages/WeekCalendar';
 import PartialReservations from '../pages/PartialReservations';
+import NewReservations from '../pages/NewReservations';
 
 const StackNavigator = createStackNavigator(
   {
@@ -82,6 +83,9 @@ const StackNavigator = createStackNavigator(
     },
     PartialReservations: {
       screen: PartialReservations
+    },
+    NewReservations: {
+      screen: NewReservations
     }
   },
   {

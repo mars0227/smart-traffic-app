@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import styles from '../styles';
 
-const List = ({list, handlePress, ...props}) => (
+const List = ({ list, handlePress, ...props }) => (
   <ScrollView>
     {list.map(item =>
       (item.customComponent
@@ -30,7 +30,7 @@ const List = ({list, handlePress, ...props}) => (
           </View>
         ))
     )}
-  </ScrollView>
+    </ScrollView>
 );
 
 export default List;
