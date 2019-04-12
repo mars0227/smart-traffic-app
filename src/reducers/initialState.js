@@ -42,7 +42,8 @@ export default {
   notification: {
     origin: '',
     data: '',
-    enableOverlay: false
+    enableOverlay: false,
+    ref: null
   },
   monitor: {
     image: '',

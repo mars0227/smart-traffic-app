@@ -5,7 +5,8 @@ import {
   getNotificationAction,
   showNotificationSucceededAction,
   setReservationByNotificationAction,
-  updateReservationByNotificaitonAction
+  updateReservationByNotificaitonAction,
+  addNotificationRefAction
 } from '../actions'
 import { Notifications } from 'expo';
 import { Overlay, Button, Text, Divider } from 'react-native-elements';
@@ -18,7 +19,12 @@ const modifyPayload = payload => {
 }
 class NotificationListener extends React.Component {
   componentDidMount() {
-    this.notificationSubscription = Notifications.addListener(this.handleNotification);
+    const { ref } = this.props.notification;
+
+    if (!ref) {
+      const notificationSubscription = Notifications.addListener(this.handleNotification);
+      this.props.handleAddNotificationRef(notificationSubscription);
+    }
   }
 
   handleNotification = notification => {
@@ -91,7 +97,8 @@ const mapDispatchToProps = dispatch => ({
   handleGetNotification: payload => dispatch(getNotificationAction(payload)),
   handleShowNotificationSucceeded: () => dispatch(showNotificationSucceededAction()),
   handleSetReservation: payload => dispatch(setReservationByNotificationAction(payload)),
-  handleUpdateReservation: payload => dispatch(updateReservationByNotificaitonAction(payload))
+  handleUpdateReservation: payload => dispatch(updateReservationByNotificaitonAction(payload)),
+  handleAddNotificationRef: payload => dispatch(addNotificationRefAction(payload))
 });
 
 export default connect(

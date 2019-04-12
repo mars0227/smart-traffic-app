@@ -134,3 +134,8 @@ export const setPartialReservationsAction = payload => ({
   type: types.SET_PARTIAL_RESERVATIONS,
   payload
 });
+
+export const addNotificationRefAction = payload => ({
+  type: types.ADD_NOTIFICATION_REFERENCE,
+  payload
+});
