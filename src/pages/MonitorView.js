@@ -1,25 +1,67 @@
 import {
-  View
+  View,
+  Switch
 } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
-import { getMonitorViewAction } from '../actions';
+import {
+  getMonitorViewAction,
+  updateAlertStateAction
+} from '../actions';
 import { route } from '../apis/api';
 import styles from '../styles';
-import { Text } from 'react-native-elements';
+import {
+  Text,
+  ListItem,
+  Divider
+} from 'react-native-elements';
 import AutoFitImage from '../components/AutoFitImage';
 
 const pictureUrl = route;
 
 class MonitorView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      switchState: false
+    }
+  }
+
   componentDidMount() {
     this.props.handleGetMonitorView();
   }
 
+  componentDidUpdate(prevProps) {
+    const { alertSwitchState: alertSwitchStatePrev } = prevProps.monitor;
+    const {
+      alertSwitchState: alertSwitchStateNow
+    } = this.props.monitor;
+
+    if (alertSwitchStatePrev !== alertSwitchStateNow) {
+      const { switchState } = this.state;
+
+      if (alertSwitchStateNow !== switchState) {
+        this.setState({
+          switchState: alertSwitchStateNow
+        });
+      }
+    }
+  }
+
+  handleSwtich = state => {
+    this.setState({
+      switchState: state
+    });
+    this.props.handleUpdateAlertState({ alertSwitchState: state });
+  }
+
   render() {
     const {
-      carNumber, image
+      carNumber,
+      image,
     } = this.props.monitor;
+    const { switchState } = this.state;
+
     const uri = `${pictureUrl}/${image}`;
 
     return (
@@ -28,6 +70,13 @@ class MonitorView extends React.Component {
           uri={uri}
         />
         <Text h4>{`car number: ${carNumber}`}</Text>
+        <Divider/>
+        <ListItem
+          style={{ width: '100%', fontSize: 22 }}
+          title={'Active Alert'}
+          rightElement={<Switch value={switchState} onValueChange={this.handleSwtich.bind(this)}/>}
+        />
+        <Divider/>
       </View>
     );
   }
@@ -38,7 +87,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleGetMonitorView: data => dispatch(getMonitorViewAction(data))
+  handleGetMonitorView: data => dispatch(getMonitorViewAction(data)),
+  handleUpdateAlertState: data => dispatch(updateAlertStateAction(data))
 });
 
 export default connect(

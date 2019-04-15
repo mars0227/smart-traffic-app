@@ -1,7 +1,8 @@
 import { put, call } from 'redux-saga/effects';
 import * as types from '../constants/actionTypes';
 import {
-  getMonitorView
+  getMonitorView,
+  updateAlertState
 } from '../apis/api';
 
 export function* getMonitorViewSaga() {
@@ -9,7 +10,7 @@ export function* getMonitorViewSaga() {
     yield put({ type: types.FETCHING});
     const res = yield call(getMonitorView);
     yield put({ type: types.FETCH_COMPLETE});
-    console.log('get monitor view res', res);
+
     const resAction = res.ok ?
       {
         type: types.GET_MONITOR_VIEW_SUCCEEDED,
@@ -27,7 +28,33 @@ export function* getMonitorViewSaga() {
     yield put(resAction);
 
   } catch (err) {
-    console.warn('identitySaga error', err);
+    console.warn('getMonitorViewSaga error', err);
+    //TODO: send SYSTEM ERROR action.
+  }
+};
+
+
+export function* updateAlertStateSaga({ payload }) {
+  try {
+    yield put({ type: types.FETCHING});
+    const res = yield call(updateAlertState, payload);
+    yield put({ type: types.FETCH_COMPLETE});
+
+    const resAction = res.ok ?
+      {
+        type: types.UPDATE_ALERT_STATE_SUCCEEDED,
+        payload
+      } : {
+        type: types.UPDATE_ALERT_STATE_FAILED,
+        payload: {
+          errMsg: res.result.data.errMsg
+        }
+      }
+
+    yield put(resAction);
+
+  } catch (err) {
+    console.warn('updateAlertStateSaga error', err);
     //TODO: send SYSTEM ERROR action.
   }
 };

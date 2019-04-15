@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux'
 import { getIdentitiesAction, loginAction } from '../actions';
 import KeepInputWithTitle from '../components/KeepInputWithTitle';
-import defutlStyle from '../styles';
+import defaultStyle from '../styles';
 
 class Login extends React.Component {
   constructor(props) {
@@ -49,7 +49,7 @@ class Login extends React.Component {
     return (
       <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <View style={styles.titleContainer}>
-          <Text h4 style={defutlStyle.text}>Smart Traffic Management</Text>
+          <Text h4 style={defaultStyle.text}>Smart Traffic Management</Text>
         </View>
         <View style={styles.loginContainer}>
           <View style={styles.loginBorder}>

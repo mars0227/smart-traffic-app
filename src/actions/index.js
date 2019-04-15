@@ -139,3 +139,13 @@ export const addNotificationRefAction = payload => ({
   type: types.ADD_NOTIFICATION_REFERENCE,
   payload
 });
+
+export const updateAlertStateAction = payload => ({
+  type: types.UPDATE_ALERT_STATE,
+  payload
+});
+
+export const updateAlertStateByNotificationAction = payload => ({
+  type: types.UPDATE_ALERT_STATE_BY_NOTIFICATION,
+  payload
+});

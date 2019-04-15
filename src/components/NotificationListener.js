@@ -6,7 +6,8 @@ import {
   showNotificationSucceededAction,
   setReservationByNotificationAction,
   updateReservationByNotificaitonAction,
-  addNotificationRefAction
+  addNotificationRefAction,
+  updateAlertStateByNotificationAction
 } from '../actions'
 import { Notifications } from 'expo';
 import { Overlay, Button, Text, Divider } from 'react-native-elements';
@@ -31,23 +32,28 @@ class NotificationListener extends React.Component {
     const {
       handleGetNotification,
       handleSetReservation,
-      handleUpdateReservation
+      handleUpdateReservation,
+      handleUpdateAlertStateByNotification
     } = this.props;
+
+    handleGetNotification(notification);
+
     const {
       type,
       data
     } = notification.data;
 
-    handleGetNotification(notification);
-
-    const payload = modifyPayload(data);
-
     switch (type) {
       case 'newReservation':
-        handleSetReservation(payload);
+        const newReservationPayload = modifyPayload(data);
+        handleSetReservation(newReservationPayload);
         break;
       case 'updateReservation':
-        handleUpdateReservation(payload);
+        const updateReservationPayload = modifyPayload(data);
+        handleUpdateReservation(updateReservationPayload);
+        break;
+      case 'alertTrafficCongestion':
+        handleUpdateAlertStateByNotification({ alertSwitchState: false });
         break;
       default:
         break;
@@ -98,7 +104,8 @@ const mapDispatchToProps = dispatch => ({
   handleShowNotificationSucceeded: () => dispatch(showNotificationSucceededAction()),
   handleSetReservation: payload => dispatch(setReservationByNotificationAction(payload)),
   handleUpdateReservation: payload => dispatch(updateReservationByNotificaitonAction(payload)),
-  handleAddNotificationRef: payload => dispatch(addNotificationRefAction(payload))
+  handleAddNotificationRef: payload => dispatch(addNotificationRefAction(payload)),
+  handleUpdateAlertStateByNotification: payload => dispatch(updateAlertStateByNotificationAction(payload))
 });
 
 export default connect(

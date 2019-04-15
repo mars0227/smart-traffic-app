@@ -12,7 +12,7 @@ import {
 
 export const route = __DEV__
 //  ? 'http://127.0.0.1:3002'
-  ? 'http://172.20.10.2:3002'
+  ? 'http://172.20.10.3:3002'
   : 'http://www.itrackcon.com/stserver'; //vircon server
 
 
@@ -25,3 +25,4 @@ export const setReservation = payload => fetchPostWithFile(`${route}/reservation
 export const updateReservation = ({ reservationId, ...payload }) => fetchPatch(`${route}/reservations/${reservationId}`, payload);
 export const setExpoPushToken = ({ userId, ...payload }) => fetchPost(`${route}/users/${userId}/expo_push_token`, payload);
 export const getMonitorView = () => fetchGet(`${route}/camera`);
+export const updateAlertState = payload => fetchPatch(`${route}/camera/alert`, payload);

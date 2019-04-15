@@ -48,6 +48,7 @@ export default {
   monitor: {
     image: '',
     carNumber: 0,
+    alertSwitchState: false,
     errMsg: ''
   }
 };
