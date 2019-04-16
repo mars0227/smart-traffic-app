@@ -2,9 +2,17 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-   AppState
+  AppState
 } from 'react-native';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Notifications, Permissions } from 'expo';
+import {
+  Overlay,
+  Button,
+  Text,
+  Divider
+} from 'react-native-elements';
+
 import {
   getNotificationAction,
   showNotificationSucceededAction,
@@ -14,10 +22,9 @@ import {
   updateAlertStateByNotificationAction,
   setUserActiveStateAction,
   updateMonitorImageAction,
-  updateAppStateAction
+  updateAppStateAction,
+  setExpoPushTokenAction
 } from '../actions'
-import { Notifications } from 'expo';
-import { Overlay, Button, Text, Divider } from 'react-native-elements';
 
 const convertReservationId = id => typeof id === 'string' ? Number(id) : id;
 
@@ -28,21 +35,61 @@ const modifyPayload = payload => {
 
 class NotificationListener extends React.Component {
   componentDidMount() {
-    const { ref } = this.props.notification;
+    const {
+      notification,
+      handleAddNotificationRef
+    } = this.props;
+    const { ref } = notification;
 
-    AppState.addEventListener('change', this._handleAppStateChange);
+    AppState.addEventListener('change', this.handleAppStateChange);
 
     if (!ref) {
       const notificationSubscription = Notifications.addListener(this.handleNotification);
-      this.props.handleAddNotificationRef(notificationSubscription);
+      handleAddNotificationRef(notificationSubscription);
     }
+
+    this.getExpoPushToken();
   }
 
   componentWillUnmount() {
-    AppState.removeEventListener('change', this._handleAppStateChange);
+    AppState.removeEventListener('change', this.handleAppStateChange);
   }
 
-  _handleAppStateChange = (nextAppState) => {
+  getExpoPushToken = async () => {
+    const {
+      login,
+      handleSetExpoPushToken
+    } = this.props;
+    const { userInfo } = login;
+    const { userId, expoPushToken } = userInfo;
+
+    try {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+      let finalStatus = existingStatus;
+
+      if (existingStatus !== 'granted') {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        finalStatus = status;
+      }
+
+      if (finalStatus !== 'granted') {
+        console.warn('warn! no permission of notification on this phone');
+        return;
+      }
+
+      let token = await Notifications.getExpoPushTokenAsync();
+
+      if (!expoPushToken || expoPushToken !== token) {
+        handleSetExpoPushToken({ userId, expoPushToken: token });
+      }
+    } catch (err) {
+      console.warn('err', err);
+    }
+  }
+
+  handleAppStateChange = (nextAppState) => {
     const {
       login,
       system,
@@ -163,7 +210,8 @@ const mapDispatchToProps = dispatch => ({
   handleUpdateAlertStateByNotification: payload => dispatch(updateAlertStateByNotificationAction(payload)),
   handleSetUserActiveState: payload => dispatch(setUserActiveStateAction(payload)),
   handleUpdateImage: payload => dispatch(updateMonitorImageAction(payload)),
-  handleUpdateAppState: payload => dispatch(updateAppStateAction(payload))
+  handleUpdateAppState: payload => dispatch(updateAppStateAction(payload)),
+  handleSetExpoPushToken: payload => dispatch(setExpoPushTokenAction(payload))
 });
 
 export default connect(

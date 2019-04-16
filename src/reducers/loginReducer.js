@@ -19,8 +19,9 @@ const handleLoginFail = (login, action) => ({
 
 const handleUpdateExpoPushToken = (login, payload) => {
   const { userInfo } = login;
-  const { token } = payload;
-  const newUserInfo = { ...userInfo, expo_push_token: token };
+  const { expoPushToken } = payload;
+  const newUserInfo = { ...userInfo, expoPushToken };
+
   return { ...login, userInfo: newUserInfo };
 };
 

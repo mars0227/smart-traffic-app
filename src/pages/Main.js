@@ -1,15 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux'
-import { Permissions, Notifications } from 'expo';
+import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 
-import {
-  setExpoPushTokenAction
-} from '../actions'
 import NotificationListener from '../components/NotificationListener';
 import ImageIcon from '../components/ImageIcon';
 import styles from '../styles';
+import webSocketService from '../services/websocket';
 
 const activeFunc = {
   Vendor: {
@@ -36,6 +33,22 @@ const activeFunc = {
       backgroundColor: 'darksalmon',
       page: 'MonitorView'
     }
+  },
+  Staff: {
+    reservations: {
+      title: 'Reservations',
+      name: 'th-list',
+      type: 'font-awesome',
+      backgroundColor: 'royalblue',
+      page: 'WeekCalendar'
+    },
+    camera: {
+      title: 'Camera',
+      name: 'device-camera-video',
+      type: 'octicon',
+      backgroundColor: 'darksalmon',
+      page: 'MonitorView'
+    }
   }
 };
 
@@ -48,47 +61,19 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
-    const { userInfo } = this.props.login;
-    if (!userInfo.expo_push_token) {
-      this.getPushTokenOfExpo();
-    }
     this.props.navigation.setParams({ menuButton: this.menuButton() });
+    webSocketService();
   }
 
   componentDidUpdate() {
     const { ok } = this.props.login;
     if (!ok) {
-      this.props.navigation.replace('Login');
-    }
-  }
-
-  getPushTokenOfExpo = async () => {
-    const { userInfo } = this.props.login;
-    try {
-      const { status: existingStatus } = await Permissions.getAsync(
-        Permissions.NOTIFICATIONS
-      );
-      let finalStatus = existingStatus;
-
-      if (existingStatus !== 'granted') {
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-        finalStatus = status;
-      }
-
-      if (finalStatus !== 'granted') {
-        return;
-      }
-
-      let token = await Notifications.getExpoPushTokenAsync();
-
-      if (!userInfo.expo_push_token || userInfo.expo_push_token !== token) this.props.handleSetExpoPushToken({ userId: userInfo.userId, token });
-    } catch (err) {
-      console.warn('err', err);
+      this.handleLogout();
     }
   }
 
   handleLogout = () => {
-
+    this.props.navigation.replace('Login');
   }
 
   menuButton = () => (
@@ -136,7 +121,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleSetExpoPushToken: payload => dispatch(setExpoPushTokenAction(payload))
 });
 
 export default connect(

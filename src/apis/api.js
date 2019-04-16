@@ -10,11 +10,12 @@ import {
   fetchPatch
 } from './libs/fetch';
 
-export const route = __DEV__
-//  ? 'http://127.0.0.1:3002'
-  ? 'http://192.168.0.6:3002'
-  : 'http://www.itrackcon.com/stserver'; //vircon server
+export const serverIp = '172.20.10.3:3002';
+//'127.0.0.1:3002';
 
+export const route = __DEV__
+  ? `http://${serverIp}`
+  : 'http://www.itrackcon.com/stserver'; //vircon server
 
 export const login = payload => fetchPost(`${route}/login`, payload);
 export const getConstructions = () => fetchGet(`${route}/constructions`);

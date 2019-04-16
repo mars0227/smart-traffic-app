@@ -51,9 +51,24 @@ class WeekCalendar extends React.Component {
   }
 
   componentDidMount() {
-    const { allReservations, handleGetAllReservations } = this.props;
-    if ( !allReservations.data || allReservations.data.length === 0 ){
-      handleGetAllReservations();
+    const {
+      login,
+      allReservations,
+      handleGetAllReservations
+    } = this.props;
+
+    const { identity = 'Manager' } = login.userInfo;
+
+    if (!allReservations.data || allReservations.data.length === 0) {
+      switch (identity) {
+        case 'Staff':
+          handleGetAllReservations({state: 'Accepted'});
+          break;
+        case 'Manager':
+        default:
+          handleGetAllReservations();
+          break;
+      }
     }
   }
 
@@ -165,6 +180,7 @@ class WeekCalendar extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  login: state.login,
   allReservations: state.allReservations,
 });
 
