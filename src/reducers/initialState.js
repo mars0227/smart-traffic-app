@@ -50,5 +50,8 @@ export default {
     carNumber: 0,
     alertSwitchState: false,
     errMsg: ''
+  },
+  system: {
+    appState: 'active'
   }
 };

@@ -149,3 +149,18 @@ export const updateAlertStateByNotificationAction = payload => ({
   type: types.UPDATE_ALERT_STATE_BY_NOTIFICATION,
   payload
 });
+
+export const setUserActiveStateAction = payload => ({
+  type: types.SET_USER_ACTIVE_STATE,
+  payload
+});
+
+export const updateMonitorImageAction = payload => ({
+  type: types.UPDATE_MONITOR_IMAGE,
+  payload
+});
+
+export const updateAppStateAction = payload => ({
+  type: types.UPDATE_APP_STATE,
+  payload
+});

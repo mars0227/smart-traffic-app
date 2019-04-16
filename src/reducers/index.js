@@ -10,6 +10,7 @@ import notification from './notificationReducer';
 import monitor from './monitorReducer';
 import partialReservations from './partialReservationReducer';
 import reservation from './reservationReducer';
+import system from './systemReducer';
 
 // will be store key name
 const appReducer = combineReducers({
@@ -23,7 +24,8 @@ const appReducer = combineReducers({
   notification,
   monitor,
   partialReservations,
-  reservation
+  reservation,
+  system
 });
 
 const rootReducer = (state, action) => {

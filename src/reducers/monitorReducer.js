@@ -9,6 +9,8 @@ export default function (monitor = initialState.monitor, action) {
       return { ...monitor, ...action.payload };
     case types.UPDATE_ALERT_STATE_BY_NOTIFICATION:
       return { ...monitor, ...action.payload };
+    case types.UPDATE_MONITOR_IMAGE:
+      return { ...monitor, ...action.payload };
     case types.GET_MONITOR_VIEW_FAILED:
     case types.GET_MONITOR_VIEW:
     default:

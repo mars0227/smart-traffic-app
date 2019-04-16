@@ -2,7 +2,8 @@ import { takeLatest } from 'redux-saga/effects';
 import * as types from '../constants/actionTypes';
 import {
   loginSaga,
-  setExpoPushTokenSaga
+  setExpoPushTokenSaga,
+  setUserActiveStateSaga
 } from './loginSaga';
 import { identitySaga } from './identitySaga';
 import { constructionSaga } from './constructionSaga';
@@ -55,4 +56,8 @@ export function* watchGetMonitorView() {
 
 export function* watchUpdateAlertState() {
   yield takeLatest(types.UPDATE_ALERT_STATE, updateAlertStateSaga);
+};
+
+export function* watchSetUserActiveState() {
+  yield takeLatest(types.SET_USER_ACTIVE_STATE, setUserActiveStateSaga);
 };

@@ -190,7 +190,7 @@ class Reservation extends React.Component {
           )}
           <ImageView
             style={customStyles.image}
-            uri={`${pictureUrl}/${reservationId}.jpg`}
+            uri={`${pictureUrl}/${reservationId}/1.jpg`}
           />
         </View>
         <View style={customStyles.button}>
