@@ -22,6 +22,7 @@ export default function (allReservations = initialState.allReservations, action)
       return { ...allReservations, showingReservationId: payload };
     case types.UPDATE_RESERVATION_SUCCEEDED:
     case types.UPDATE_RESERVATION_BY_NOTIFICATION:
+    case types.UPDATE_RESERVATION_BY_WEBSOCKET:
       const { reservationId, state } = payload;
       const { data } = allReservations;
       return {
@@ -33,7 +34,12 @@ export default function (allReservations = initialState.allReservations, action)
         )
       };
     case types.ADD_RESERVATION_BY_WEBSOCKET:
-      return { ...allReservations, data: [...allReservations.data, payload] };
+      const reservationArray = allReservations.data;
+      const index = reservationArray.findIndex(reservation => reservation.reservation_id === payload.reservation_id);
+      if (!index) {
+        return { ...allReservations, data: [...reservationArray, payload] };
+      }
+      return { ...allReservations, data: reservationArray.splice(index, 1, payload) };
     case types.GET_ALL_RESERVATIONS:
     case types.GET_ALL_RESERVATIONS_FAILED:
     default:

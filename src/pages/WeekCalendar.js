@@ -52,23 +52,12 @@ class WeekCalendar extends React.Component {
 
   componentDidMount() {
     const {
-      login,
       allReservations,
       handleGetAllReservations
     } = this.props;
 
-    const { identity = 'Manager' } = login.userInfo;
-
     if (!allReservations.data || allReservations.data.length === 0) {
-      switch (identity) {
-        case 'Staff':
-          handleGetAllReservations({state: 'Accepted'});
-          break;
-        case 'Manager':
-        default:
-          handleGetAllReservations();
-          break;
-      }
+      handleGetAllReservations();
     }
   }
 
@@ -113,14 +102,19 @@ class WeekCalendar extends React.Component {
 
   render() {
     const { weekPlus } = this.state;
-    const { allReservations } = this.props;
+    const { allReservations, login } = this.props;
+    const { identity = 'Manager' } = login.userInfo;
+    const reservationArray = identity === 'Manager'
+      ? allReservations.data
+      : allReservations.data.filter(reservation => reservation.state === 2);
+
     const thisWeek = {
       from: moment().add(weekPlus, 'weeks').weekday(0).format('D/M/YYYY'),
       to: moment().add(weekPlus, 'weeks').weekday(6).format('D/M/YYYY'),
     };
     const fullWeek = this.weekArray(thisWeek.from);
 
-    const combinedReservationsByDay = allReservations.data.reduce((pre, cur) => {
+    const combinedReservationsByDay = reservationArray.reduce((pre, cur) => {
       if (!pre[cur.date]) pre[cur.date] = [];
       pre[cur.date].push(cur);
       return { ...pre };
