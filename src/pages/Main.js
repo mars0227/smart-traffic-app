@@ -6,7 +6,7 @@ import { Icon } from 'react-native-elements';
 import NotificationListener from '../components/NotificationListener';
 import ImageIcon from '../components/ImageIcon';
 import styles from '../styles';
-import webSocketService from '../services/websocket';
+import WebSocketService from '../components/WebSocketService';
 
 const activeFunc = {
   Vendor: {
@@ -62,7 +62,6 @@ class Main extends React.Component {
 
   componentDidMount() {
     this.props.navigation.setParams({ menuButton: this.menuButton() });
-    webSocketService();
   }
 
   componentDidUpdate() {
@@ -102,6 +101,7 @@ class Main extends React.Component {
     return (
       <View style={styles.twoColumeContainer}>
         <NotificationListener />
+        <WebSocketService />
         {Object.keys(functions).map(keys => <ImageIcon
           name={functions[keys].name}
           type={functions[keys].type}

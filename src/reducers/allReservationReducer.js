@@ -32,6 +32,8 @@ export default function (allReservations = initialState.allReservations, action)
             : reservation
         )
       };
+    case types.ADD_RESERVATION_BY_WEBSOCKET:
+      return { ...allReservations, data: [...allReservations.data, payload] };
     case types.GET_ALL_RESERVATIONS:
     case types.GET_ALL_RESERVATIONS_FAILED:
     default:

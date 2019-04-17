@@ -28,16 +28,7 @@ class MonitorView extends React.Component {
   }
 
   componentDidMount() {
-    this.timer = setInterval(
-      () => {
-        this.props.handleGetMonitorView();
-      },
-      1000
-    );
-  }
-
-  componentWillUnmount() {
-    this.timer && clearInterval(this.timer);
+    this.props.handleGetMonitorView();
   }
 
   componentDidUpdate(prevProps) {

@@ -155,12 +155,22 @@ export const setUserActiveStateAction = payload => ({
   payload
 });
 
-export const updateMonitorImageAction = payload => ({
-  type: types.UPDATE_MONITOR_IMAGE,
+export const updateAppStateAction = payload => ({
+  type: types.UPDATE_APP_STATE,
   payload
 });
 
-export const updateAppStateAction = payload => ({
-  type: types.UPDATE_APP_STATE,
+export const updateReservationByWebSocketAction = payload => ({
+  type: types.UPDATE_RESERVATION_BY_WEBSOCKET,
+  payload
+});
+
+export const addReservationByWebSocketAction = payload => ({
+  type: types.ADD_RESERVATION_BY_WEBSOCKET,
+  payload
+});
+
+export const updateMonitorViewAction = payload => ({
+  type: types.UPDATE_MONITOR_VIEW_BY_WEBSOCKET,
   payload
 });

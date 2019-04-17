@@ -21,7 +21,6 @@ import {
   addNotificationRefAction,
   updateAlertStateByNotificationAction,
   setUserActiveStateAction,
-  updateMonitorImageAction,
   updateAppStateAction,
   setExpoPushTokenAction
 } from '../actions'
@@ -149,13 +148,6 @@ class NotificationListener extends React.Component {
         handleUpdateAlertStateByNotification({ alertSwitchState: false });
         handleGetNotification(notification);
         break;
-      case 'updateImage':
-        handleUpdateImage(data);
-        handleSetUserActiveState({
-          userId: login.userInfo.userId,
-          active: true
-        });
-        break;
       default:
         break;
     }
@@ -209,7 +201,6 @@ const mapDispatchToProps = dispatch => ({
   handleAddNotificationRef: payload => dispatch(addNotificationRefAction(payload)),
   handleUpdateAlertStateByNotification: payload => dispatch(updateAlertStateByNotificationAction(payload)),
   handleSetUserActiveState: payload => dispatch(setUserActiveStateAction(payload)),
-  handleUpdateImage: payload => dispatch(updateMonitorImageAction(payload)),
   handleUpdateAppState: payload => dispatch(updateAppStateAction(payload)),
   handleSetExpoPushToken: payload => dispatch(setExpoPushTokenAction(payload))
 });
