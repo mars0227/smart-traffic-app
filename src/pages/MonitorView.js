@@ -28,7 +28,10 @@ class MonitorView extends React.Component {
   }
 
   componentDidMount() {
-    this.props.handleGetMonitorView();
+    const { login } = this.props;
+    const { userId } = login.userInfo;
+
+    this.props.handleGetMonitorView({userId});
   }
 
   componentDidUpdate(prevProps) {

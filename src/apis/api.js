@@ -10,7 +10,7 @@ import {
   fetchPatch
 } from './libs/fetch';
 
-export const serverIp = '172.20.10.3:3002';
+export const serverIp = '172.20.10.2:3002';
 //'127.0.0.1:3002';
 
 export const route = __DEV__
@@ -25,6 +25,6 @@ export const getReservation = ({ id }) => fetchGet(`${route}/reservations/${id}`
 export const setReservation = payload => fetchPostWithFile(`${route}/reservations`, payload);
 export const updateReservation = ({ reservationId, ...payload }) => fetchPatch(`${route}/reservations/${reservationId}`, payload);
 export const setExpoPushToken = ({ userId, ...payload }) => fetchPost(`${route}/users/${userId}/expo_push_token`, payload);
-export const getMonitorView = () => fetchGet(`${route}/camera`);
+export const getMonitorView = () => fetchGet(`${route}/camera`, payload);
 export const updateAlertState = payload => fetchPatch(`${route}/camera/alert`, payload);
 export const setUserActiveState = ({ userId, ...payload }) => fetchPost(`${route}/users/${userId}/active`, payload);
