@@ -20,13 +20,6 @@ import AutoFitImage from '../components/AutoFitImage';
 const pictureUrl = route;
 
 class MonitorView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      switchState: false
-    }
-  }
-
   componentDidMount() {
     const { login } = this.props;
     const { userId } = login.userInfo;
@@ -34,36 +27,17 @@ class MonitorView extends React.Component {
     this.props.handleGetMonitorView({userId});
   }
 
-  componentDidUpdate(prevProps) {
-    const { alertSwitchState: alertSwitchStatePrev } = prevProps.monitor;
-    const {
-      alertSwitchState: alertSwitchStateNow
-    } = this.props.monitor;
-
-    if (alertSwitchStatePrev !== alertSwitchStateNow) {
-      const { switchState } = this.state;
-
-      if (alertSwitchStateNow !== switchState) {
-        this.setState({
-          switchState: alertSwitchStateNow
-        });
-      }
-    }
-  }
-
   handleSwtich = state => {
-    this.setState({
-      switchState: state
-    });
-    this.props.handleUpdateAlertState({ alertSwitchState: state });
+    const { userId } = this.props.login.userInfo;
+    this.props.handleUpdateAlertState({ alertSwitchState: state, userId });
   }
 
   render() {
     const {
       carNumber,
       image,
+      alertSwitchState
     } = this.props.monitor;
-    const { switchState } = this.state;
 
     const uri = `${pictureUrl}/${image}`;
 
@@ -77,7 +51,7 @@ class MonitorView extends React.Component {
         <ListItem
           style={{ width: '100%', fontSize: 22 }}
           title={'Active Alert'}
-          rightElement={<Switch value={switchState} onValueChange={this.handleSwtich.bind(this)}/>}
+          rightElement={<Switch value={alertSwitchState} onValueChange={this.handleSwtich.bind(this)}/>}
         />
         <Divider/>
       </View>
@@ -86,6 +60,7 @@ class MonitorView extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  login: state.login,
   monitor: state.monitor
 });
 

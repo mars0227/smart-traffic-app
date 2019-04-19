@@ -5,10 +5,10 @@ import {
   updateAlertState
 } from '../apis/api';
 
-export function* getMonitorViewSaga() {
+export function* getMonitorViewSaga({ payload }) {
   try {
     yield put({ type: types.FETCHING});
-    const res = yield call(getMonitorView);
+    const res = yield call(getMonitorView, payload);
     yield put({ type: types.FETCH_COMPLETE});
 
     const resAction = res.ok ?
