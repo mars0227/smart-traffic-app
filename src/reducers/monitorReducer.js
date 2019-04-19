@@ -7,8 +7,6 @@ export default function (monitor = initialState.monitor, action) {
       return action.payload;
     case types.UPDATE_ALERT_STATE_SUCCEEDED:
       return { ...monitor, ...action.payload };
-    case types.UPDATE_ALERT_STATE_BY_NOTIFICATION:
-      return { ...monitor, ...action.payload };
     case types.UPDATE_MONITOR_VIEW_BY_WEBSOCKET:
       return { ...monitor, ...action.payload };
     case types.GET_MONITOR_VIEW_FAILED:

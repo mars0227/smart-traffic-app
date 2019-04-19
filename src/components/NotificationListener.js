@@ -16,21 +16,11 @@ import {
 import {
   getNotificationAction,
   showNotificationSucceededAction,
-  setReservationByNotificationAction,
-  updateReservationByNotificaitonAction,
   addNotificationRefAction,
-  updateAlertStateByNotificationAction,
   setUserActiveStateAction,
   updateAppStateAction,
   setExpoPushTokenAction
 } from '../actions'
-
-const convertReservationId = id => typeof id === 'string' ? Number(id) : id;
-
-const modifyPayload = payload => {
-  const { reservationId, ...data } = payload;
-  return { reservationId: convertReservationId(reservationId), ...data };
-}
 
 class NotificationListener extends React.Component {
   componentDidMount() {
@@ -118,39 +108,7 @@ class NotificationListener extends React.Component {
   };
 
   handleNotification = notification => {
-    const {
-      login,
-      handleGetNotification,
-      handleSetReservation,
-      handleUpdateReservation,
-      handleUpdateAlertStateByNotification,
-      handleUpdateImage,
-      handleSetUserActiveState
-    } = this.props;
-
-    const {
-      type,
-      data
-    } = notification.data;
-
-    switch (type) {
-      case 'newReservation':
-        const newReservationPayload = modifyPayload(data);
-        handleSetReservation(newReservationPayload);
-        handleGetNotification(notification);
-        break;
-      case 'updateReservation':
-        const updateReservationPayload = modifyPayload(data);
-        handleUpdateReservation(updateReservationPayload);
-        handleGetNotification(notification);
-        break;
-      case 'alertTrafficCongestion':
-        handleUpdateAlertStateByNotification({ alertSwitchState: false });
-        handleGetNotification(notification);
-        break;
-      default:
-        break;
-    }
+    this.props.handleGetNotification(notification);
   };
 
   handleCloseOverlay = () => {
@@ -196,10 +154,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   handleGetNotification: payload => dispatch(getNotificationAction(payload)),
   handleShowNotificationSucceeded: () => dispatch(showNotificationSucceededAction()),
-  handleSetReservation: payload => dispatch(setReservationByNotificationAction(payload)),
-  handleUpdateReservation: payload => dispatch(updateReservationByNotificaitonAction(payload)),
   handleAddNotificationRef: payload => dispatch(addNotificationRefAction(payload)),
-  handleUpdateAlertStateByNotification: payload => dispatch(updateAlertStateByNotificationAction(payload)),
   handleSetUserActiveState: payload => dispatch(setUserActiveStateAction(payload)),
   handleUpdateAppState: payload => dispatch(updateAppStateAction(payload)),
   handleSetExpoPushToken: payload => dispatch(setExpoPushTokenAction(payload))

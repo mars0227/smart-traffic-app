@@ -7,7 +7,7 @@ export default function (reservation = initialState.reservation, action) {
   switch (type) {
     case types.SET_RESERVATION:
       return { data: payload, updateOk: false, errMsg: null };
-    case types.UPDATE_RESERVATION_BY_NOTIFICATION:
+    case types.UPDATE_RESERVATION_BY_WEBSOCKET:
     case types.UPDATE_RESERVATION_SUCCEEDED:
       const { reservationId, state } = payload;
       const { data } = reservation;
