@@ -26,7 +26,7 @@ export default function (allReservations = initialState.allReservations, action)
     case types.ADD_RESERVATION_BY_WEBSOCKET:
       const reservationArray = allReservations.data;
       const index = reservationArray.findIndex(reservation => reservation.reservation_id === payload.reservation_id);
-      if (!index) {
+      if (index === -1) {
         return { ...allReservations, data: [...reservationArray, payload] };
       }
       return { ...allReservations, data: reservationArray.splice(index, 1, payload) };
