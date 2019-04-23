@@ -7,34 +7,11 @@ import {
 import {
   ListItem,
   Icon,
-  Button,
-  Badge
+  Button
 } from 'react-native-elements';
 import { isEmpty } from '../utils/utils';
 import ImageView from '../components/ImageView';
-
-const inputList = [
-  {
-    title: 'Location',
-    page: 'SelectLocation'
-  },
-  {
-    title: 'Date',
-    page: 'DatePicker'
-  },
-  {
-    title: 'Time Slot',
-    page: 'TimeSlotPicker'
-  },
-  {
-    title: 'License plate number',
-    page: 'LicensePlateNumberInput'
-  },
-  {
-    title: 'Materials',
-    page: 'MaterialInput'
-  },
-];
+import i18n from '../constants/i18n';
 
 class CreateReservation extends React.Component {
   constructor(props) {
@@ -48,7 +25,7 @@ class CreateReservation extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'New Reservation',
+    title: i18n.t('newReservation'),
   };
 
   componentDidUpdate() {
@@ -92,30 +69,41 @@ class CreateReservation extends React.Component {
     }
   }
 
-  getSubtitle = title => {
-    const { location, date, timeSlot, licensePlateNumber, material } = this.props.createReservation;
-    switch (title) {
-      case 'Location':
-        return location;
-      case 'Date':
-        return date;
-      case 'Time Slot':
-        return timeSlot;
-      case 'License plate number':
-        return licensePlateNumber;
-      case 'Materials':
-        return material;
-      default:
-        return '';
-    }
-  }
-
   handleTakePicture = () => {
     this.props.navigation.navigate('CameraView');
   }
 
   render() {
     const { navigation, createReservation } = this.props;
+    const { location, date, timeSlot, licensePlateNumber, material } = createReservation;
+    const inputList = [
+      {
+        title: i18n.t('location'),
+        subtitle: location,
+        page: 'SelectLocation'
+      },
+      {
+        title: i18n.t('date'),
+        subtitle: date,
+        page: 'DatePicker'
+      },
+      {
+        title: i18n.t('timeSlot'),
+        subtitle: timeSlot,
+        page: 'TimeSlotPicker'
+      },
+      {
+        title: i18n.t('licensePlateNumber'),
+        subtitle: licensePlateNumber,
+        page: 'LicensePlateNumberInput'
+      },
+      {
+        title: i18n.t('materials'),
+        subtitle: material,
+        page: 'MaterialInput'
+      },
+    ];
+
     return (
       <View style={styles.container}>
         <View style={styles.list}>
@@ -126,7 +114,7 @@ class CreateReservation extends React.Component {
               style={styles.listItem}
               subtitleStyle={styles.listItemSubtitle}
               chevron
-              subtitle={this.getSubtitle(item.title)}
+              subtitle={item.subtitle}
               onPress={() => navigation.navigate(item.page)}
             />
           )}
@@ -156,7 +144,7 @@ class CreateReservation extends React.Component {
           <Button
             color='royalblue'
             onPress={() => this.dataCheck()}
-            title="Submit"
+            title={i18n.t('submit')}
             loading={this.state.isLoading}
             />
         </View>

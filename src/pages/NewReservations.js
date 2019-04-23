@@ -6,6 +6,7 @@ import {
 } from '../actions';
 import { connect } from 'react-redux'
 import List from '../components/List';
+import i18n from '../constants/i18n';
 
 class AllReservations extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class AllReservations extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'New',
+    title: i18n.t('new'),
   };
 
   componentDidMount() {

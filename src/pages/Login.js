@@ -13,6 +13,7 @@ import { connect } from 'react-redux'
 import { getIdentitiesAction, loginAction } from '../actions';
 import KeepInputWithTitle from '../components/KeepInputWithTitle';
 import defaultStyle from '../styles';
+import i18n from '../constants/i18n';
 
 class Login extends React.Component {
   constructor(props) {
@@ -55,14 +56,14 @@ class Login extends React.Component {
           <View style={styles.loginBorder}>
             <View style={styles.inputContainer} >
               <KeepInputWithTitle
-                placeholder='Account'
+                placeholder={i18n.t('account')}
                 value={account}
                 keyboardType='email-address'
                 textContentType='username'
                 onChangeText={(value) => this.onInputChange('account', value)}
               />
               <Input
-                placeholder='Password'
+                placeholder={i18n.t('password')}
                 value={password}
                 secureTextEntry={true}
                 textContentType='password'
@@ -77,7 +78,7 @@ class Login extends React.Component {
               <Button
                 color='royalblue'
                 onPress={() => this.props.handleLogin({ account, password, identity: identities[identityIndex] })}
-                title="Sign in"
+                title={i18n.t('signIn')}
               />
             </View>
           </View>

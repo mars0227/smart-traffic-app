@@ -25,6 +25,7 @@ import AndroidFont from '../pages/AndroidFont';
 import WeekCalendar from '../pages/WeekCalendar';
 import PartialReservations from '../pages/PartialReservations';
 import NewReservations from '../pages/NewReservations';
+import i18n from '../constants/i18n';
 
 const StackNavigator = createStackNavigator(
   {
@@ -41,7 +42,7 @@ const StackNavigator = createStackNavigator(
     ManageReservations: {
       screen: ManageReservations,
       navigationOptions: {
-        title: 'Reservations'
+        title: i18n.t('reservations')
       }
     },
     CreateReservation: {
@@ -118,7 +119,8 @@ const DrawerNavigator = createDrawerNavigator({
     Logout: {
       screen: StackNavigator,
       navigationOptions: () => ({
-        drawerLockMode: 'locked-closed'
+        drawerLockMode: 'locked-closed',
+        title: i18n.t('logout')
       })
     }
   }, {

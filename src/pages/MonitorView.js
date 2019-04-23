@@ -16,6 +16,7 @@ import {
   Divider
 } from 'react-native-elements';
 import AutoFitImage from '../components/AutoFitImage';
+import i18n from '../constants/i18n';
 
 const pictureUrl = route;
 
@@ -46,11 +47,11 @@ class MonitorView extends React.Component {
         <AutoFitImage
           uri={uri}
         />
-        <Text h4>{`car number: ${carNumber}`}</Text>
+        <Text h4>{`${i18n.t('carNumber')}: ${carNumber}`}</Text>
         <Divider/>
         <ListItem
           style={{ width: '100%', fontSize: 22 }}
-          title={'Active Alert'}
+          title={i18n.t('activeAlert')}
           rightElement={<Switch value={alertSwitchState} onValueChange={this.handleSwtich.bind(this)}/>}
         />
         <Divider/>

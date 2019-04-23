@@ -7,11 +7,12 @@ import NotificationListener from '../components/NotificationListener';
 import ImageIcon from '../components/ImageIcon';
 import styles from '../styles';
 import WebSocketService from '../components/WebSocketService';
+import i18n from '../constants/i18n';
 
 const activeFunc = {
   Vendor: {
     myReservations: {
-      title: 'MyReservations',
+      title: i18n.t('myReservations'),
       name: 'truck',
       type: 'font-awesome',
       backgroundColor: 'yellowgreen',
@@ -20,14 +21,14 @@ const activeFunc = {
   },
   Manager: {
     reservations: {
-      title: 'Reservations',
+      title: i18n.t('reservations'),
       name: 'th-list',
       type: 'font-awesome',
       backgroundColor: 'royalblue',
       page: 'ManageReservations'
     },
     camera: {
-      title: 'Camera',
+      title: i18n.t('camera'),
       name: 'device-camera-video',
       type: 'octicon',
       backgroundColor: 'darksalmon',
@@ -36,14 +37,14 @@ const activeFunc = {
   },
   Staff: {
     reservations: {
-      title: 'Reservations',
+      title: i18n.t('reservations'),
       name: 'th-list',
       type: 'font-awesome',
       backgroundColor: 'royalblue',
       page: 'WeekCalendar'
     },
     camera: {
-      title: 'Camera',
+      title: i18n.t('camera'),
       name: 'device-camera-video',
       type: 'octicon',
       backgroundColor: 'darksalmon',

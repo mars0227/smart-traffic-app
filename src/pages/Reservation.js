@@ -8,13 +8,14 @@ import { ListItem } from 'react-native-elements';
 import ImageView from '../components/ImageView';
 import { route } from '../apis/api';
 import styles from '../styles';
+import i18n from '../constants/i18n';
 
-const reservationState = [
-  'Created',
-  'Accepted',
-  'Refused',
-  'Canceled'
-];
+const reservationStateMapping = {
+  1: 'Created',
+  2: 'Accepted',
+  3: 'Refused',
+  4: 'Canceled'
+};
 
 const pictureUrl = route;
 
@@ -23,34 +24,15 @@ class Reservation extends React.Component {
     const { reservation } = this.props;
     const { state } = reservation.data;
 
-    return reservationState[state - 1] || 'Error';
-  }
-
-  getSubtitle = title => {
-    const { reservation, constructions } = this.props;
-
-    const {
-      date,
-      construction_id,
-      time_slot: timeSlot,
-      license_plate_number: licensePlateNumber,
-      material } = reservation.data;
-
-    const location = constructions[construction_id - 1];
-
-    switch (title) {
-      case 'Location':
-        return location;
-      case 'Date':
-        return date;
-      case 'Time Slot':
-        return timeSlot;
-      case 'License plate number':
-        return licensePlateNumber;
-      case 'Materials':
-        return material;
+    switch (reservationStateMapping[state]) {
+      case 'Accepted':
+        return i18n.t('accepted');
+      case 'Refused':
+        return i18n.t('refused');
+      case 'Canceled':
+        return i18n.t('canceled');
       default:
-        return '';
+        return i18n.t('error');
     }
   }
 
@@ -80,7 +62,7 @@ class Reservation extends React.Component {
     <Button
       color='royalblue'
       onPress={() => this.accept()}
-      title='Accept'
+      title={i18n.t('accept')}
     />
   );
 
@@ -88,7 +70,7 @@ class Reservation extends React.Component {
     <Button
       color='red'
       onPress={() => this.refuse()}
-      title='Refuse'
+      title={i18n.t('refuse')}
     />
   );
 
@@ -96,7 +78,7 @@ class Reservation extends React.Component {
     <Button
       color='red'
       onPress={() => this.cancel()}
-      title='Cancel'
+      title={i18n.t('cancel')}
     />
   );
 
@@ -111,9 +93,9 @@ class Reservation extends React.Component {
   getButton = () => {
     const { reservation, login } = this.props;
     const { identity } = login.userInfo;
-    const { state: stateNum } = reservation.data;
+    const { state } = reservation.data;
 
-    if (reservationState[stateNum - 1] === 'Created') {
+    if (reservationStateMapping[state] === 'Created') {
         return identity === 'Manager'
           ? (<View>
             {this.acceptButton()}
@@ -134,7 +116,7 @@ class Reservation extends React.Component {
         reservation =>
           (reservation.date === date
             && reservation.time_slot === timeSlot
-            && reservation.state === reservationState.indexOf('Accepted') + 1)
+            && reservationStateMapping[reservation.state] === 'Accepted')
       );
 
       return {
@@ -146,39 +128,51 @@ class Reservation extends React.Component {
     return null;
   }
 
+  getLocation = constructionId => {
+    const { constructions } = this.props;
+    return constructions[constructionId - 1];
+  }
+
   render() {
     const { reservation } = this.props;
     const {
       date,
+      construction_id,
       time_slot: timeSlot,
-      reservation_id: reservationId,
+      license_plate_number: licensePlateNumber,
+      material,
       images
     } = reservation.data;
     const imageUrls = images.length > 0 && images.map(fileName => `${pictureUrl}/${fileName}`);
     const badge = this.getBadge({ date, timeSlot });
     const bookedInfo = badge
       ? {
-        rightTitle: 'Booked',
+        rightTitle: i18n.t('booked'),
         badge
       }
       : {};
 
     const inputList = [
       {
-        title: 'Location',
+        title: i18n.t('location'),
+        subtitle: this.getLocation(construction_id)
       },
       {
-        title: 'Date',
+        title: i18n.t('date'),
+        subtitle: date
       },
       {
-        title: 'Time Slot',
+        title: i18n.t('timeSlot'),
+        subtitle: timeSlot,
         ...bookedInfo
       },
       {
-        title: 'License plate number',
+        title: i18n.t('licensePlateNumber'),
+        subtitle: licensePlateNumber
       },
       {
-        title: 'Materials',
+        title: i18n.t('materials'),
+        subtitle: material
       },
     ];
 
@@ -190,7 +184,7 @@ class Reservation extends React.Component {
               {...item}
               key={index}
               style={customStyles.listItem}
-              subtitle={this.getSubtitle(item.title)}
+              subtitle={item.subtitle}
               subtitleStyle={styles.listItemSubtitle}
             />
           )}
