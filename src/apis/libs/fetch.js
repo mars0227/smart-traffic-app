@@ -58,7 +58,13 @@ const getBody = ({payload, ...params}) => ({
 const getFormData = ({ payload, ...params }) => {
   let formData = new FormData();
   for (let key in payload) {
-    formData.append(key, payload[key]);
+    if (key === 'file') {
+      payload.file.forEach(file =>
+        formData.append('file', file));
+    }
+    else {
+      formData.append(key, payload[key]);
+    }
   }
   return {
     ...params,

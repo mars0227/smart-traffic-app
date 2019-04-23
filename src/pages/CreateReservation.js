@@ -4,7 +4,12 @@ import { connect } from 'react-redux'
 import {
   createReservationAction
 } from '../actions';
-import { ListItem, Icon, Button } from 'react-native-elements';
+import {
+  ListItem,
+  Icon,
+  Button,
+  Badge
+} from 'react-native-elements';
 import { isEmpty } from '../utils/utils';
 import ImageView from '../components/ImageView';
 
@@ -60,7 +65,7 @@ class CreateReservation extends React.Component {
       timeSlot,
       licensePlateNumber,
       material,
-      pictureUri } = this.props.createReservation;
+      pictureUris } = this.props.createReservation;
     const { userId: createrId } = this.props.login.userInfo;
 
     const payload = {
@@ -70,11 +75,11 @@ class CreateReservation extends React.Component {
       timeSlot,
       licensePlateNumber,
       material,
-      file: {
-        uri: pictureUri,
+      file: pictureUris.map( uri => ({
+        uri,
         type: 'image/jpeg',
         name: 'reservation.jpg'
-      }
+      }))
     };
 
     if (isEmpty(payload)) {
@@ -126,12 +131,15 @@ class CreateReservation extends React.Component {
             />
           )}
           <View style={styles.pictureContainer}>
-            {createReservation.pictureUri !== '' && (
-              <ImageView
-                style={styles.image}
-                uri={createReservation.pictureUri}
-              />)
-            }
+            {createReservation.pictureUris.length !== 0 && (
+              <View>
+                <ImageView
+                  style={styles.image}
+                  urls={createReservation.pictureUris}
+                />
+              </View>
+              )
+              }
             <Button
               icon={
                 <Icon

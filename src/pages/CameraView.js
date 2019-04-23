@@ -5,7 +5,9 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
-import { updatePictureUriAction } from '../actions';
+import {
+  storeImageAction
+} from '../actions';
 import {
   Camera,
   Permissions
@@ -65,7 +67,7 @@ class CameraView extends React.Component {
         this.setState({ takePictureButtonDisabled: true });
         const result = await this.camera.takePictureAsync();
         this.camera.pausePreview();
-        this.props.handleUpdatePictureUri(result.uri);
+        this.props.handleStoreImage(result.uri);
         this.props.navigation.goBack();
       } catch (err) {
         this.handleTakePictureFailed(err);
@@ -124,7 +126,7 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleUpdatePictureUri: data => dispatch(updatePictureUriAction(data))
+  handleStoreImage: data => dispatch(storeImageAction(data))
 });
 
 export default connect(

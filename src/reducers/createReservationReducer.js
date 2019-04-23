@@ -1,5 +1,6 @@
 import initialState from './initialState';
 import * as types from '../constants/actionTypes';
+import { arrayRemove } from '../utils/utils';
 
 export default function (createReservation = initialState.createReservation, action) {
 
@@ -20,8 +21,10 @@ export default function (createReservation = initialState.createReservation, act
       return { ...createReservation, ok: false, errMsg: action.payload.errMsg };
     case types.CLEAN_RESERVATION:
       return initialState.createReservation;
-    case types.TAKE_PICTURE_SUCCEEDED:
-      return { ...createReservation, pictureUri: action.payload };
+    case types.STORE_IMAGE:
+      return { ...createReservation, pictureUris: [...createReservation.pictureUris, action.payload] };
+    case types.REMOVE_IMAGE:
+      return { ...createReservation, pictureUris: arrayRemove(createReservation.pictureUris, action.payload) };
     default:
       return createReservation;
   }

@@ -148,7 +148,13 @@ class Reservation extends React.Component {
 
   render() {
     const { reservation } = this.props;
-    const { date, time_slot: timeSlot, reservation_id: reservationId } = reservation.data;
+    const {
+      date,
+      time_slot: timeSlot,
+      reservation_id: reservationId,
+      images
+    } = reservation.data;
+    const imageUrls = images.length > 0 && images.map(fileName => `${pictureUrl}/${fileName}`);
     const badge = this.getBadge({ date, timeSlot });
     const bookedInfo = badge
       ? {
@@ -188,10 +194,13 @@ class Reservation extends React.Component {
               subtitleStyle={styles.listItemSubtitle}
             />
           )}
-          <ImageView
-            style={customStyles.image}
-            uri={`${pictureUrl}/${reservationId}/1.jpg`}
-          />
+          {imageUrls &&
+            <ImageView
+              deleteButtonDisabled
+              style={customStyles.image}
+              urls={imageUrls}
+            />
+          }
         </View>
         <View style={customStyles.button}>
           {this.getButton()}

@@ -88,11 +88,6 @@ export const cleanCreateReservationAction = () => ({
   type: types.CLEAN_RESERVATION
 });
 
-export const updatePictureUriAction = payload => ({
-  type: types.TAKE_PICTURE_SUCCEEDED,
-  payload
-});
-
 export const setExpoPushTokenAction = payload => ({
   type: types.SET_EXPO_PUSH_TOKEN,
   payload
@@ -173,5 +168,15 @@ export const addReservationByWebSocketAction = payload => ({
 
 export const updateMonitorViewAction = payload => ({
   type: types.UPDATE_MONITOR_VIEW_BY_WEBSOCKET,
+  payload
+});
+
+export const storeImageAction = payload => ({
+  type: types.STORE_IMAGE,
+  payload
+});
+
+export const removeImageAction = payload => ({
+  type: types.REMOVE_IMAGE,
   payload
 });

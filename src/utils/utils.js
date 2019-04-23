@@ -19,3 +19,7 @@ export const dateCompare = (date1, date2) => {
   if (parseInt(date1Raw[2]) < parseInt(date2Raw[2]) || parseInt(date1Raw[1]) < parseInt(date2Raw[1]) || parseInt(date1Raw[0]) < parseInt(date2Raw[0])) return '<';
   return '=';
 }
+
+export const arrayReplace = (array, index, value) => [...array.slice(0, index), value, ...array.slice(index + 1)];
+
+export const arrayRemove = (array, index) => [...array.slice(0, index), ...array.slice(index + 1)];
