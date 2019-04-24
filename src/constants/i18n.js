@@ -29,7 +29,8 @@ const translations = {
     logout: 'Logout',
     newReservation: 'New Reservation',
     paramsIncomplete: 'some data is empty',
-    submit: 'Submit'
+    submit: 'Submit',
+    needReview: 'Need Review',
   },
   zh: {
     account: '帳號',
@@ -58,7 +59,8 @@ const translations = {
     logout: '登出',
     newReservation: '建立預約',
     paramsIncomplete: '資料填寫不完整',
-    submit: '送出'
+    submit: '送出',
+    needReview: '待處理',
   }
 };
 

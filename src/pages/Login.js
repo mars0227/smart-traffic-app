@@ -10,7 +10,7 @@ import {
   Input
 } from 'react-native-elements';
 import { connect } from 'react-redux'
-import { getIdentitiesAction, loginAction } from '../actions';
+import { loginAction } from '../actions';
 import KeepInputWithTitle from '../components/KeepInputWithTitle';
 import defaultStyle from '../styles';
 import i18n from '../constants/i18n';
@@ -19,15 +19,9 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      identityIndex: 0,
       account: undefined,
-      password: '',
-      photos: []
+      password: ''
     }
-  }
-
-  componentDidMount() {
-    this.props.handleGetIdentities();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -44,9 +38,14 @@ class Login extends React.Component {
     })
   }
   
+  handleLogin = () => {
+    const { account, password } = this.state;
+    this.props.handleLogin({ account, password });
+  }
+
   render() {
-    const { account, password, identityIndex } = this.state;
-    const { identities, login } = this.props;
+    const { account, password } = this.state;
+    const { login } = this.props;
     return (
       <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <View style={styles.titleContainer}>
@@ -77,7 +76,7 @@ class Login extends React.Component {
             <View style={styles.buttonContainer}>
               <Button
                 color='royalblue'
-                onPress={() => this.props.handleLogin({ account, password, identity: identities[identityIndex] })}
+                onPress={() => this.handleLogin()}
                 title={i18n.t('signIn')}
               />
             </View>
@@ -121,13 +120,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  identities: state.identities,
   login: state.login
 });
 
 const mapDispatchToProps = dispatch => ({
   handleLogin: payload => dispatch(loginAction(payload)),
-  handleGetIdentities: () => dispatch(getIdentitiesAction())
 });
 
 export default connect(

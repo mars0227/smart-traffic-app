@@ -17,6 +17,7 @@ import defaultStyle from '../styles';
 import List from '../components/List';
 import { weekAbbreviation } from '../constants';
 import moment from 'moment';
+import i18n from '../constants/i18n';
 
 const DayView = ({ title, subTitle }) => (
   <View style={{ flex: 0.2, alignItems: 'center' }}>
@@ -29,15 +30,15 @@ const BadgeInfo = () => (
   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 5 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Badge status='warning' />
-      <Text> Need Review</Text>
+      <Text>{` ${i18n.t('needReview')}`}</Text>
     </View>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Badge status='primary' />
-      <Text> Accepted</Text>
+      <Text>{` ${i18n.t('accepted')}`}</Text>
     </View>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Badge badgeStyle={{backgroundColor: 'lightgray'}} />
-      <Text> Rejected/Canceled</Text>
+      <Text>{` ${i18n.t('refused')}/${i18n.t('canceled')}`}</Text>
     </View>
   </View>
 );
