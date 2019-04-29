@@ -62,6 +62,16 @@ class WeekCalendar extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { system, handleGetAllReservations } = this.props;
+    const { appState: preAppState } = prevProps.system;
+    const { appState } = system;
+    if (preAppState !== appState && appState === 'active') {
+      console.log('go to foreground, update weebCalendar');
+      handleGetAllReservations();
+    }
+  }
+
   renderTitle = (reservations = {}) => (
     <View style={defaultStyle.twoColumeContainer}>
       {Object.entries(reservations).map(([key, value], index) => {
@@ -177,6 +187,7 @@ class WeekCalendar extends React.Component {
 const mapStateToProps = state => ({
   login: state.login,
   allReservations: state.allReservations,
+  system: state.system
 });
 
 const mapDispatchToProps = dispatch => ({
