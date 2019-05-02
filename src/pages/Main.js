@@ -110,10 +110,6 @@ const mapStateToProps = (state) => ({
   notification: state.notification
 });
 
-const mapDispatchToProps = dispatch => ({
-});
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(Main);

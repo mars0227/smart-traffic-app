@@ -1,6 +1,7 @@
 import {
   View,
-  Switch
+  Switch,
+  Text
 } from 'react-native';
 import { connect } from 'react-redux';
 import React from 'react';
@@ -11,12 +12,11 @@ import {
 import { route } from '../apis/api';
 import styles from '../styles';
 import {
-  Text,
   ListItem,
-  Divider
 } from 'react-native-elements';
 import AutoFitImage from '../components/AutoFitImage';
 import i18n from '../constants/i18n';
+import Divider from '../components/Divider';
 
 const pictureUrl = route;
 
@@ -47,14 +47,16 @@ class MonitorView extends React.Component {
         <AutoFitImage
           uri={uri}
         />
-        <Text h4>{`${i18n.t('carNumber')}: ${carNumber}`}</Text>
-        <Divider/>
+        <View style={{ ...styles.fullWidth, backgroundColor: 'whitesmoke', flexDirection: 'row', justifyContent: 'center' }}>
+          <Text style={{margin: 5, fontSize: 17}}>{`${i18n.t('carNumber')}: ${carNumber}`}</Text>
+        </View>
+        <Divider />
         <ListItem
-          style={{ width: '100%', fontSize: 22 }}
+          style={styles.fullWidth}
           title={i18n.t('activeAlert')}
           rightElement={<Switch value={alertSwitchState} onValueChange={this.handleSwtich.bind(this)}/>}
         />
-        <Divider/>
+        <Divider />
       </View>
     );
   }

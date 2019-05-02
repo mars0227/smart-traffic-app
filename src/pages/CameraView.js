@@ -62,13 +62,14 @@ class CameraView extends React.Component {
   }
 
   takePicture = async () => {
+    const { handleStoreImage, navigation } = this.props;
     if (this.camera) {
       try {
         this.setState({ takePictureButtonDisabled: true });
         const result = await this.camera.takePictureAsync();
         this.camera.pausePreview();
-        this.props.handleStoreImage(result.uri);
-        this.props.navigation.goBack();
+        handleStoreImage(result.uri);
+        navigation.goBack();
       } catch (err) {
         this.handleTakePictureFailed(err);
         this.setState({ takePictureButtonDisabled: false })
@@ -122,14 +123,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = () => ({
-});
-
 const mapDispatchToProps = dispatch => ({
   handleStoreImage: data => dispatch(storeImageAction(data))
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(CameraView);

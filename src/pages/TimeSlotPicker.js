@@ -20,14 +20,11 @@ class TimeSlotPicker extends React.Component {
   }
 }
 
-const mapStateToProps = () => ({
-});
-
 const mapDispatchToProps = dispatch => ({
   handleSelectTimeSlot: timeSlot => dispatch(selectTimeSlotAction(timeSlot))
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(TimeSlotPicker)

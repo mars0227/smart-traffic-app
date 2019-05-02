@@ -15,6 +15,18 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import {
   removeImageAction
 } from '../actions';
+import defaultStyles from '../styles';
+
+const HeaderBar = props => (
+  <View style={styles.headerContainer}>
+    <View style={defaultStyles.iPhoneXHeaderHeight}/>
+    <Icon
+      raised
+      name='close'
+      onPress={props.onPress}
+    />
+  </View>
+);
 
 class ImageView extends React.Component {
   constructor(props) {
@@ -46,7 +58,7 @@ class ImageView extends React.Component {
 
   renderFooter = currentIndex => {
     const { deleteButtonDisabled } = this.props;
-    console.log('deleteButtonDisabled', deleteButtonDisabled);
+
     return deleteButtonDisabled
       ? null
       : (<View style={styles.headerContainer}>
@@ -77,13 +89,7 @@ class ImageView extends React.Component {
             imageUrls={imageUrls}
             index={pictureIndex}
             renderHeader={() => (
-              <View style={styles.headerContainer}>
-                <Icon
-                  raised
-                  name='close'
-                  onPress={this.setModalVisible}
-                />
-              </View>
+              <HeaderBar onPress={this.setModalVisible} />
             )}
             renderFooter={(currentIndex) => this.renderFooter(currentIndex)}
           />
@@ -115,16 +121,12 @@ class ImageView extends React.Component {
 const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    zIndex: 1
+    alignItems: 'flex-end',
+    zIndex: 1,
   },
   image: {
     backgroundColor: 'lightgray'
   }
-});
-
-const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -132,6 +134,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(ImageView)

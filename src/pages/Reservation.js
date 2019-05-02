@@ -60,6 +60,7 @@ class Reservation extends React.Component {
 
   acceptButton = () => (
     <Button
+      style={{ flex: 1 }}
       color='royalblue'
       onPress={() => this.accept()}
       title={i18n.t('accept')}
@@ -68,6 +69,7 @@ class Reservation extends React.Component {
 
   refuseButton = () => (
     <Button
+      style={{ flex: 1 }}
       color='red'
       onPress={() => this.refuse()}
       title={i18n.t('refuse')}
@@ -97,7 +99,7 @@ class Reservation extends React.Component {
 
     if (reservationStateMapping[state] === 'Created') {
         return identity === 'Manager'
-          ? (<View>
+          ? (<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
             {this.acceptButton()}
             {this.refuseButton()}
           </View>)
