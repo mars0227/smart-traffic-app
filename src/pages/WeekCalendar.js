@@ -27,7 +27,7 @@ const DayView = ({ title, subTitle }) => (
 );
 
 const BadgeInfo = () => (
-  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 5 }}>
+  <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 5 }}>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Badge status='warning' />
       <Text>{` ${i18n.t('needReview')}`}</Text>
@@ -142,15 +142,13 @@ class WeekCalendar extends React.Component {
         }, {}))
       );
 
-    const list = [...combinedReservationsByTime.map((reservations, index) => (
+    const list = combinedReservationsByTime.map((reservations, index) => (
       {
         leftAvatar: <DayView title={fullWeek[index].split('/')[0]} subTitle={weekAbbreviation[index]} />,
         title: this.renderTitle(reservations),
         key: index,
-      })
-    ),
-      { customComponent: <BadgeInfo key={100}/> }
-    ];
+      }
+    ));
 
     return (
       <View style={{ flex: 1 }}>
@@ -179,6 +177,7 @@ class WeekCalendar extends React.Component {
           />
         </View>
         <List list={list} handlePress={(key) => { this.handlePartialReservationsPress(reservationsOfThisWeek[key]) }} />
+        <BadgeInfo />
       </View>
     );
   }

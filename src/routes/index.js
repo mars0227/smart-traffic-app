@@ -15,16 +15,13 @@ import MonitorView from '../pages/MonitorView';
 import {
   createStackNavigator,
   createAppContainer,
-  createDrawerNavigator,
-  DrawerItems,
 } from "react-navigation";
-import { connect } from 'react-redux';
-import { logoutAction } from '../actions';
 import IOSFont from '../pages/ISOFont';
 import AndroidFont from '../pages/AndroidFont';
 import WeekCalendar from '../pages/WeekCalendar';
 import PartialReservations from '../pages/PartialReservations';
 import NewReservations from '../pages/NewReservations';
+import Settings from '../pages/Settings';
 import i18n from '../constants/i18n';
 
 const StackNavigator = createStackNavigator(
@@ -87,6 +84,9 @@ const StackNavigator = createStackNavigator(
     },
     NewReservations: {
       screen: NewReservations
+    },
+    Settings: {
+      screen: Settings
     }
   },
   {
@@ -98,38 +98,7 @@ const StackNavigator = createStackNavigator(
       headerTintColor: 'white'
     }
   });
-  
-const CustomContentComponent = props => (
-  <DrawerItems {...{ ...props, onItemPress: () => props.handleLogout() }} />
-);
 
-const mapStateToProps = (state) => ({
-});
-
-const mapDispatchToProps = dispatch => ({
-  handleLogout: () => dispatch(logoutAction())
-});
-
-const CustomContentComponentContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CustomContentComponent);
-
-const DrawerNavigator = createDrawerNavigator({
-    Logout: {
-      screen: StackNavigator,
-      navigationOptions: () => ({
-        drawerLockMode: 'locked-closed',
-        title: i18n.t('logout')
-      })
-    }
-  }, {
-    drawerPosition: 'right',
-    drawerType: 'slide',
-    contentComponent: CustomContentComponentContainer
-  }
-);
-
-const AppContainer = createAppContainer(DrawerNavigator);
+const AppContainer = createAppContainer(StackNavigator);
 
 export default AppContainer;

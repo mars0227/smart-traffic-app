@@ -37,6 +37,8 @@ export default function (login = initialState.login, action) {
       return handleUpdateExpoPushToken(login, action.payload);
     case types.LOGOUT:
       return initialState.login;
+    case types.LANGUAGE_CHANGE:
+      return { ...login, userInfo: { ...login.userInfo, locale: action.payload } };
     default:
       return login;
   }

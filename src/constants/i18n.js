@@ -31,6 +31,8 @@ const translations = {
     paramsIncomplete: 'some data is empty',
     submit: 'Submit',
     needReview: 'Need Review',
+    language: 'Language',
+    settings: 'Settings'
   },
   zh: {
     account: '帳號',
@@ -61,6 +63,8 @@ const translations = {
     paramsIncomplete: '資料填寫不完整',
     submit: '送出',
     needReview: '待處理',
+    language: '語言',
+    settings: '設定'
   }
 };
 

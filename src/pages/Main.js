@@ -65,22 +65,11 @@ class Main extends React.Component {
     this.props.navigation.setParams({ menuButton: this.menuButton() });
   }
 
-  componentDidUpdate() {
-    const { ok } = this.props.login;
-    if (!ok) {
-      this.handleLogout();
-    }
-  }
-
-  handleLogout = () => {
-    this.props.navigation.replace('Login');
-  }
-
   menuButton = () => (
     <Icon
       color='white'
       name='more-vert'
-      onPress={this.props.navigation.openDrawer}
+      onPress={() => this.props.navigation.navigate('Settings')}
     />
   );
 
