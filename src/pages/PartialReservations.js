@@ -44,7 +44,11 @@ class partialReservations extends React.Component {
       key: item.reservation_id,
       title: constructions[item.construction_id - 1],
       subtitle: `${item.date} ${item.time_slot} ${item.creater_name} ${item.material}`,
-      leftAvatar: <Avatar rounded overlayContainerStyle={{backgroundColor: this.getColor(item.state)}} />
+      leftAvatar: <Avatar
+        rounded
+        size={15}
+        overlayContainerStyle={{ backgroundColor: this.getColor(item.state) }}
+      />
     }));
 
     return (
