@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
   },
   iPhoneXHeaderHeight: {
     height: IS_IPHONE_X ? 24 : 0
+  },
+  iPhoneXFooterPaddind: {
+    paddingBottom: IS_IPHONE_X ? 5 : 0
   }
 });
 

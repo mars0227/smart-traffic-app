@@ -27,7 +27,15 @@ const DayView = ({ title, subTitle }) => (
 );
 
 const BadgeInfo = () => (
-  <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: 5 }}>
+  <View style={{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: 40,
+    borderTopWidth: 1,
+    borderTopColor: '#e1e8ee',
+    ...defaultStyle.iPhoneXFooterPaddind
+  }}>
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <Badge status='warning' />
       <Text>{` ${i18n.t('needReview')}`}</Text>
