@@ -17,7 +17,8 @@ const TabNavigator = createMaterialTopTabNavigator(
   {
     initialRouteName: 'New',
     tabBarOptions: {
-      tabStyle: { backgroundColor: 'royalblue' }
+      style: { backgroundColor: 'royalblue' },
+      indicatorStyle: { backgroundColor: 'white' }
     }
   }
 );
