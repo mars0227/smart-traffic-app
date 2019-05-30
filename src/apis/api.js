@@ -1,20 +1,13 @@
 import {
   fetchGet,
-  fetchGetWithToken,
   fetchPost,
-  fetchPostWithToken,
   fetchPostWithFile,
-  fetchPut,
-  fetchPutWithToken,
-  fetchPutFiles,
   fetchPatch
 } from './libs/fetch';
 
-export const serverIp = __DEV__
-  ? '172.20.10.3:3002'
-  : 'www.itrackcon.com/stserver'; //vircon server
-
-export const route = `http://${serverIp}`;
+export const route = __DEV__
+  ? 'http://172.20.10.3:3002'
+  : 'https://www.itrackcon.com/stserver'; //vircon server
 
 export const login = payload => fetchPost(`${route}/login`, payload);
 export const getConstructions = () => fetchGet(`${route}/constructions`);
