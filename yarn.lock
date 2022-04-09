@@ -2575,10 +2575,10 @@ http-errors@~1.6.2:
     setprototypeof "1.1.0"
     statuses ">= 1.4.0 < 2"
 
-i18n-js@3.0.11:
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.0.11.tgz#f9e96bdb641c5b9d6be12759d7c422089987ef02"
-  integrity sha512-v7dG3kYJTQTyox3NqDabPDE/ZotWntyMI9kh4cYi+XlCSnsIR+KBTS2opPyObL8WndnklcLzbNU92FP/mLge3Q==
+i18n-js@^3.2.1:
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.9.2.tgz#4a015dcfabd4c9fc73115fc2d02d2627e4c15ca5"
+  integrity sha512-+Gm8h5HL0emzKhRx2avMKX+nKiVPXeaOZm7Euf2/pbbFcLQoJ3zZYiUykAzoRasijCoWos2Kl1tslmScTgAQKw==
 
 iconv-lite@^0.4.17, iconv-lite@^0.4.4, iconv-lite@~0.4.13:
   version "0.4.24"
@@ -3461,9 +3461,10 @@ moment-timezone@^0.5.23:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.22.2, moment@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+"moment@>= 2.9.0", moment@^2.22.2, moment@^2.29.2:
+  version "2.29.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.2.tgz#00910c60b20843bcba52d37d58c628b47b1f20e4"
+  integrity sha512-UgzG4rvxYpN15jgCmVJwac49h9ly9NurikMWGPdVxm8GZD6XjkKPxDTjQQ43gtGgnV3X0cAyWDdP2Wexoquifg==
 
 morgan@^1.9.0:
   version "1.9.1"
@@ -4033,13 +4034,6 @@ react-native-gesture-handler@~1.0.14:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
     prop-types "^15.5.10"
-
-react-native-i18n@^2.0.15:
-  version "2.0.15"
-  resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.15.tgz#09b5a9836116fa7dbd0054c46e2d1014c1ef3c65"
-  integrity sha512-V8VwUP0TLda3oJvgt5tdnFaOV7WXPhTjCTLO7sXI3C2SHggSbD4bCUryMzNJhesimJidH21V2Owvj4zAylHoQQ==
-  dependencies:
-    i18n-js "3.0.11"
 
 react-native-image-pan-zoom@^2.1.9:
   version "2.1.11"
