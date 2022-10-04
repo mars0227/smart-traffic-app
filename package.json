@@ -8,7 +8,7 @@
     "build": "node buildAndroidAndDownloadAndInstallApk.js"
   },
   "dependencies": {
-    "expo": "^32.0.0",
+    "expo": "^46.0.14",
     "i18n-js": "^3.2.1",
     "moment": "^2.24.0",
     "query-string": "^6.3.0",
